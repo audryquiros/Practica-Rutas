@@ -1,0 +1,162 @@
+.navbar {
+    width: 100%;
+    height: 76px;
+    background: #ffffff;
+    border-bottom: 1px solid #e8e7f0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    width: min(1200px, 92%);
+    height: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LOGO */
+
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    text-decoration: none;
+    color: #202033;
+}
+
+.logo-mark {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        135deg,
+        #6c4ab6,
+        #4169a8
+    );
+
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.logo-text {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+}
+
+/* MENU */
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-link {
+    position: relative;
+
+    color: #6f7085;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: #6c4ab6;
+}
+
+.nav-link.active {
+    color: #6c4ab6;
+    font-weight: 600;
+}
+
+.nav-link.active::after {
+    content: "";
+
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -27px;
+
+    height: 2px;
+
+    background: #6c4ab6;
+    border-radius: 2px;
+}
+
+/* LOGIN */
+
+.login-link {
+    margin-left: 8px;
+}
+
+/* REGISTER */
+
+.nav-register {
+    padding: 11px 19px;
+
+    background: #6c4ab6;
+    color: #ffffff;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.nav-register:hover {
+    background: #4b2f82;
+    transform: translateY(-1px);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        height: auto;
+        min-height: 70px;
+    }
+
+    .navbar-container {
+        padding: 14px 0;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .navbar-menu {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    .nav-link.active::after {
+        display: none;
+    }
+
+    .login-link {
+        margin-left: 0;
+    }
+}

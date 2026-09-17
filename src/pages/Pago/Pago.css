@@ -1,0 +1,150 @@
+.pago-page {
+    min-height: calc(100vh - 76px);
+    padding: 60px 0;
+
+    background: #f7f8fc;
+}
+
+.pago-container {
+    width: min(650px, 92%);
+    margin: 0 auto;
+}
+
+.pago-header {
+    margin-bottom: 30px;
+}
+
+.pago-label {
+    display: block;
+    margin-bottom: 10px;
+
+    color: #6c4ab6;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.pago-header h1 {
+    margin: 0 0 10px;
+
+    color: #202033;
+    font-size: 34px;
+}
+
+.pago-header p {
+    margin: 0;
+
+    color: #6f7085;
+    font-size: 15px;
+}
+
+.pago-card {
+    padding: 32px;
+
+    background: #ffffff;
+
+    border: 1px solid #e4e3ed;
+    border-radius: 16px;
+}
+
+.pago-course span {
+    color: #6c4ab6;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.pago-course h2 {
+    margin: 10px 0 7px;
+
+    color: #202033;
+    font-size: 20px;
+}
+
+.pago-course p {
+    margin: 0;
+
+    color: #6f7085;
+    font-size: 14px;
+}
+
+.pago-divider {
+    height: 1px;
+
+    margin: 28px 0;
+
+    background: #e8e7f0;
+}
+
+.pago-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pago-form .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.pago-form label {
+    color: #202033;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.pago-form input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+
+    border: 1px solid #dedde8;
+    border-radius: 9px;
+
+    outline: none;
+
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.pago-form input:focus {
+    border-color: #6c4ab6;
+    box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.1);
+}
+
+.pago-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.pago-button {
+    padding: 13px 18px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #6c4ab6;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.pago-button:hover {
+    background: #4b2f82;
+}
+
+@media (max-width: 550px) {
+    .pago-row {
+        grid-template-columns: 1fr;
+    }
+}

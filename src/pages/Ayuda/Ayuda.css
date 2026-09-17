@@ -1,0 +1,91 @@
+.ayuda {
+    min-height: calc(100vh - 76px);
+    padding: 70px 0;
+    background: #f7f8fc;
+}
+
+.ayuda-container {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+}
+
+.ayuda-header {
+    max-width: 650px;
+    margin-bottom: 45px;
+}
+
+.ayuda-label {
+    display: inline-block;
+    margin-bottom: 12px;
+
+    color: #6c4ab6;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.ayuda-header h1 {
+    margin: 0 0 15px;
+
+    color: #202033;
+    font-size: 38px;
+    line-height: 1.15;
+    letter-spacing: -1px;
+}
+
+.ayuda-header p {
+    margin: 0;
+
+    color: #6f7085;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.ayuda-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+.ayuda-card {
+    padding: 28px;
+
+    background: #ffffff;
+    border: 1px solid #e4e3ed;
+    border-radius: 16px;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ayuda-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(40, 35, 70, 0.08);
+}
+
+.ayuda-card h2 {
+    margin: 0 0 14px;
+
+    color: #202033;
+    font-size: 17px;
+    line-height: 1.4;
+}
+
+.ayuda-card p {
+    margin: 0;
+
+    color: #6f7085;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+@media (max-width: 800px) {
+    .ayuda-content {
+        grid-template-columns: 1fr;
+    }
+
+    .ayuda-header h1 {
+        font-size: 32px;
+    }
+}
