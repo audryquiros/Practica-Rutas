@@ -1,8 +1,4 @@
-import {
-    BrowserRouter,
-    Routes,
-    Route
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 
@@ -18,6 +14,7 @@ import Admin from "../pages/Admin/Admin";
 import Usuarios from "../pages/Usuarios/Usuarios";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import NotFound from "../pages/NotFound/NotFound";
+import TestVocacional from "../pages/TestVocacional/TestVocacional";
 
 import PrivateRoutes from "./PrivateRoutes";
 import GuestRoutes from "./GuestRoutes";
@@ -32,7 +29,7 @@ function Routing() {
 
                 {/* =========================
                     RUTAS PÚBLICAS
-                ========================= */}
+                ========================== */}
 
                 <Route
                     path="/"
@@ -50,11 +47,10 @@ function Routing() {
                 />
 
                 {/* =========================
-                    RUTAS SOLO INVITADO
-                ========================= */}
+                    RUTAS PARA INVITADOS
+                ========================== */}
 
                 <Route element={<GuestRoutes />}>
-
                     <Route
                         path="/login"
                         element={<Login />}
@@ -64,12 +60,11 @@ function Routing() {
                         path="/registro"
                         element={<Registro />}
                     />
-
                 </Route>
 
                 {/* =========================
                     RUTAS PRIVADAS
-                ========================= */}
+                ========================== */}
 
                 <Route element={<PrivateRoutes />}>
 
@@ -98,18 +93,22 @@ function Routing() {
                         element={<Pago />}
                     />
 
+                    {/* Test vocacional:
+                        solamente usuarios autenticados */}
+                    <Route
+                        path="/test-vocacional"
+                        element={<TestVocacional />}
+                    />
+
                     {/* =========================
-                        RUTAS POR ROL
-                    ========================= */}
+                        RUTAS SOLO PARA ADMIN
+                    ========================== */}
 
                     <Route
                         element={
-                            <RoleRoutes
-                                requiredRole="admin"
-                            />
+                            <RoleRoutes requiredRole="admin" />
                         }
                     >
-
                         <Route
                             path="/admin"
                             element={<Admin />}
@@ -119,14 +118,13 @@ function Routing() {
                             path="/dashboard/usuarios"
                             element={<Usuarios />}
                         />
-
                     </Route>
 
                 </Route>
 
                 {/* =========================
-                    404
-                ========================= */}
+                    RUTA 404
+                ========================== */}
 
                 <Route
                     path="*"

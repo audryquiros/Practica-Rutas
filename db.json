@@ -9,6 +9,10 @@
       "modalidad": "Virtual",
       "precio": 45000,
       "descripcion": "Aprende a crear aplicaciones web modernas utilizando React, componentes, estados y rutas.",
+      "areas": [
+        "programacion",
+        "logica"
+      ],
       "temas": [
         {
           "id": 1,
@@ -54,6 +58,7 @@
         }
       ]
     },
+
     {
       "id": "2",
       "nombre": "Diseño UX/UI",
@@ -63,6 +68,9 @@
       "modalidad": "Virtual",
       "precio": 35000,
       "descripcion": "Aprende principios de diseño UX/UI y crea interfaces atractivas y fáciles de utilizar.",
+      "areas": [
+        "diseno"
+      ],
       "temas": [
         {
           "id": 1,
@@ -108,6 +116,7 @@
         }
       ]
     },
+
     {
       "id": "3",
       "nombre": "JavaScript desde cero",
@@ -117,6 +126,10 @@
       "modalidad": "Virtual",
       "precio": 50000,
       "descripcion": "Aprende los fundamentos de JavaScript y desarrolla aplicaciones web.",
+      "areas": [
+        "programacion",
+        "logica"
+      ],
       "temas": [
         {
           "id": 1,
@@ -166,6 +179,7 @@
         }
       ]
     },
+
     {
       "id": "4",
       "nombre": "Bases de Datos",
@@ -175,6 +189,10 @@
       "modalidad": "Virtual",
       "precio": 40000,
       "descripcion": "Aprende conceptos fundamentales de bases de datos, tablas, relaciones y consultas.",
+      "areas": [
+        "datos",
+        "logica"
+      ],
       "temas": [
         {
           "id": 1,
@@ -219,38 +237,178 @@
           "descripcion": "Diseñar una base de datos para un sistema."
         }
       ]
+    },
+
+    {
+      "id": "5",
+      "nombre": "Python para principiantes",
+      "categoria": "Programación",
+      "profesor": "Laura Sánchez",
+      "duracion": "8 semanas",
+      "modalidad": "Virtual",
+      "precio": 42000,
+      "descripcion": "Aprende Python desde cero y desarrolla programas prácticos utilizando variables, funciones, estructuras de datos y proyectos.",
+      "areas": [
+        "programacion",
+        "logica"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "6",
+      "nombre": "Análisis de Datos con Excel",
+      "categoria": "Datos",
+      "profesor": "Diego Vargas",
+      "duracion": "6 semanas",
+      "modalidad": "Virtual",
+      "precio": 38000,
+      "descripcion": "Aprende a organizar, analizar y visualizar información para convertir datos en decisiones.",
+      "areas": [
+        "datos",
+        "negocios"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "7",
+      "nombre": "Introducción a la Ciberseguridad",
+      "categoria": "Tecnología",
+      "profesor": "Sofía Ramírez",
+      "duracion": "7 semanas",
+      "modalidad": "Virtual",
+      "precio": 46000,
+      "descripcion": "Conoce fundamentos de seguridad digital, amenazas, buenas prácticas y protección de sistemas y datos.",
+      "areas": [
+        "ciberseguridad",
+        "datos",
+        "programacion"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "8",
+      "nombre": "Marketing Digital",
+      "categoria": "Marketing",
+      "profesor": "Daniela Mora",
+      "duracion": "6 semanas",
+      "modalidad": "Virtual",
+      "precio": 36000,
+      "descripcion": "Desarrolla estrategias de marketing digital, contenido, redes sociales y medición de resultados.",
+      "areas": [
+        "marketing",
+        "negocios"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "9",
+      "nombre": "Gestión de Proyectos",
+      "categoria": "Negocios",
+      "profesor": "Andrés Castro",
+      "duracion": "5 semanas",
+      "modalidad": "Virtual",
+      "precio": 39000,
+      "descripcion": "Aprende a planificar proyectos, organizar tareas, administrar recursos y dar seguimiento a objetivos.",
+      "areas": [
+        "gestion",
+        "negocios"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "10",
+      "nombre": "Inglés para el entorno profesional",
+      "categoria": "Idiomas",
+      "profesor": "Emily Johnson",
+      "duracion": "10 semanas",
+      "modalidad": "Virtual",
+      "precio": 45000,
+      "descripcion": "Fortalece tu comunicación en inglés para situaciones académicas y profesionales.",
+      "areas": [
+        "idiomas",
+        "negocios"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "11",
+      "nombre": "Diseño Gráfico Digital",
+      "categoria": "Diseño",
+      "profesor": "Valeria Solís",
+      "duracion": "8 semanas",
+      "modalidad": "Virtual",
+      "precio": 43000,
+      "descripcion": "Explora fundamentos de composición, color, tipografía y creación de piezas visuales digitales.",
+      "areas": [
+        "diseno",
+        "marketing"
+      ],
+      "temas": [],
+      "tareas": []
+    },
+
+    {
+      "id": "12",
+      "nombre": "Emprendimiento y Modelos de Negocio",
+      "categoria": "Negocios",
+      "profesor": "Marco Jiménez",
+      "duracion": "6 semanas",
+      "modalidad": "Virtual",
+      "precio": 41000,
+      "descripcion": "Convierte una idea en una propuesta de negocio trabajando clientes, modelo de ingresos y estrategia.",
+      "areas": [
+        "negocios",
+        "marketing",
+        "gestion"
+      ],
+      "temas": [],
+      "tareas": []
     }
   ],
-"usuarios": [
+
+  "usuarios": [
     {
-        "id": 1,
-        "nombre": "Audry",
-        "email": "audry@email.com",
-        "password": "123456",
-        "role": "usuario"
+      "id": 1,
+      "nombre": "Audry",
+      "email": "audry@email.com",
+      "password": "123456",
+      "role": "usuario"
     },
     {
-        "id": 2,
-        "nombre": "Carlos",
-        "email": "carlos@email.com",
-        "password": "123456",
-        "role": "usuario"
+      "id": 2,
+      "nombre": "Carlos",
+      "email": "carlos@email.com",
+      "password": "123456",
+      "role": "usuario"
     },
     {
-        "id": 3,
-        "nombre": "María",
-        "email": "maria@email.com",
-        "password": "123456",
-        "role": "usuario"
+      "id": 3,
+      "nombre": "María",
+      "email": "maria@email.com",
+      "password": "123456",
+      "role": "usuario"
     },
     {
-        "id": 4,
-        "nombre": "Administrador",
-        "email": "admin@learnix.com",
-        "password": "admin123",
-        "role": "admin"
+      "id": 4,
+      "nombre": "Administrador",
+      "email": "admin@learnix.com",
+      "password": "admin123",
+      "role": "admin"
     }
-],
+  ],
+
   "matriculas": [
     {
       "id": "1",
@@ -349,6 +507,5 @@
       "tareasCompletadas": [],
       "id": "B5F1YbuV9m8"
     }
-  ],
-  "$schema": "./node_modules/json-server/schema.json"
+  ]
 }

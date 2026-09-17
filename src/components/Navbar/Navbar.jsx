@@ -1,9 +1,5 @@
 import { useState } from "react";
-import {
-    Link,
-    NavLink,
-    useNavigate
-} from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
@@ -11,18 +7,11 @@ import { useTheme } from "../../context/ThemeContext";
 import "./Navbar.css";
 
 function Navbar() {
-    const {
-        user,
-        isAuthenticated,
-        logout
-    } = useAuth();
-
+    const { user, isAuthenticated, logout } = useAuth();
     const { t } = useTheme();
-
     const navigate = useNavigate();
 
-    const [menuAbierto, setMenuAbierto] =
-        useState(false);
+    const [menuAbierto, setMenuAbierto] = useState(false);
 
     const manejarLogout = () => {
         logout();
@@ -61,20 +50,21 @@ function Navbar() {
 
                 <nav className="navbar-links">
 
+                    {/* INICIO */}
+
                     <NavLink
                         to="/"
                         className={({ isActive }) =>
                             `nav-link ${
-                                isActive
-                                    ? "active"
-                                    : ""
+                                isActive ? "active" : ""
                             }`
                         }
                     >
                         {t("inicio")}
                     </NavLink>
 
-                    {/* SOLO USUARIOS NORMALES */}
+                    {/* MIS CURSOS
+                        Solo usuarios normales */}
 
                     {isAuthenticated &&
                         user?.role === "usuario" && (
@@ -92,7 +82,26 @@ function Navbar() {
                             </NavLink>
                         )}
 
-                    {/* SOLO ADMINISTRADOR */}
+                    {/* TEST VOCACIONAL
+                        Solo usuarios autenticados */}
+
+                    {isAuthenticated && (
+                        <NavLink
+                            to="/test-vocacional"
+                            className={({ isActive }) =>
+                                `nav-link ${
+                                    isActive
+                                        ? "active"
+                                        : ""
+                                }`
+                            }
+                        >
+                            Test vocacional
+                        </NavLink>
+                    )}
+
+                    {/* ADMINISTRACIÓN
+                        Solo administradores */}
 
                     {esAdministrador && (
                         <NavLink
@@ -109,13 +118,13 @@ function Navbar() {
                         </NavLink>
                     )}
 
+                    {/* AYUDA */}
+
                     <NavLink
                         to="/ayuda"
                         className={({ isActive }) =>
                             `nav-link ${
-                                isActive
-                                    ? "active"
-                                    : ""
+                                isActive ? "active" : ""
                             }`
                         }
                     >
@@ -124,7 +133,7 @@ function Navbar() {
 
                 </nav>
 
-                {/* ACCIONES */}
+                {/* ACCIONES DE USUARIO */}
 
                 <div className="navbar-actions">
 
@@ -166,6 +175,7 @@ function Navbar() {
                                     menuAbierto
                                 }
                             >
+
                                 <span className="profile-avatar">
                                     {user?.nombre
                                         ?.charAt(0)
@@ -183,7 +193,10 @@ function Navbar() {
                                         ? "⌃"
                                         : "⌄"}
                                 </span>
+
                             </button>
+
+                            {/* MENÚ DEL PERFIL */}
 
                             {menuAbierto && (
                                 <div className="profile-dropdown">
@@ -223,10 +236,13 @@ function Navbar() {
                                             cerrarMenu
                                         }
                                     >
-                                        {t("configuracion")}
+                                        {t(
+                                            "configuracion"
+                                        )}
                                     </Link>
 
-                                    {/* USUARIOS SOLO ADMIN */}
+                                    {/* USUARIOS
+                                        SOLO ADMIN */}
 
                                     {esAdministrador && (
                                         <Link
@@ -251,7 +267,9 @@ function Navbar() {
                                             manejarLogout
                                         }
                                     >
-                                        {t("cerrarSesion")}
+                                        {t(
+                                            "cerrarSesion"
+                                        )}
                                     </button>
 
                                 </div>
@@ -267,4 +285,4 @@ function Navbar() {
     );
 }
 
-export default Navbar;
+export default Navbar;  
