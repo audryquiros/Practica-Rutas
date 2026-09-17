@@ -1,5 +1,11 @@
 import { obtenerCursos } from "./cursosService";
 
+const AI_API_URL = "http://localhost:3002";
+
+/* =========================
+   PREGUNTAS VOCACIONALES
+========================= */
+
 export const preguntasVocacionales = [
     {
         id: 1,
@@ -32,7 +38,7 @@ export const preguntasVocacionales = [
     {
         id: 2,
         pregunta: "¿Qué tipo de reto prefieres?",
-        preguntaEn: "What kind of challenge do you prefer?",
+        preguntaEn: "What type of challenge do you prefer?",
         opciones: [
             {
                 texto: "Resolver un problema paso a paso",
@@ -226,44 +232,41 @@ export const preguntasVocacionales = [
     }
 ];
 
-export const obtenerRecomendaciones = async (respuestas) => {
+/* =========================
+   RECOMENDACIONES CON IA
+========================= */
+
+export const obtenerRecomendaciones = async (
+    respuestas
+) => {
     const cursos = await obtenerCursos();
 
-    const puntuaciones = {};
+    const response = await fetch(
+        `${AI_API_URL}/api/test-vocacional`,
+        {
+            method: "POST",
 
-    respuestas.forEach((respuesta) => {
-        if (!respuesta?.areas) return;
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-        respuesta.areas.forEach((area) => {
-            puntuaciones[area] =
-                (puntuaciones[area] || 0) + 1;
-        });
-    });
+            body: JSON.stringify({
+                respuestas,
+                cursos
+            })
+        }
+    );
 
-    const cursosOrdenados = cursos
-        .map((curso) => {
-            const coincidencias =
-                (curso.areas || []).reduce(
-                    (total, area) =>
-                        total +
-                        (puntuaciones[area] || 0),
-                    0
-                );
-
-            return {
-                ...curso,
-                coincidencias
-            };
-        })
-        .filter(
-            (curso) =>
-                curso.coincidencias > 0
-        )
-        .sort(
-            (a, b) =>
-                b.coincidencias -
-                a.coincidencias
+    if (!response.ok) {
+        const errorData = await response.json().catch(
+            () => null
         );
 
-    return cursosOrdenados.slice(0, 3);
+        throw new Error(
+            errorData?.error ||
+                "No se pudieron obtener las recomendaciones de la IA."
+        );
+    }
+
+    return await response.json();
 };
