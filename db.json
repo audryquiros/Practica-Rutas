@@ -1,0 +1,46 @@
+{
+  "cursos": [
+    {
+      "id": 1,
+      "nombre": "Desarrollo Web con React",
+      "categoria": "Programación",
+      "profesor": "Juan Pérez",
+      "duracion": "8 semanas",
+      "modalidad": "Virtual",
+      "precio": 45000,
+      "descripcion": "Aprende a crear aplicaciones web modernas utilizando React, componentes, estados y rutas."
+    },
+    {
+      "id": 2,
+      "nombre": "Diseño UX/UI",
+      "categoria": "Diseño",
+      "profesor": "María González",
+      "duracion": "6 semanas",
+      "modalidad": "Virtual",
+      "precio": 35000,
+      "descripcion": "Aprende principios de diseño UX/UI y crea interfaces atractivas y fáciles de utilizar."
+    },
+    {
+      "id": 3,
+      "nombre": "JavaScript desde cero",
+      "categoria": "Programación",
+      "profesor": "Carlos Rodríguez",
+      "duracion": "10 semanas",
+      "modalidad": "Virtual",
+      "precio": 50000,
+      "descripcion": "Aprende los fundamentos de JavaScript y desarrolla aplicaciones web."
+    },
+    {
+      "id": 4,
+      "nombre": "Bases de Datos",
+      "categoria": "Tecnología",
+      "profesor": "Ana Martínez",
+      "duracion": "7 semanas",
+      "modalidad": "Virtual",
+      "precio": 40000,
+      "descripcion": "Aprende conceptos fundamentales de bases de datos, tablas, relaciones y consultas."
+    }
+  ],
+  "usuarios": [],
+  "matriculas": []
+}
