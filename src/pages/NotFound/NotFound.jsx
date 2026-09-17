@@ -10,11 +10,18 @@ function NotFound() {
                     404
                 </span>
 
-                <h1>Página no encontrada</h1>
+                <span className="not-found-label">
+                    PÁGINA NO ENCONTRADA
+                </span>
+
+                <h1>
+                    Esta página no existe.
+                </h1>
 
                 <p>
-                    La página que estás buscando no existe
-                    o fue movida.
+                    La dirección que intentaste visitar no
+                    corresponde a ninguna sección disponible
+                    de Learnix.
                 </p>
 
                 <Link

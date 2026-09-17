@@ -1,86 +1,399 @@
 .perfil-page {
     min-height: calc(100vh - 76px);
-    padding: 60px 0;
-
-    background: #f7f8fc;
+    padding: 48px 0 60px;
+    background: var(--color-background);
 }
 
 .perfil-container {
-    width: min(850px, 92%);
+    width: min(1100px, 92%);
     margin: 0 auto;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 .perfil-header {
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .perfil-label {
-    display: block;
-    margin-bottom: 10px;
-
-    color: #6c4ab6;
-
+    display: inline-block;
+    margin-bottom: 8px;
+    color: var(--color-primary);
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.5px;
 }
 
 .perfil-header h1 {
-    margin: 0 0 10px;
-
-    color: #202033;
-    font-size: 36px;
+    margin: 0 0 8px;
+    color: var(--color-text);
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -1px;
 }
 
 .perfil-header p {
     margin: 0;
-
-    color: #6f7085;
-    font-size: 15px;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
 }
+
+/* =========================
+   RESUMEN DEL USUARIO
+========================= */
 
 .perfil-card {
     display: flex;
     align-items: center;
     gap: 22px;
-
-    padding: 30px;
-
-    background: #ffffff;
-
-    border: 1px solid #e4e3ed;
+    min-height: 125px;
+    margin-bottom: 20px;
+    padding: 22px 26px;
+    border: 1px solid var(--color-border);
     border-radius: 16px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
 }
 
 .perfil-avatar {
-    width: 70px;
-    height: 70px;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-shrink: 0;
-
+    width: 74px;
+    height: 74px;
     border-radius: 50%;
-
-    background: #e9e1f7;
-    color: #6c4ab6;
-
-    font-size: 25px;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 28px;
     font-weight: 700;
 }
 
-.perfil-info h2 {
-    margin: 0 0 7px;
-
-    color: #202033;
-    font-size: 19px;
+.perfil-main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
 }
 
-.perfil-info p {
-    margin: 0;
+.perfil-role {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: var(--color-primary);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
 
-    color: #6f7085;
-    font-size: 14px;
+.perfil-main-info h2 {
+    margin: 0 0 4px;
+    color: var(--color-text);
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 650;
+}
+
+.perfil-main-info p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 13px;
+}
+
+/* =========================
+   DETALLES
+========================= */
+
+.perfil-details {
+    padding: 26px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-card);
+}
+
+.perfil-section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+    margin-bottom: 22px;
+}
+
+.perfil-section-label {
+    display: inline-block;
+    margin-bottom: 6px;
+    color: var(--color-primary);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+}
+
+.perfil-section-header h2 {
+    margin: 0;
+    color: var(--color-text);
+    font-size: 19px;
+    font-weight: 650;
+    letter-spacing: -0.3px;
+}
+
+/* =========================
+   INFORMACIÓN
+========================= */
+
+.perfil-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.perfil-info-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 75px;
+    padding: 14px 16px;
+    border: 1px solid var(--color-border);
+    border-radius: 11px;
+    background: var(--color-surface-soft);
+}
+
+.perfil-info-item span {
+    margin-bottom: 5px;
+    color: var(--color-text-muted);
+    font-size: 11px;
+}
+
+.perfil-info-item strong {
+    overflow: hidden;
+    color: var(--color-text);
+    font-size: 13px;
+    font-weight: 600;
+    text-overflow: ellipsis;
+}
+
+/* =========================
+   BOTÓN EDITAR
+========================= */
+
+.perfil-edit-button {
+    flex-shrink: 0;
+    padding: 10px 15px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 9px;
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.perfil-edit-button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+}
+
+/* =========================
+   FORMULARIO DE EDICIÓN
+========================= */
+
+.perfil-edit-form {
+    width: 100%;
+}
+
+.perfil-edit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.perfil-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.perfil-form-group label {
+    color: var(--color-text);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.perfil-form-group input {
+    width: 100%;
+    min-height: 43px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 9px;
+    outline: none;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-size: 13px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.perfil-form-group input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.perfil-form-group input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-soft);
+}
+
+/* =========================
+   ACCIONES
+========================= */
+
+.perfil-edit-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.perfil-cancel-button,
+.perfil-save-button {
+    min-height: 40px;
+    padding: 9px 15px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.perfil-cancel-button {
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+}
+
+.perfil-cancel-button:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.perfil-save-button {
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+.perfil-save-button:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+}
+
+.perfil-cancel-button:disabled,
+.perfil-save-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   MENSAJES
+========================= */
+
+.perfil-error {
+    margin: 14px 0 0;
+    padding: 10px 12px;
+    border: 1px solid var(--color-danger);
+    border-radius: 8px;
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.perfil-success {
+    margin: 16px 0 0;
+    padding: 10px 12px;
+    border: 1px solid var(--color-success);
+    border-radius: 8px;
+    background: var(--color-success-soft);
+    color: var(--color-success);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+    .perfil-page {
+        padding: 38px 0 50px;
+    }
+
+    .perfil-card {
+        padding: 20px;
+    }
+
+    .perfil-section-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .perfil-info-grid,
+    .perfil-edit-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .perfil-edit-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 450px) {
+    .perfil-container {
+        width: 94%;
+    }
+
+    .perfil-header h1 {
+        font-size: 29px;
+    }
+
+    .perfil-card {
+        align-items: flex-start;
+        gap: 16px;
+        padding: 18px;
+    }
+
+    .perfil-avatar {
+        width: 58px;
+        height: 58px;
+        font-size: 22px;
+    }
+
+    .perfil-main-info h2 {
+        font-size: 19px;
+    }
+
+    .perfil-details {
+        padding: 18px;
+    }
+
+    .perfil-edit-actions {
+        flex-direction: column-reverse;
+    }
+
+    .perfil-cancel-button,
+    .perfil-save-button {
+        width: 100%;
+    }
 }

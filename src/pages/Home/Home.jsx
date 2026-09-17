@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
+
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
+
 import { obtenerCursos } from "../../services/cursosService";
-import { obtenerMatriculasPorUsuario } from "../../services/matriculasService";
+import {
+    obtenerMatriculasPorUsuario
+} from "../../services/matriculasService";
+
 import CourseCard from "../../components/CourseCard/CourseCard";
 import CourseModal from "../../components/CourseModal/CourseModal";
+
 import "./Home.css";
 
 function Home() {
@@ -13,17 +20,20 @@ function Home() {
         loadingAuth
     } = useAuth();
 
+    const { t } = useTheme();
+
     const [cursos, setCursos] = useState([]);
     const [cursoSeleccionado, setCursoSeleccionado] =
         useState(null);
 
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
+    const [loading, setLoading] =
+        useState(true);
+
+    const [error, setError] =
+        useState("");
 
     useEffect(() => {
-        if (loadingAuth) {
-            return;
-        }
+        if (loadingAuth) return;
 
         const cargarCursos = async () => {
             try {
@@ -33,18 +43,28 @@ function Home() {
                 const cursosDisponibles =
                     await obtenerCursos();
 
-                if (!isAuthenticated || !user?.id) {
-                    setCursos(cursosDisponibles);
+                if (
+                    !isAuthenticated ||
+                    !user?.id
+                ) {
+                    setCursos(
+                        cursosDisponibles
+                    );
+
                     return;
                 }
 
                 const matriculas =
-                    await obtenerMatriculasPorUsuario(user.id);
+                    await obtenerMatriculasPorUsuario(
+                        user.id
+                    );
 
                 const cursosMatriculados =
                     matriculas.map(
                         (matricula) =>
-                            Number(matricula.cursoId)
+                            Number(
+                                matricula.cursoId
+                            )
                     );
 
                 const cursosFiltrados =
@@ -61,8 +81,11 @@ function Home() {
                 console.error(error);
 
                 setError(
-                    "No se pudieron cargar los cursos."
+                    t(
+                        "noSePudieronCargarCursos"
+                    )
                 );
+
             } finally {
                 setLoading(false);
             }
@@ -73,7 +96,8 @@ function Home() {
     }, [
         loadingAuth,
         isAuthenticated,
-        user
+        user,
+        t
     ]);
 
     return (
@@ -84,16 +108,15 @@ function Home() {
                 <section className="home-header">
 
                     <span className="home-label">
-                        FORMACIÓN ONLINE
+                        {t("formacionOnline")}
                     </span>
 
                     <h1>
-                        Aprende algo nuevo.
+                        {t("aprendeAlgoNuevo")}
                     </h1>
 
                     <p>
-                        Explora nuestros cursos y desarrolla
-                        nuevas habilidades a tu ritmo.
+                        {t("exploraCursos")}
                     </p>
 
                 </section>
@@ -105,23 +128,30 @@ function Home() {
                         <div>
 
                             <span className="home-section-label">
-                                CURSOS DISPONIBLES
+                                {t("cursosDisponibles")}
                             </span>
 
                             <h2>
                                 {isAuthenticated
-                                    ? "Continúa aprendiendo"
-                                    : "Encuentra tu próximo curso"}
+                                    ? t(
+                                        "continuaAprendiendo"
+                                    )
+                                    : t(
+                                        "encuentraCurso"
+                                    )}
                             </h2>
 
                         </div>
 
                         {!loading && (
                             <span className="home-course-count">
+
                                 {cursos.length}{" "}
+
                                 {cursos.length === 1
-                                    ? "curso"
-                                    : "cursos"}
+                                    ? t("curso")
+                                    : t("cursos")}
+
                             </span>
                         )}
 
@@ -129,7 +159,7 @@ function Home() {
 
                     {loading && (
                         <p className="home-message">
-                            Cargando cursos...
+                            {t("cargandoCursos")}
                         </p>
                     )}
 
@@ -146,12 +176,11 @@ function Home() {
                             <div className="home-empty">
 
                                 <h3>
-                                    No hay cursos disponibles
+                                    {t("noHayCursos")}
                                 </h3>
 
                                 <p>
-                                    Ya estás matriculado en
-                                    todos los cursos disponibles.
+                                    {t("todosCursos")}
                                 </p>
 
                             </div>
@@ -163,17 +192,17 @@ function Home() {
 
                             <div className="home-course-grid">
 
-                                {cursos.map((curso) => (
-
-                                    <CourseCard
-                                        key={curso.id}
-                                        curso={curso}
-                                        onVerInfo={
-                                            setCursoSeleccionado
-                                        }
-                                    />
-
-                                ))}
+                                {cursos.map(
+                                    (curso) => (
+                                        <CourseCard
+                                            key={curso.id}
+                                            curso={curso}
+                                            onVerInfo={
+                                                setCursoSeleccionado
+                                            }
+                                        />
+                                    )
+                                )}
 
                             </div>
                         )}

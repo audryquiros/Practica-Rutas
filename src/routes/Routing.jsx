@@ -14,9 +14,11 @@ import Perfil from "../pages/Perfil/Perfil";
 import Configuracion from "../pages/Configuracion/Configuracion";
 import Ayuda from "../pages/Ayuda/Ayuda";
 import Pago from "../pages/Pago/Pago";
+import Admin from "../pages/Admin/Admin";
 import NotFound from "../pages/NotFound/NotFound";
 
 import PrivateRoutes from "./PrivateRoutes";
+import AdminRoutes from "./AdminRoutes";
 
 function Routing() {
     return (
@@ -48,12 +50,9 @@ function Routing() {
                     element={<Ayuda />}
                 />
 
-
                 {/* RUTAS PRIVADAS */}
 
-                <Route
-                    element={<PrivateRoutes />}
-                >
+                <Route element={<PrivateRoutes />}>
 
                     <Route
                         path="/dashboard"
@@ -75,8 +74,18 @@ function Routing() {
                         element={<Pago />}
                     />
 
-                </Route>
+                    {/* RUTAS DE ADMINISTRADOR */}
 
+                    <Route element={<AdminRoutes />}>
+
+                        <Route
+                            path="/admin"
+                            element={<Admin />}
+                        />
+
+                    </Route>
+
+                </Route>
 
                 {/* 404 */}
 

@@ -9,25 +9,34 @@ import {
 } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 
 import {
     obtenerCursoPorId
 } from "../../services/cursosService";
 
 import {
-    crearMatricula
+    crearMatricula,
+    obtenerMatriculasPorUsuario
 } from "../../services/matriculasService";
 
 import "./Pago.css";
 
 function Pago() {
-    const { cursoId } = useParams();
+    const { cursoId } =
+        useParams();
 
-    const { user } = useAuth();
+    const { user } =
+        useAuth();
 
-    const navigate = useNavigate();
+    const { t } =
+        useTheme();
 
-    const [curso, setCurso] = useState(null);
+    const navigate =
+        useNavigate();
+
+    const [curso, setCurso] =
+        useState(null);
 
     const [numeroTarjeta, setNumeroTarjeta] =
         useState("");
@@ -49,101 +58,144 @@ function Pago() {
 
     useEffect(() => {
 
-        const cargarCurso = async () => {
+        const cargarCurso =
+            async () => {
+
+                try {
+
+                    setLoading(true);
+                    setError("");
+
+                    const cursoObtenido =
+                        await obtenerCursoPorId(
+                            cursoId
+                        );
+
+                    setCurso(
+                        cursoObtenido
+                    );
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    setError(
+                        "No se pudo cargar el curso."
+                    );
+
+                } finally {
+
+                    setLoading(false);
+                }
+            };
+
+        cargarCurso();
+
+    }, [cursoId]);
+
+    const manejarPago =
+        async (event) => {
+
+            event.preventDefault();
+
+            setError("");
+
+            if (
+                !numeroTarjeta.trim() ||
+                !vencimiento.trim() ||
+                !cvv.trim()
+            ) {
+
+                setError(
+                    t(
+                        "completarDatosPago"
+                    )
+                );
+
+                return;
+            }
+
+            if (!user?.id) {
+
+                setError(
+                    t(
+                        "necesitasSesion"
+                    )
+                );
+
+                return;
+            }
 
             try {
 
-                setLoading(true);
-                setError("");
+                setProcesando(true);
 
-                const cursoObtenido =
-                    await obtenerCursoPorId(cursoId);
+                const matriculas =
+                    await obtenerMatriculasPorUsuario(
+                        user.id
+                    );
 
-                setCurso(cursoObtenido);
+                const yaMatriculado =
+                    matriculas.some(
+                        (matricula) =>
+                            Number(
+                                matricula.cursoId
+                            ) ===
+                            Number(cursoId)
+                    );
+
+                if (yaMatriculado) {
+
+                    setError(
+                        t(
+                            "yaMatriculado"
+                        )
+                    );
+
+                    setProcesando(false);
+
+                    return;
+                }
+
+                await crearMatricula({
+                    usuarioId:
+                        Number(user.id),
+
+                    cursoId:
+                        Number(cursoId),
+
+                    estado:
+                        "Activo",
+
+                    progreso:
+                        0,
+
+                    temasVistos:
+                        [],
+
+                    tareasCompletadas:
+                        []
+                });
+
+                navigate(
+                    "/dashboard"
+                );
 
             } catch (error) {
 
                 console.error(error);
 
                 setError(
-                    "No se pudo cargar el curso."
+                    t(
+                        "noSePudoCompletar"
+                    )
                 );
 
             } finally {
 
-                setLoading(false);
-
+                setProcesando(false);
             }
         };
-
-        cargarCurso();
-
-    }, [cursoId]);
-
-
-    const manejarPago = async (event) => {
-
-        event.preventDefault();
-
-        setError("");
-
-        if (
-            !numeroTarjeta.trim() ||
-            !vencimiento.trim() ||
-            !cvv.trim()
-        ) {
-            setError(
-                "Completa todos los datos de pago."
-            );
-
-            return;
-        }
-
-        if (!user?.id) {
-            setError(
-                "Necesitas iniciar sesión para matricularte."
-            );
-
-            return;
-        }
-
-        try {
-
-            setProcesando(true);
-
-            await crearMatricula({
-
-                usuarioId: user.id,
-
-                cursoId: Number(cursoId),
-
-                estado: "Activo",
-
-                progreso: 0,
-
-                temasVistos: [],
-
-                tareasCompletadas: []
-
-            });
-
-            navigate("/dashboard");
-
-        } catch (error) {
-
-            console.error(error);
-
-            setError(
-                "No se pudo completar la matrícula."
-            );
-
-        } finally {
-
-            setProcesando(false);
-
-        }
-    };
-
 
     if (loading) {
 
@@ -153,7 +205,7 @@ function Pago() {
                 <div className="pago-container">
 
                     <p className="pago-message">
-                        Cargando información del curso...
+                        {t("cargar")}
                     </p>
 
                 </div>
@@ -161,7 +213,6 @@ function Pago() {
             </main>
         );
     }
-
 
     if (!curso) {
 
@@ -171,7 +222,8 @@ function Pago() {
                 <div className="pago-container">
 
                     <p className="pago-message pago-error">
-                        {error || "Curso no encontrado."}
+                        {error ||
+                            "Curso no encontrado."}
                     </p>
 
                 </div>
@@ -179,7 +231,6 @@ function Pago() {
             </main>
         );
     }
-
 
     return (
         <main className="pago-page">
@@ -189,27 +240,31 @@ function Pago() {
                 <div className="pago-header">
 
                     <span className="pago-label">
-                        MATRÍCULA
+                        {t("matricula")}
                     </span>
 
                     <h1>
-                        Completar matrícula
+                        {t(
+                            "completarMatricula"
+                        )}
                     </h1>
 
                     <p>
-                        Revisa la información y completa
-                        el proceso de inscripción.
+                        {t(
+                            "revisaInformacion"
+                        )}
                     </p>
 
                 </div>
-
 
                 <section className="pago-card">
 
                     <div className="pago-course">
 
                         <span>
-                            CURSO SELECCIONADO
+                            {t(
+                                "cursoSeleccionado"
+                            )}
                         </span>
 
                         <h2>
@@ -221,33 +276,44 @@ function Pago() {
                         </p>
 
                         <strong>
-                            ₡{curso.precio.toLocaleString("es-CR")}
+                            ₡
+                            {curso.precio.toLocaleString(
+                                "es-CR"
+                            )}
                         </strong>
 
                     </div>
 
-
                     <div className="pago-divider"></div>
-
 
                     <form
                         className="pago-form"
-                        onSubmit={manejarPago}
+                        onSubmit={
+                            manejarPago
+                        }
                     >
 
                         <div className="form-group">
 
                             <label htmlFor="card">
-                                Número de tarjeta
+                                {t(
+                                    "numeroTarjeta"
+                                )}
                             </label>
 
                             <input
                                 id="card"
                                 type="text"
-                                value={numeroTarjeta}
-                                onChange={(event) =>
+                                value={
+                                    numeroTarjeta
+                                }
+                                onChange={(
+                                    event
+                                ) =>
                                     setNumeroTarjeta(
-                                        event.target.value
+                                        event
+                                            .target
+                                            .value
                                     )
                                 }
                                 placeholder="0000 0000 0000 0000"
@@ -255,22 +321,29 @@ function Pago() {
 
                         </div>
 
-
                         <div className="pago-row">
 
                             <div className="form-group">
 
                                 <label htmlFor="expiry">
-                                    Vencimiento
+                                    {t(
+                                        "vencimiento"
+                                    )}
                                 </label>
 
                                 <input
                                     id="expiry"
                                     type="text"
-                                    value={vencimiento}
-                                    onChange={(event) =>
+                                    value={
+                                        vencimiento
+                                    }
+                                    onChange={(
+                                        event
+                                    ) =>
                                         setVencimiento(
-                                            event.target.value
+                                            event
+                                                .target
+                                                .value
                                         )
                                     }
                                     placeholder="MM/AA"
@@ -278,20 +351,23 @@ function Pago() {
 
                             </div>
 
-
                             <div className="form-group">
 
                                 <label htmlFor="cvv">
-                                    CVV
+                                    {t("cvv")}
                                 </label>
 
                                 <input
                                     id="cvv"
                                     type="text"
                                     value={cvv}
-                                    onChange={(event) =>
+                                    onChange={(
+                                        event
+                                    ) =>
                                         setCvv(
-                                            event.target.value
+                                            event
+                                                .target
+                                                .value
                                         )
                                     }
                                     placeholder="000"
@@ -301,22 +377,26 @@ function Pago() {
 
                         </div>
 
-
                         {error && (
                             <p className="pago-form-error">
                                 {error}
                             </p>
                         )}
 
-
                         <button
                             type="submit"
                             className="pago-button"
-                            disabled={procesando}
+                            disabled={
+                                procesando
+                            }
                         >
                             {procesando
-                                ? "Procesando matrícula..."
-                                : "Confirmar matrícula"}
+                                ? t(
+                                    "procesandoMatricula"
+                                )
+                                : t(
+                                    "confirmarMatricula"
+                                )}
                         </button>
 
                     </form>

@@ -1,4 +1,8 @@
-import { useState } from "react";
+import {
+    useEffect,
+    useState
+} from "react";
+
 import {
     Link,
     useLocation,
@@ -6,49 +10,117 @@ import {
 } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
-import { obtenerUsuarioPorEmail } from "../../services/usuariosService";
+import { useTheme } from "../../context/ThemeContext";
+
+import {
+    obtenerUsuarioPorEmail
+} from "../../services/usuariosService";
 
 import "./Login.css";
 
 function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const { t } = useTheme();
 
-    const [error, setError] = useState("");
-    const [loading, setLoading] = useState(false);
+    const [email, setEmail] =
+        useState("");
+
+    const [password, setPassword] =
+        useState("");
+
+    const [error, setError] =
+        useState("");
+
+    const [mensaje, setMensaje] =
+        useState("");
+
+    const [loading, setLoading] =
+        useState(false);
 
     const { login } = useAuth();
 
     const navigate = useNavigate();
     const location = useLocation();
 
-    const manejarLogin = async (event) => {
+    useEffect(() => {
+
+        if (
+            location.state?.registroExitoso
+        ) {
+
+            setMensaje(
+                t("cuentaCreada")
+            );
+
+            if (
+                location.state.email
+            ) {
+                setEmail(
+                    location.state.email
+                );
+            }
+
+            navigate(
+                location.pathname,
+                {
+                    replace: true,
+                    state: {}
+                }
+            );
+        }
+
+    }, [
+        location,
+        navigate,
+        t
+    ]);
+
+    const manejarLogin = async (
+        event
+    ) => {
+
         event.preventDefault();
 
         setError("");
+        setMensaje("");
 
-        if (!email.trim() || !password.trim()) {
-            setError("Completa todos los campos.");
+        if (
+            !email.trim() ||
+            !password.trim()
+        ) {
+            setError(
+                t("completaTodosCampos")
+            );
+
             return;
         }
 
         try {
+
             setLoading(true);
 
             const usuario =
-                await obtenerUsuarioPorEmail(email);
+                await obtenerUsuarioPorEmail(
+                    email.trim()
+                );
 
             if (!usuario) {
+
                 setError(
-                    "El correo no está registrado."
+                    t("correoNoRegistrado")
                 );
+
                 return;
             }
 
-            if (usuario.password !== password) {
+            if (
+                usuario.password !==
+                password
+            ) {
+
                 setError(
-                    "La contraseña es incorrecta."
+                    t("contrasenaIncorrecta")
                 );
+
                 return;
             }
 
@@ -58,23 +130,31 @@ function Login() {
                 location.state?.cursoId;
 
             if (cursoId) {
+
                 navigate(
                     `/pago/${cursoId}`,
                     {
                         replace: true
                     }
                 );
+
             } else {
-                navigate("/dashboard");
+
+                navigate(
+                    "/dashboard"
+                );
             }
 
         } catch (error) {
+
             console.error(error);
 
             setError(
-                "No se pudo iniciar sesión. Intenta nuevamente."
+                t("errorLogin")
             );
+
         } finally {
+
             setLoading(false);
         }
     };
@@ -87,19 +167,24 @@ function Login() {
                 <div className="login-header">
 
                     <span className="login-label">
-                        BIENVENIDO DE NUEVO
+                        {t("bienvenidoDeNuevo")}
                     </span>
 
                     <h1>
-                        Inicia sesión
+                        {t("iniciaSesion")}
                     </h1>
 
                     <p>
-                        Accede a tu cuenta para continuar
-                        con tu aprendizaje.
+                        {t("accesoCuenta")}
                     </p>
 
                 </div>
+
+                {mensaje && (
+                    <p className="login-success">
+                        {mensaje}
+                    </p>
+                )}
 
                 <form
                     className="login-form"
@@ -109,7 +194,9 @@ function Login() {
                     <div className="form-group">
 
                         <label htmlFor="email">
-                            Correo electrónico
+                            {t(
+                                "correoElectronico"
+                            )}
                         </label>
 
                         <input
@@ -123,6 +210,7 @@ function Login() {
                                 setError("");
                             }}
                             placeholder="tu@email.com"
+                            autoComplete="email"
                         />
 
                     </div>
@@ -130,7 +218,7 @@ function Login() {
                     <div className="form-group">
 
                         <label htmlFor="password">
-                            Contraseña
+                            {t("contrasena")}
                         </label>
 
                         <input
@@ -144,6 +232,7 @@ function Login() {
                                 setError("");
                             }}
                             placeholder="••••••••"
+                            autoComplete="current-password"
                         />
 
                     </div>
@@ -160,18 +249,22 @@ function Login() {
                         disabled={loading}
                     >
                         {loading
-                            ? "Iniciando sesión..."
-                            : "Iniciar sesión"}
+                            ? t(
+                                "iniciandoSesion"
+                            )
+                            : t(
+                                "iniciarSesion"
+                            )}
                     </button>
 
                 </form>
 
                 <p className="login-register">
 
-                    ¿No tienes una cuenta?
+                    {t("noTienesCuenta")}{" "}
 
                     <Link to="/registro">
-                        Crear cuenta
+                        {t("crearCuenta")}
                     </Link>
 
                 </p>

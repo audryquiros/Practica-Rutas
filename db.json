@@ -221,26 +221,36 @@
       ]
     }
   ],
-  "usuarios": [
+"usuarios": [
     {
-      "id": "1",
-      "nombre": "Audry",
-      "email": "audry@email.com",
-      "password": "123456"
+        "id": 1,
+        "nombre": "Audry",
+        "email": "audry@email.com",
+        "password": "123456",
+        "role": "user"
     },
     {
-      "id": "2",
-      "nombre": "Carlos",
-      "email": "carlos@email.com",
-      "password": "123456"
+        "id": 2,
+        "nombre": "Carlos",
+        "email": "carlos@email.com",
+        "password": "123456",
+        "role": "user"
     },
     {
-      "id": "3",
-      "nombre": "María",
-      "email": "maria@email.com",
-      "password": "123456"
+        "id": 3,
+        "nombre": "María",
+        "email": "maria@email.com",
+        "password": "123456",
+        "role": "user"
+    },
+    {
+        "id": 4,
+        "nombre": "Administrador",
+        "email": "admin@learnix.com",
+        "password": "admin123",
+        "role": "admin"
     }
-  ],
+],
   "matriculas": [
     {
       "id": "1",

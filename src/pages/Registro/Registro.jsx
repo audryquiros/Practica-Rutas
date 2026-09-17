@@ -1,76 +1,303 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+
+import {
+    Link,
+    useNavigate
+} from "react-router-dom";
+
+import { useTheme } from "../../context/ThemeContext";
+
+import {
+    obtenerUsuarioPorEmail,
+    registrarUsuario
+} from "../../services/usuariosService";
+
 import "./Registro.css";
 
 function Registro() {
+    const { t } = useTheme();
+
+    const navigate = useNavigate();
+
+    const [nombre, setNombre] =
+        useState("");
+
+    const [email, setEmail] =
+        useState("");
+
+    const [password, setPassword] =
+        useState("");
+
+    const [confirmarPassword, setConfirmarPassword] =
+        useState("");
+
+    const [error, setError] =
+        useState("");
+
+    const [loading, setLoading] =
+        useState(false);
+
+    const manejarRegistro = async (
+        event
+    ) => {
+
+        event.preventDefault();
+
+        setError("");
+
+        if (
+            !nombre.trim() ||
+            !email.trim() ||
+            !password.trim() ||
+            !confirmarPassword.trim()
+        ) {
+
+            setError(
+                t("completaTodosCampos")
+            );
+
+            return;
+        }
+
+        if (
+            password.length < 6
+        ) {
+
+            setError(
+                t("minimoCaracteres")
+            );
+
+            return;
+        }
+
+        if (
+            password !==
+            confirmarPassword
+        ) {
+
+            setError(
+                t("contrasenasNoCoinciden")
+            );
+
+            return;
+        }
+
+        try {
+
+            setLoading(true);
+
+            const usuarioExistente =
+                await obtenerUsuarioPorEmail(
+                    email.trim()
+                );
+
+            if (usuarioExistente) {
+
+                setError(
+                    t("correoYaExiste")
+                );
+
+                return;
+            }
+
+            await registrarUsuario({
+                nombre: nombre.trim(),
+                email: email
+                    .trim()
+                    .toLowerCase(),
+                password,
+                role: "user"
+            });
+
+            navigate(
+                "/login",
+                {
+                    replace: true,
+                    state: {
+                        registroExitoso: true,
+                        email: email
+                            .trim()
+                            .toLowerCase()
+                    }
+                }
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            setError(
+                t("cuentaNoCreada")
+            );
+
+        } finally {
+
+            setLoading(false);
+        }
+    };
+
     return (
         <main className="registro-page">
+
             <section className="registro-container">
 
                 <div className="registro-header">
+
                     <span className="registro-label">
-                        COMIENZA A APRENDER
+                        {t("comienzaAprender")}
                     </span>
 
-                    <h1>Crear una cuenta</h1>
+                    <h1>
+                        {t("creaTuCuenta")}
+                    </h1>
 
                     <p>
-                        Regístrate para acceder a nuestros cursos
-                        y comenzar tu aprendizaje.
+                        {t("registroDescripcion")}
                     </p>
+
                 </div>
 
-                <form className="registro-form">
+                <form
+                    className="registro-form"
+                    onSubmit={manejarRegistro}
+                >
 
                     <div className="form-group">
+
                         <label htmlFor="nombre">
-                            Nombre completo
+                            {t("nombreCompleto")}
                         </label>
 
                         <input
-                            type="text"
                             id="nombre"
-                            placeholder="Tu nombre"
+                            type="text"
+                            value={nombre}
+                            onChange={(event) => {
+                                setNombre(
+                                    event.target.value
+                                );
+                                setError("");
+                            }}
+                            placeholder={
+                                t("tuNombre")
+                            }
+                            autoComplete="name"
                         />
+
                     </div>
 
                     <div className="form-group">
+
                         <label htmlFor="registro-email">
-                            Correo electrónico
+                            {t(
+                                "correoElectronico"
+                            )}
                         </label>
 
                         <input
-                            type="email"
                             id="registro-email"
+                            type="email"
+                            value={email}
+                            onChange={(event) => {
+                                setEmail(
+                                    event.target.value
+                                );
+                                setError("");
+                            }}
                             placeholder="tu@email.com"
+                            autoComplete="email"
                         />
+
                     </div>
 
                     <div className="form-group">
+
                         <label htmlFor="registro-password">
-                            Contraseña
+                            {t("contrasena")}
                         </label>
 
                         <input
-                            type="password"
                             id="registro-password"
-                            placeholder="••••••••"
+                            type="password"
+                            value={password}
+                            onChange={(event) => {
+                                setPassword(
+                                    event.target.value
+                                );
+                                setError("");
+                            }}
+                            placeholder={
+                                t(
+                                    "minimoCaracteres"
+                                )
+                            }
+                            autoComplete="new-password"
                         />
+
                     </div>
 
-                    <button type="submit" className="registro-button">
-                        Crear cuenta
+                    <div className="form-group">
+
+                        <label htmlFor="confirmar-password">
+                            {t(
+                                "repiteContrasena"
+                            )}
+                        </label>
+
+                        <input
+                            id="confirmar-password"
+                            type="password"
+                            value={confirmarPassword}
+                            onChange={(event) => {
+                                setConfirmarPassword(
+                                    event.target.value
+                                );
+                                setError("");
+                            }}
+                            placeholder={
+                                t(
+                                    "repiteContrasena"
+                                )
+                            }
+                            autoComplete="new-password"
+                        />
+
+                    </div>
+
+                    {error && (
+                        <p className="registro-error">
+                            {error}
+                        </p>
+                    )}
+
+                    <button
+                        type="submit"
+                        className="registro-button"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? t(
+                                "creandoCuenta"
+                            )
+                            : t(
+                                "crearCuentaTexto"
+                            )}
                     </button>
 
                 </form>
 
                 <p className="registro-login">
-                    ¿Ya tienes una cuenta?
+
+                    {t("yaTienesCuenta")}{" "}
+
                     <Link to="/login">
-                        Iniciar sesión
+                        {t("iniciarSesion")}
                     </Link>
+
                 </p>
 
             </section>
+
         </main>
     );
 }

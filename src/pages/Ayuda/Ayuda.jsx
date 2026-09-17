@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom";
 import "./Ayuda.css";
 
 function Ayuda() {
     return (
-        <main className="ayuda">
-            <section className="ayuda-container">
+        <main className="ayuda-page">
+            <div className="ayuda-container">
 
-                <div className="ayuda-header">
+                <section className="ayuda-header">
                     <span className="ayuda-label">
                         CENTRO DE AYUDA
                     </span>
@@ -15,44 +16,101 @@ function Ayuda() {
                     </h1>
 
                     <p>
-                        Encuentra respuestas a las preguntas más
-                        frecuentes sobre nuestra plataforma.
+                        Encuentra información sobre la plataforma,
+                        tus cursos y el proceso de matrícula.
                     </p>
-                </div>
+                </section>
 
-                <div className="ayuda-content">
+                <section className="ayuda-grid">
 
                     <article className="ayuda-card">
-                        <h2>¿Cómo puedo matricularme en un curso?</h2>
+                        <span className="ayuda-number">
+                            01
+                        </span>
+
+                        <h2>
+                            ¿Cómo matricularme?
+                        </h2>
 
                         <p>
-                            Explora los cursos disponibles y selecciona
-                            el curso que deseas realizar. Para matricularte
-                            necesitarás iniciar sesión en tu cuenta.
+                            Explora los cursos disponibles desde
+                            Inicio, selecciona el curso que te
+                            interesa y presiona "Matricular curso".
                         </p>
                     </article>
 
                     <article className="ayuda-card">
-                        <h2>¿Los cursos son virtuales?</h2>
+                        <span className="ayuda-number">
+                            02
+                        </span>
+
+                        <h2>
+                            ¿Dónde veo mis cursos?
+                        </h2>
 
                         <p>
-                            Sí. Los cursos disponibles en la plataforma
-                            se ofrecen bajo modalidad virtual.
+                            Después de iniciar sesión y completar
+                            una matrícula, podrás consultar tus
+                            cursos desde la sección "Mis cursos".
                         </p>
                     </article>
 
                     <article className="ayuda-card">
-                        <h2>¿Cómo puedo acceder a mis cursos?</h2>
+                        <span className="ayuda-number">
+                            03
+                        </span>
+
+                        <h2>
+                            ¿Cómo consulto mi progreso?
+                        </h2>
 
                         <p>
-                            Una vez realizada la matrícula, podrás
-                            consultar tus cursos desde tu dashboard.
+                            Desde Mis cursos puedes seleccionar
+                            cualquier curso matriculado y consultar
+                            tus temas, tareas y porcentaje de progreso.
                         </p>
                     </article>
 
-                </div>
+                    <article className="ayuda-card">
+                        <span className="ayuda-number">
+                            04
+                        </span>
 
-            </section>
+                        <h2>
+                            ¿Necesito una cuenta?
+                        </h2>
+
+                        <p>
+                            Sí. Para matricular un curso debes iniciar
+                            sesión. Si todavía no tienes una cuenta,
+                            puedes registrarte gratuitamente.
+                        </p>
+                    </article>
+
+                </section>
+
+                <section className="ayuda-contact">
+
+                    <div>
+                        <span className="ayuda-contact-label">
+                            ¿TODAVÍA TIENES DUDAS?
+                        </span>
+
+                        <h2>
+                            Comienza explorando nuestros cursos.
+                        </h2>
+                    </div>
+
+                    <Link
+                        to="/"
+                        className="ayuda-button"
+                    >
+                        Ver cursos
+                    </Link>
+
+                </section>
+
+            </div>
         </main>
     );
 }

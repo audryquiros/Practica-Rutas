@@ -9,8 +9,12 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [loadingAuth, setLoadingAuth] = useState(true);
+
+    const [isAuthenticated, setIsAuthenticated] =
+        useState(false);
+
+    const [loadingAuth, setLoadingAuth] =
+        useState(true);
 
     useEffect(() => {
         const usuarioGuardado =
@@ -21,7 +25,12 @@ export function AuthProvider({ children }) {
                 const usuario =
                     JSON.parse(usuarioGuardado);
 
-                setUser(usuario);
+                const usuarioNormalizado = {
+                    ...usuario,
+                    role: usuario.role || "user"
+                };
+
+                setUser(usuarioNormalizado);
                 setIsAuthenticated(true);
 
             } catch (error) {
@@ -38,12 +47,17 @@ export function AuthProvider({ children }) {
     }, []);
 
     const login = (usuario) => {
-        setUser(usuario);
+        const usuarioNormalizado = {
+            ...usuario,
+            role: usuario.role || "user"
+        };
+
+        setUser(usuarioNormalizado);
         setIsAuthenticated(true);
 
         localStorage.setItem(
             "usuario",
-            JSON.stringify(usuario)
+            JSON.stringify(usuarioNormalizado)
         );
     };
 

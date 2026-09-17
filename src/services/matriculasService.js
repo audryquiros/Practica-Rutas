@@ -4,24 +4,21 @@ export const obtenerMatriculas = async () => {
     const response = await fetch(`${API_URL}/matriculas`);
 
     if (!response.ok) {
-        throw new Error("No se pudieron obtener las matrículas");
+        throw new Error(
+            "No se pudieron obtener las matrículas"
+        );
     }
 
     return await response.json();
 };
 
 export const obtenerMatriculasPorUsuario = async (usuarioId) => {
-    const response = await fetch(
-        `${API_URL}/matriculas?usuarioId=${usuarioId}`
+    const matriculas = await obtenerMatriculas();
+
+    return matriculas.filter(
+        (matricula) =>
+            Number(matricula.usuarioId) === Number(usuarioId)
     );
-
-    if (!response.ok) {
-        throw new Error(
-            "No se pudieron obtener las matrículas del usuario"
-        );
-    }
-
-    return await response.json();
 };
 
 export const crearMatricula = async (matricula) => {
@@ -30,11 +27,17 @@ export const crearMatricula = async (matricula) => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(matricula)
+        body: JSON.stringify({
+            ...matricula,
+            usuarioId: Number(matricula.usuarioId),
+            cursoId: Number(matricula.cursoId)
+        })
     });
 
     if (!response.ok) {
-        throw new Error("No se pudo crear la matrícula");
+        throw new Error(
+            "No se pudo crear la matrícula"
+        );
     }
 
     return await response.json();

@@ -1,23 +1,26 @@
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 html {
-    scroll-behavior: smooth;
+    min-height: 100%;
 }
 
 body {
     margin: 0;
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-    background: #f8f8fc;
-    color: #202033;
+
+    min-width: 320px;
+    min-height: 100vh;
+
+    background: var(--color-background);
+    color: var(--color-text);
+
+    font-family: var(--font-family);
+    font-size: var(--font-size-base);
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
 }
 
 button,
@@ -25,4 +28,758 @@ input,
 textarea,
 select {
     font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+/* =========================================================
+   VARIABLES GENERALES
+   ========================================================= */
+
+:root {
+    --color-background: #f8f8fc;
+    --color-surface: #ffffff;
+    --color-surface-soft: #faf9fd;
+
+    --color-text: #202033;
+    --color-text-secondary: #74758a;
+    --color-text-muted: #9292a2;
+
+    --color-primary: #6c4ab6;
+    --color-primary-dark: #4b2f82;
+    --color-primary-soft: #f3effa;
+
+    --color-border: #e5e4ed;
+    --color-border-strong: #d8d6e2;
+
+    --color-success: #39745a;
+    --color-success-soft: #f2faf6;
+
+    --color-danger: #b0445c;
+    --color-danger-soft: #fdf5f7;
+
+    --shadow-card:
+        0 8px 30px rgba(35, 31, 58, 0.04);
+
+    --font-family:
+        Inter,
+        Arial,
+        sans-serif;
+
+    --font-size-base: 16px;
+
+    --transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =========================================================
+   TAMAÑO DE LETRA
+   ========================================================= */
+
+html[data-tamanio="normal"] {
+    --font-size-base: 16px;
+}
+
+html[data-tamanio="grande"] {
+    --font-size-base: 18px;
+}
+
+html[data-tamanio="muy-grande"] {
+    --font-size-base: 20px;
+}
+
+
+/* =========================================================
+   FUENTES
+   ========================================================= */
+
+html[data-fuente="inter"] {
+    --font-family:
+        Inter,
+        Arial,
+        sans-serif;
+}
+
+html[data-fuente="arial"] {
+    --font-family:
+        Arial,
+        sans-serif;
+}
+
+html[data-fuente="verdana"] {
+    --font-family:
+        Verdana,
+        sans-serif;
+}
+
+html[data-fuente="georgia"] {
+    --font-family:
+        Georgia,
+        serif;
+}
+
+
+/* =========================================================
+   TEMA CLARO
+   ========================================================= */
+
+html[data-tema="claro"] {
+    --color-background: #f8f8fc;
+    --color-surface: #ffffff;
+    --color-surface-soft: #faf9fd;
+
+    --color-text: #202033;
+    --color-text-secondary: #74758a;
+    --color-text-muted: #9292a2;
+
+    --color-primary: #6c4ab6;
+    --color-primary-dark: #4b2f82;
+    --color-primary-soft: #f3effa;
+
+    --color-border: #e5e4ed;
+    --color-border-strong: #d8d6e2;
+
+    --color-success: #39745a;
+    --color-success-soft: #f2faf6;
+
+    --color-danger: #b0445c;
+    --color-danger-soft: #fdf5f7;
+
+    --shadow-card:
+        0 8px 30px rgba(35, 31, 58, 0.04);
+}
+
+
+/* =========================================================
+   TEMA OSCURO
+   ========================================================= */
+
+html[data-tema="oscuro"] {
+    --color-background: #15151f;
+    --color-surface: #20202d;
+    --color-surface-soft: #272737;
+
+    --color-text: #f4f2fa;
+    --color-text-secondary: #b6b4c5;
+    --color-text-muted: #8f8da1;
+
+    --color-primary: #a58be0;
+    --color-primary-dark: #c1a9f0;
+    --color-primary-soft: #302a42;
+
+    --color-border: #383849;
+    --color-border-strong: #49495c;
+
+    --color-success: #72c49b;
+    --color-success-soft: #20372c;
+
+    --color-danger: #e08a9d;
+    --color-danger-soft: #3a252c;
+
+    --shadow-card:
+        0 10px 35px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =========================================================
+   TEMA LAVANDA
+   ========================================================= */
+
+html[data-tema="lavanda"] {
+    --color-background: #3a2b4f;
+    --color-surface: #4a385f;
+    --color-surface-soft: #564268;
+
+    --color-text: #faf7ff;
+    --color-text-secondary: #d8cce5;
+    --color-text-muted: #b9a9ca;
+
+    --color-primary: #c5a6f2;
+    --color-primary-dark: #e0cafa;
+    --color-primary-soft: #604b78;
+
+    --color-border: #67547a;
+    --color-border-strong: #7c668f;
+
+    --color-success: #88d2ad;
+    --color-success-soft: #304e42;
+
+    --color-danger: #ef9aaf;
+    --color-danger-soft: #553340;
+
+    --shadow-card:
+        0 12px 35px rgba(25, 15, 38, 0.22);
+}
+
+
+/* =========================================================
+   TEMA AZUL
+   ========================================================= */
+
+html[data-tema="azul"] {
+    --color-background: #172d46;
+    --color-surface: #203d5c;
+    --color-surface-soft: #294a6b;
+
+    --color-text: #f5f9ff;
+    --color-text-secondary: #c6d7e9;
+    --color-text-muted: #9db3c9;
+
+    --color-primary: #82b8ee;
+    --color-primary-dark: #b1d3f5;
+    --color-primary-soft: #315574;
+
+    --color-border: #3b5c7c;
+    --color-border-strong: #547493;
+
+    --color-success: #83d0ad;
+    --color-success-soft: #2d5145;
+
+    --color-danger: #ee9aaa;
+    --color-danger-soft: #52333d;
+
+    --shadow-card:
+        0 12px 35px rgba(10, 25, 42, 0.25);
+}
+
+
+/* =========================================================
+   APLICACIÓN GLOBAL DE VARIABLES
+   ========================================================= */
+
+body,
+.navbar,
+.home-page,
+.dashboard-page,
+.perfil-page,
+.configuracion-page,
+.admin-page,
+.ayuda-page,
+.pago-page,
+.not-found-page {
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.navbar {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+.navbar-logo,
+.logo-text {
+    color: var(--color-text);
+}
+
+.nav-link {
+    color: var(--color-text-secondary);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--color-primary);
+}
+
+.nav-link.active::after {
+    background: var(--color-primary);
+}
+
+
+/* =========================================================
+   BOTONES DEL NAVBAR
+   ========================================================= */
+
+.nav-login {
+    background: var(--color-surface);
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary);
+}
+
+.nav-login:hover {
+    background: var(--color-surface-soft);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}
+
+.nav-register {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+.nav-register:hover {
+    background: var(--color-primary-dark);
+}
+
+.nav-logout {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+
+.home-empty,
+.dashboard-course-card,
+.perfil-card,
+.perfil-details,
+.configuracion-card,
+.ayuda-card,
+.ayuda-contact,
+.admin-card,
+.pago-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-card);
+}
+
+
+/* =========================================================
+   TEXTOS PRINCIPALES
+   ========================================================= */
+
+.home-header h1,
+.home-section-header h2,
+.dashboard-header h1,
+.dashboard-section-header h2,
+.perfil-header h1,
+.perfil-section-header h2,
+.configuracion-header h1,
+.configuracion-section-header h2,
+.admin-header h1,
+.admin-card-header h2,
+.pago-header h1,
+.ayuda-header h1,
+.ayuda-card h2 {
+    color: var(--color-text);
+}
+
+.home-header p,
+.home-section-header p,
+.dashboard-header p,
+.perfil-header p,
+.configuracion-header p,
+.configuracion-section-header p,
+.admin-header p,
+.admin-card-header p,
+.pago-header p,
+.ayuda-header p,
+.ayuda-card p {
+    color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   ETIQUETAS
+   ========================================================= */
+
+.home-label,
+.home-section-label,
+.dashboard-label,
+.perfil-label,
+.perfil-section-label,
+.configuracion-label,
+.configuracion-section-label,
+.admin-label,
+.admin-section-label,
+.pago-label,
+.pago-course span,
+.ayuda-label {
+    color: var(--color-primary);
+}
+
+
+/* =========================================================
+   FORMULARIOS
+   ========================================================= */
+
+input,
+textarea,
+select {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--color-primary);
+}
+
+
+/* =========================================================
+   TEMAS LAVANDA Y AZUL
+   ELEMENTOS INTERNOS
+   ========================================================= */
+
+html[data-tema="lavanda"] .navbar,
+html[data-tema="azul"] .navbar {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .nav-link,
+html[data-tema="azul"] .nav-link {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="lavanda"] .nav-link:hover,
+html[data-tema="lavanda"] .nav-link.active,
+html[data-tema="azul"] .nav-link:hover,
+html[data-tema="azul"] .nav-link.active {
+    color: var(--color-primary);
+}
+
+html[data-tema="lavanda"] .home-empty,
+html[data-tema="lavanda"] .dashboard-course-card,
+html[data-tema="lavanda"] .perfil-card,
+html[data-tema="lavanda"] .perfil-details,
+html[data-tema="lavanda"] .configuracion-card,
+html[data-tema="lavanda"] .admin-card,
+html[data-tema="lavanda"] .pago-card,
+html[data-tema="lavanda"] .ayuda-card,
+html[data-tema="lavanda"] .ayuda-contact,
+html[data-tema="azul"] .home-empty,
+html[data-tema="azul"] .dashboard-course-card,
+html[data-tema="azul"] .perfil-card,
+html[data-tema="azul"] .perfil-details,
+html[data-tema="azul"] .configuracion-card,
+html[data-tema="azul"] .admin-card,
+html[data-tema="azul"] .pago-card,
+html[data-tema="azul"] .ayuda-card,
+html[data-tema="azul"] .ayuda-contact {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .home-header h1,
+html[data-tema="lavanda"] .home-section-header h2,
+html[data-tema="lavanda"] .dashboard-header h1,
+html[data-tema="lavanda"] .dashboard-section-header h2,
+html[data-tema="lavanda"] .perfil-header h1,
+html[data-tema="lavanda"] .perfil-section-header h2,
+html[data-tema="lavanda"] .configuracion-header h1,
+html[data-tema="lavanda"] .configuracion-section-header h2,
+html[data-tema="lavanda"] .admin-header h1,
+html[data-tema="lavanda"] .admin-card-header h2,
+html[data-tema="lavanda"] .pago-header h1,
+html[data-tema="lavanda"] .ayuda-header h1,
+html[data-tema="lavanda"] .ayuda-card h2,
+html[data-tema="azul"] .home-header h1,
+html[data-tema="azul"] .home-section-header h2,
+html[data-tema="azul"] .dashboard-header h1,
+html[data-tema="azul"] .dashboard-section-header h2,
+html[data-tema="azul"] .perfil-header h1,
+html[data-tema="azul"] .perfil-section-header h2,
+html[data-tema="azul"] .configuracion-header h1,
+html[data-tema="azul"] .configuracion-section-header h2,
+html[data-tema="azul"] .admin-header h1,
+html[data-tema="azul"] .admin-card-header h2,
+html[data-tema="azul"] .pago-header h1,
+html[data-tema="azul"] .ayuda-header h1,
+html[data-tema="azul"] .ayuda-card h2 {
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .home-header p,
+html[data-tema="lavanda"] .home-section-header p,
+html[data-tema="lavanda"] .dashboard-header p,
+html[data-tema="lavanda"] .perfil-header p,
+html[data-tema="lavanda"] .configuracion-header p,
+html[data-tema="lavanda"] .configuracion-section-header p,
+html[data-tema="lavanda"] .admin-header p,
+html[data-tema="lavanda"] .admin-card-header p,
+html[data-tema="lavanda"] .pago-header p,
+html[data-tema="lavanda"] .ayuda-header p,
+html[data-tema="azul"] .home-header p,
+html[data-tema="azul"] .home-section-header p,
+html[data-tema="azul"] .dashboard-header p,
+html[data-tema="azul"] .perfil-header p,
+html[data-tema="azul"] .configuracion-header p,
+html[data-tema="azul"] .configuracion-section-header p,
+html[data-tema="azul"] .admin-header p,
+html[data-tema="azul"] .admin-card-header p,
+html[data-tema="azul"] .pago-header p,
+html[data-tema="azul"] .ayuda-header p,
+html[data-tema="azul"] .ayuda-card p {
+    color: var(--color-text-secondary);
+}
+
+
+/* =========================================================
+   FORMULARIOS EN LAVANDA Y AZUL
+   ========================================================= */
+
+html[data-tema="lavanda"] input,
+html[data-tema="lavanda"] textarea,
+html[data-tema="lavanda"] select,
+html[data-tema="azul"] input,
+html[data-tema="azul"] textarea,
+html[data-tema="azul"] select {
+    background: var(--color-surface-soft);
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+}
+
+html[data-tema="lavanda"] input::placeholder,
+html[data-tema="lavanda"] textarea::placeholder,
+html[data-tema="azul"] input::placeholder,
+html[data-tema="azul"] textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+
+/* =========================================================
+   TEMA OSCURO
+   ========================================================= */
+
+html[data-tema="oscuro"] .profile-trigger,
+html[data-tema="lavanda"] .profile-trigger,
+html[data-tema="azul"] .profile-trigger {
+    color: var(--color-text);
+}
+
+html[data-tema="oscuro"] .profile-trigger:hover,
+html[data-tema="lavanda"] .profile-trigger:hover,
+html[data-tema="azul"] .profile-trigger:hover {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border);
+}
+
+html[data-tema="oscuro"] .profile-dropdown,
+html[data-tema="lavanda"] .profile-dropdown,
+html[data-tema="azul"] .profile-dropdown {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+html[data-tema="oscuro"] .profile-dropdown-header strong,
+html[data-tema="lavanda"] .profile-dropdown-header strong,
+html[data-tema="azul"] .profile-dropdown-header strong,
+html[data-tema="oscuro"] .profile-dropdown-item,
+html[data-tema="lavanda"] .profile-dropdown-item,
+html[data-tema="azul"] .profile-dropdown-item {
+    color: var(--color-text);
+}
+
+
+/* =========================================================
+   ESCALA TIPOGRÁFICA
+   ========================================================= */
+
+/*
+   Normal
+   16px
+*/
+
+html[data-tamanio="normal"] .navbar,
+html[data-tamanio="normal"] main {
+    --text-scale: 1;
+}
+
+
+/*
+   Grande
+   Aproximadamente 10% mayor
+*/
+
+html[data-tamanio="grande"] .navbar,
+html[data-tamanio="grande"] main {
+    --text-scale: 1.1;
+}
+
+
+/*
+   Muy grande
+   Aproximadamente 20% mayor
+*/
+
+html[data-tamanio="muy-grande"] .navbar,
+html[data-tamanio="muy-grande"] main {
+    --text-scale: 1.2;
+}
+
+
+/* Navegación */
+
+html[data-tamanio="grande"] .nav-link,
+html[data-tamanio="grande"] .nav-login,
+html[data-tamanio="grande"] .nav-register,
+html[data-tamanio="grande"] .profile-trigger-name {
+    font-size: 15px;
+}
+
+html[data-tamanio="muy-grande"] .nav-link,
+html[data-tamanio="muy-grande"] .nav-login,
+html[data-tamanio="muy-grande"] .nav-register,
+html[data-tamanio="muy-grande"] .profile-trigger-name {
+    font-size: 17px;
+}
+
+
+/* Texto general */
+
+html[data-tamanio="grande"] p,
+html[data-tamanio="grande"] label {
+    font-size: 1.08em;
+}
+
+html[data-tamanio="muy-grande"] p,
+html[data-tamanio="muy-grande"] label {
+    font-size: 1.16em;
+}
+
+
+/* Inputs */
+
+html[data-tamanio="grande"] input,
+html[data-tamanio="grande"] textarea,
+html[data-tamanio="grande"] select {
+    font-size: 15px;
+}
+
+html[data-tamanio="muy-grande"] input,
+html[data-tamanio="muy-grande"] textarea,
+html[data-tamanio="muy-grande"] select {
+    font-size: 17px;
+}
+
+
+/* Títulos */
+
+html[data-tamanio="grande"] h1 {
+    font-size: 1.12em;
+}
+
+html[data-tamanio="muy-grande"] h1 {
+    font-size: 1.24em;
+}
+
+html[data-tamanio="grande"] h2 {
+    font-size: 1.1em;
+}
+
+html[data-tamanio="muy-grande"] h2 {
+    font-size: 1.2em;
+}
+
+html[data-tamanio="grande"] h3 {
+    font-size: 1.08em;
+}
+
+html[data-tamanio="muy-grande"] h3 {
+    font-size: 1.16em;
+}
+
+
+/* =========================================================
+   ALTO CONTRASTE
+   ========================================================= */
+
+html[data-contraste="alto"] {
+    --color-background: #f3f2f5;
+    --color-surface: #ffffff;
+    --color-surface-soft: #eeeeF1;
+
+    --color-text: #141419;
+    --color-text-secondary: #2e2e35;
+    --color-text-muted: #55555e;
+
+    --color-primary: #542c91;
+    --color-primary-dark: #3b1e6b;
+    --color-primary-soft: #e9e2f3;
+
+    --color-border: #85838c;
+    --color-border-strong: #55535c;
+
+    --color-success: #21633f;
+    --color-success-soft: #e6f3ec;
+
+    --color-danger: #942d48;
+    --color-danger-soft: #f7e8ed;
+
+    --shadow-card:
+        0 6px 22px rgba(22, 20, 30, 0.11);
+}
+
+html[data-contraste="alto"] .navbar {
+    border-bottom: 2px solid var(--color-border-strong);
+}
+
+html[data-contraste="alto"] .nav-link {
+    color: #303038;
+}
+
+html[data-contraste="alto"] .nav-link:hover,
+html[data-contraste="alto"] .nav-link.active {
+    color: var(--color-primary);
+}
+
+html[data-contraste="alto"] .nav-link.active::after {
+    height: 3px;
+}
+
+html[data-contraste="alto"] .home-empty,
+html[data-contraste="alto"] .dashboard-course-card,
+html[data-contraste="alto"] .perfil-card,
+html[data-contraste="alto"] .perfil-details,
+html[data-contraste="alto"] .configuracion-card,
+html[data-contraste="alto"] .admin-card,
+html[data-contraste="alto"] .pago-card,
+html[data-contraste="alto"] .ayuda-card,
+html[data-contraste="alto"] .ayuda-contact {
+    border-width: 2px;
+}
+
+html[data-contraste="alto"] input,
+html[data-contraste="alto"] textarea,
+html[data-contraste="alto"] select {
+    border-width: 2px;
+}
+
+html[data-contraste="alto"] button {
+    font-weight: 650;
+}
+
+html[data-contraste="alto"] a:focus-visible,
+html[data-contraste="alto"] button:focus-visible,
+html[data-contraste="alto"] input:focus-visible,
+html[data-contraste="alto"] textarea:focus-visible,
+html[data-contraste="alto"] select:focus-visible {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   REDUCIR ANIMACIONES
+   ========================================================= */
+
+html[data-animaciones="reducidas"] *,
+html[data-animaciones="reducidas"] *::before,
+html[data-animaciones="reducidas"] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
 }
