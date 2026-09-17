@@ -1,17 +1,15 @@
 import {
     Navigate,
-    Outlet,
-    useLocation
+    Outlet
 } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
-function PrivateRoutes() {
+function RoleRoutes({ requiredRole }) {
     const {
+        user,
         authStatus
     } = useAuth();
-
-    const location = useLocation();
 
     if (authStatus === "verificando") {
         return (
@@ -26,8 +24,7 @@ function PrivateRoutes() {
                     </h1>
 
                     <p>
-                        Estamos comprobando tu sesión antes
-                        de mostrar el contenido.
+                        Estamos comprobando tu sesión.
                     </p>
                 </div>
             </main>
@@ -38,9 +35,15 @@ function PrivateRoutes() {
         return (
             <Navigate
                 to="/login"
-                state={{
-                    from: location
-                }}
+                replace
+            />
+        );
+    }
+
+    if (user?.role !== requiredRole) {
+        return (
+            <Navigate
+                to="/403"
                 replace
             />
         );
@@ -49,4 +52,4 @@ function PrivateRoutes() {
     return <Outlet />;
 }
 
-export default PrivateRoutes;
+export default RoleRoutes;

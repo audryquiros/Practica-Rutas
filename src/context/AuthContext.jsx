@@ -5,73 +5,224 @@ import {
     useState
 } from "react";
 
-const AuthContext = createContext();
+const AuthContext =
+    createContext();
 
-export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
+const normalizarRol = (role) => {
 
-    const [isAuthenticated, setIsAuthenticated] =
-        useState(false);
+    if (role === "admin") {
+        return "admin";
+    }
 
-    const [loadingAuth, setLoadingAuth] =
-        useState(true);
+    return "usuario";
+};
+
+export function AuthProvider({
+    children
+}) {
+    const [user, setUser] =
+        useState(null);
+
+    const [authStatus, setAuthStatus] =
+        useState("verificando");
 
     useEffect(() => {
-        const usuarioGuardado =
-            localStorage.getItem("usuario");
 
-        if (usuarioGuardado) {
-            try {
-                const usuario =
-                    JSON.parse(usuarioGuardado);
+        const recuperarSesion =
+            () => {
 
-                const usuarioNormalizado = {
-                    ...usuario,
-                    role: usuario.role || "user"
-                };
+                const usuarioGuardado =
+                    localStorage.getItem(
+                        "usuario"
+                    );
 
-                setUser(usuarioNormalizado);
-                setIsAuthenticated(true);
+                if (!usuarioGuardado) {
 
-            } catch (error) {
-                console.error(
-                    "No se pudo recuperar la sesión:",
-                    error
-                );
+                    setUser(null);
 
-                localStorage.removeItem("usuario");
-            }
-        }
+                    setAuthStatus(
+                        "no-autenticado"
+                    );
 
-        setLoadingAuth(false);
+                    return;
+                }
+
+                try {
+
+                    const usuario =
+                        JSON.parse(
+                            usuarioGuardado
+                        );
+
+                    const usuarioNormalizado =
+                        {
+                            ...usuario,
+                            role:
+                                normalizarRol(
+                                    usuario.role
+                                )
+                        };
+
+                    setUser(
+                        usuarioNormalizado
+                    );
+
+                    setAuthStatus(
+                        "autenticado"
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "No se pudo recuperar la sesión:",
+                        error
+                    );
+
+                    localStorage.removeItem(
+                        "usuario"
+                    );
+
+                    setUser(null);
+
+                    setAuthStatus(
+                        "no-autenticado"
+                    );
+                }
+            };
+
+        recuperarSesion();
+
+    }, []);
+
+    useEffect(() => {
+
+        const manejarStorage =
+            (event) => {
+
+                if (
+                    event.key !==
+                    "usuario"
+                ) {
+                    return;
+                }
+
+                if (!event.newValue) {
+
+                    setUser(null);
+
+                    setAuthStatus(
+                        "no-autenticado"
+                    );
+
+                    return;
+                }
+
+                try {
+
+                    const usuario =
+                        JSON.parse(
+                            event.newValue
+                        );
+
+                    const usuarioNormalizado =
+                        {
+                            ...usuario,
+                            role:
+                                normalizarRol(
+                                    usuario.role
+                                )
+                        };
+
+                    setUser(
+                        usuarioNormalizado
+                    );
+
+                    setAuthStatus(
+                        "autenticado"
+                    );
+
+                } catch (error) {
+
+                    console.error(
+                        "No se pudo sincronizar la sesión:",
+                        error
+                    );
+
+                    setUser(null);
+
+                    setAuthStatus(
+                        "no-autenticado"
+                    );
+                }
+            };
+
+        window.addEventListener(
+            "storage",
+            manejarStorage
+        );
+
+        return () => {
+            window.removeEventListener(
+                "storage",
+                manejarStorage
+            );
+        };
+
     }, []);
 
     const login = (usuario) => {
-        const usuarioNormalizado = {
-            ...usuario,
-            role: usuario.role || "user"
-        };
 
-        setUser(usuarioNormalizado);
-        setIsAuthenticated(true);
+        const usuarioNormalizado =
+            {
+                ...usuario,
+                role:
+                    normalizarRol(
+                        usuario.role
+                    )
+            };
+
+        setUser(
+            usuarioNormalizado
+        );
+
+        setAuthStatus(
+            "autenticado"
+        );
 
         localStorage.setItem(
             "usuario",
-            JSON.stringify(usuarioNormalizado)
+            JSON.stringify(
+                usuarioNormalizado
+            )
         );
     };
 
     const logout = () => {
-        setUser(null);
-        setIsAuthenticated(false);
 
-        localStorage.removeItem("usuario");
+        setUser(null);
+
+        setAuthStatus(
+            "no-autenticado"
+        );
+
+        localStorage.removeItem(
+            "usuario"
+        );
     };
+
+    const isAuthenticated =
+        authStatus ===
+        "autenticado";
+
+    const loadingAuth =
+        authStatus ===
+        "verificando";
 
     return (
         <AuthContext.Provider
             value={{
                 user,
+                authStatus,
                 isAuthenticated,
                 loadingAuth,
                 login,
@@ -84,5 +235,7 @@ export function AuthProvider({ children }) {
 }
 
 export function useAuth() {
-    return useContext(AuthContext);
+    return useContext(
+        AuthContext
+    );
 }

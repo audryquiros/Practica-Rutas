@@ -1,10 +1,6 @@
+import { useState } from "react";
 import {
-    useEffect,
-    useRef,
-    useState
-} from "react";
-
-import {
+    Link,
     NavLink,
     useNavigate
 } from "react-router-dom";
@@ -28,258 +24,243 @@ function Navbar() {
     const [menuAbierto, setMenuAbierto] =
         useState(false);
 
-    const menuRef = useRef(null);
-
-    const esAdmin =
-        user?.role === "admin";
-
-    useEffect(() => {
-        const manejarClickFuera = (event) => {
-            if (
-                menuRef.current &&
-                !menuRef.current.contains(event.target)
-            ) {
-                setMenuAbierto(false);
-            }
-        };
-
-        document.addEventListener(
-            "mousedown",
-            manejarClickFuera
-        );
-
-        return () => {
-            document.removeEventListener(
-                "mousedown",
-                manejarClickFuera
-            );
-        };
-    }, []);
-
     const manejarLogout = () => {
         logout();
         setMenuAbierto(false);
-        navigate("/");
+
+        navigate("/", {
+            replace: true
+        });
     };
 
-    const abrirPerfil = () => {
+    const cerrarMenu = () => {
         setMenuAbierto(false);
-        navigate("/perfil");
     };
 
-    const abrirConfiguracion = () => {
-        setMenuAbierto(false);
-        navigate("/configuracion");
-    };
-
-    const inicial =
-        user?.nombre
-            ?.charAt(0)
-            .toUpperCase() || "U";
+    const esAdministrador =
+        isAuthenticated &&
+        user?.role === "admin";
 
     return (
         <header className="navbar">
             <div className="navbar-container">
 
-                <NavLink
+                {/* LOGO */}
+
+                <Link
                     to="/"
                     className="navbar-logo"
+                    onClick={cerrarMenu}
                 >
-                    <span className="logo-mark">
-                        P
-                    </span>
-
                     <span className="logo-text">
                         Learnix
                     </span>
-                </NavLink>
+                </Link>
 
-                <nav className="navbar-menu">
+                {/* NAVEGACIÓN */}
 
-                    <div className="navbar-links">
+                <nav className="navbar-links">
 
-                        <NavLink
-                            to="/"
-                            className={({ isActive }) =>
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            `nav-link ${
                                 isActive
-                                    ? "nav-link active"
-                                    : "nav-link"
-                            }
-                        >
-                            {t("inicio")}
-                        </NavLink>
+                                    ? "active"
+                                    : ""
+                            }`
+                        }
+                    >
+                        {t("inicio")}
+                    </NavLink>
 
-                        {isAuthenticated && !esAdmin && (
+                    {/* SOLO USUARIOS NORMALES */}
+
+                    {isAuthenticated &&
+                        user?.role === "usuario" && (
                             <NavLink
                                 to="/dashboard"
                                 className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active"
-                                        : "nav-link"
+                                    `nav-link ${
+                                        isActive
+                                            ? "active"
+                                            : ""
+                                    }`
                                 }
                             >
                                 {t("misCursos")}
                             </NavLink>
                         )}
 
-                        {isAuthenticated && esAdmin && (
-                            <NavLink
-                                to="/admin"
-                                className={({ isActive }) =>
-                                    isActive
-                                        ? "nav-link active"
-                                        : "nav-link"
-                                }
-                            >
-                                {t("administracion")}
-                            </NavLink>
-                        )}
+                    {/* SOLO ADMINISTRADOR */}
 
+                    {esAdministrador && (
                         <NavLink
-                            to="/ayuda"
+                            to="/admin"
                             className={({ isActive }) =>
-                                isActive
-                                    ? "nav-link active"
-                                    : "nav-link"
+                                `nav-link ${
+                                    isActive
+                                        ? "active"
+                                        : ""
+                                }`
                             }
                         >
-                            {t("ayuda")}
+                            {t("administracion")}
                         </NavLink>
+                    )}
 
-                    </div>
-
-                    <div className="navbar-actions">
-
-                        {!isAuthenticated ? (
-                            <>
-                                <NavLink
-                                    to="/login"
-                                    className="nav-login"
-                                >
-                                    {t("iniciarSesion")}
-                                </NavLink>
-
-                                <NavLink
-                                    to="/registro"
-                                    className="nav-register"
-                                >
-                                    {t("crearCuenta")}
-                                </NavLink>
-                            </>
-                        ) : (
-
-                            <div
-                                className="profile-menu"
-                                ref={menuRef}
-                            >
-
-                                <button
-                                    type="button"
-                                    className="profile-trigger"
-                                    onClick={() =>
-                                        setMenuAbierto(
-                                            !menuAbierto
-                                        )
-                                    }
-                                    aria-expanded={
-                                        menuAbierto
-                                    }
-                                    aria-haspopup="menu"
-                                >
-
-                                    <span className="profile-avatar">
-                                        {inicial}
-                                    </span>
-
-                                    <span className="profile-trigger-name">
-                                        {user?.nombre ||
-                                            "Usuario"}
-                                    </span>
-
-                                    <span
-                                        className={
-                                            menuAbierto
-                                                ? "profile-arrow open"
-                                                : "profile-arrow"
-                                        }
-                                    >
-                                        ⌄
-                                    </span>
-
-                                </button>
-
-                                {menuAbierto && (
-
-                                    <div
-                                        className="profile-dropdown"
-                                        role="menu"
-                                    >
-
-                                        <div className="profile-dropdown-header">
-
-                                            <span className="profile-dropdown-avatar">
-                                                {inicial}
-                                            </span>
-
-                                            <div>
-
-                                                <strong>
-                                                    {user?.nombre ||
-                                                        "Usuario"}
-                                                </strong>
-
-                                                <span>
-                                                    {user?.email ||
-                                                        ""}
-                                                </span>
-
-                                            </div>
-
-                                        </div>
-
-                                        <div className="profile-dropdown-divider"></div>
-
-                                        <button
-                                            type="button"
-                                            className="profile-dropdown-item"
-                                            onClick={
-                                                abrirPerfil
-                                            }
-                                        >
-                                            {t("perfil")}
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            className="profile-dropdown-item"
-                                            onClick={
-                                                abrirConfiguracion
-                                            }
-                                        >
-                                            {t("configuracion")}
-                                        </button>
-
-                                        <div className="profile-dropdown-divider"></div>
-
-                                        <button
-                                            type="button"
-                                            className="profile-dropdown-item logout-item"
-                                            onClick={
-                                                manejarLogout
-                                            }
-                                        >
-                                            {t("cerrarSesion")}
-                                        </button>
-
-                                    </div>
-                                )}
-
-                            </div>
-                        )}
-
-                    </div>
+                    <NavLink
+                        to="/ayuda"
+                        className={({ isActive }) =>
+                            `nav-link ${
+                                isActive
+                                    ? "active"
+                                    : ""
+                            }`
+                        }
+                    >
+                        {t("ayuda")}
+                    </NavLink>
 
                 </nav>
+
+                {/* ACCIONES */}
+
+                <div className="navbar-actions">
+
+                    {/* USUARIO NO AUTENTICADO */}
+
+                    {!isAuthenticated && (
+                        <>
+                            <Link
+                                to="/login"
+                                className="nav-login"
+                            >
+                                {t("iniciarSesion")}
+                            </Link>
+
+                            <Link
+                                to="/registro"
+                                className="nav-register"
+                            >
+                                {t("crearCuenta")}
+                            </Link>
+                        </>
+                    )}
+
+                    {/* USUARIO AUTENTICADO */}
+
+                    {isAuthenticated && (
+                        <div className="profile-menu">
+
+                            <button
+                                type="button"
+                                className="profile-trigger"
+                                onClick={() =>
+                                    setMenuAbierto(
+                                        (actual) =>
+                                            !actual
+                                    )
+                                }
+                                aria-expanded={
+                                    menuAbierto
+                                }
+                            >
+                                <span className="profile-avatar">
+                                    {user?.nombre
+                                        ?.charAt(0)
+                                        ?.toUpperCase() ||
+                                        "U"}
+                                </span>
+
+                                <span className="profile-trigger-name">
+                                    {user?.nombre ||
+                                        "Usuario"}
+                                </span>
+
+                                <span className="profile-trigger-arrow">
+                                    {menuAbierto
+                                        ? "⌃"
+                                        : "⌄"}
+                                </span>
+                            </button>
+
+                            {menuAbierto && (
+                                <div className="profile-dropdown">
+
+                                    <div className="profile-dropdown-header">
+
+                                        <strong>
+                                            {user?.nombre}
+                                        </strong>
+
+                                        <span>
+                                            {user?.email}
+                                        </span>
+
+                                    </div>
+
+                                    <div className="profile-dropdown-divider" />
+
+                                    {/* PERFIL */}
+
+                                    <Link
+                                        to="/perfil"
+                                        className="profile-dropdown-item"
+                                        onClick={
+                                            cerrarMenu
+                                        }
+                                    >
+                                        {t("perfil")}
+                                    </Link>
+
+                                    {/* CONFIGURACIÓN */}
+
+                                    <Link
+                                        to="/perfil/configuracion"
+                                        className="profile-dropdown-item"
+                                        onClick={
+                                            cerrarMenu
+                                        }
+                                    >
+                                        {t("configuracion")}
+                                    </Link>
+
+                                    {/* USUARIOS SOLO ADMIN */}
+
+                                    {esAdministrador && (
+                                        <Link
+                                            to="/dashboard/usuarios"
+                                            className="profile-dropdown-item profile-dropdown-users"
+                                            onClick={
+                                                cerrarMenu
+                                            }
+                                        >
+                                            Usuarios
+                                        </Link>
+                                    )}
+
+                                    <div className="profile-dropdown-divider" />
+
+                                    {/* CERRAR SESIÓN */}
+
+                                    <button
+                                        type="button"
+                                        className="profile-dropdown-item profile-dropdown-logout"
+                                        onClick={
+                                            manejarLogout
+                                        }
+                                    >
+                                        {t("cerrarSesion")}
+                                    </button>
+
+                                </div>
+                            )}
+
+                        </div>
+                    )}
+
+                </div>
 
             </div>
         </header>

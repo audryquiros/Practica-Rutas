@@ -102,11 +102,9 @@ function Registro() {
 
             await registrarUsuario({
                 nombre: nombre.trim(),
-                email: email
-                    .trim()
-                    .toLowerCase(),
+                email: email.trim().toLowerCase(),
                 password,
-                role: "user"
+                role: "usuario"
             });
 
             navigate(

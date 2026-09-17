@@ -15,20 +15,24 @@ import Configuracion from "../pages/Configuracion/Configuracion";
 import Ayuda from "../pages/Ayuda/Ayuda";
 import Pago from "../pages/Pago/Pago";
 import Admin from "../pages/Admin/Admin";
+import Usuarios from "../pages/Usuarios/Usuarios";
+import Forbidden from "../pages/Forbidden/Forbidden";
 import NotFound from "../pages/NotFound/NotFound";
 
 import PrivateRoutes from "./PrivateRoutes";
-import AdminRoutes from "./AdminRoutes";
+import GuestRoutes from "./GuestRoutes";
+import RoleRoutes from "./RoleRoutes";
 
 function Routing() {
     return (
         <BrowserRouter>
-
             <Navbar />
 
             <Routes>
 
-                {/* RUTAS PÚBLICAS */}
+                {/* =========================
+                    RUTAS PÚBLICAS
+                ========================= */}
 
                 <Route
                     path="/"
@@ -36,21 +40,36 @@ function Routing() {
                 />
 
                 <Route
-                    path="/login"
-                    element={<Login />}
-                />
-
-                <Route
-                    path="/registro"
-                    element={<Registro />}
-                />
-
-                <Route
                     path="/ayuda"
                     element={<Ayuda />}
                 />
 
-                {/* RUTAS PRIVADAS */}
+                <Route
+                    path="/403"
+                    element={<Forbidden />}
+                />
+
+                {/* =========================
+                    RUTAS SOLO INVITADO
+                ========================= */}
+
+                <Route element={<GuestRoutes />}>
+
+                    <Route
+                        path="/login"
+                        element={<Login />}
+                    />
+
+                    <Route
+                        path="/registro"
+                        element={<Registro />}
+                    />
+
+                </Route>
+
+                {/* =========================
+                    RUTAS PRIVADAS
+                ========================= */}
 
                 <Route element={<PrivateRoutes />}>
 
@@ -65,6 +84,11 @@ function Routing() {
                     />
 
                     <Route
+                        path="/perfil/configuracion"
+                        element={<Configuracion />}
+                    />
+
+                    <Route
                         path="/configuracion"
                         element={<Configuracion />}
                     />
@@ -74,20 +98,35 @@ function Routing() {
                         element={<Pago />}
                     />
 
-                    {/* RUTAS DE ADMINISTRADOR */}
+                    {/* =========================
+                        RUTAS POR ROL
+                    ========================= */}
 
-                    <Route element={<AdminRoutes />}>
+                    <Route
+                        element={
+                            <RoleRoutes
+                                requiredRole="admin"
+                            />
+                        }
+                    >
 
                         <Route
                             path="/admin"
                             element={<Admin />}
                         />
 
+                        <Route
+                            path="/dashboard/usuarios"
+                            element={<Usuarios />}
+                        />
+
                     </Route>
 
                 </Route>
 
-                {/* 404 */}
+                {/* =========================
+                    404
+                ========================= */}
 
                 <Route
                     path="*"
@@ -95,7 +134,6 @@ function Routing() {
                 />
 
             </Routes>
-
         </BrowserRouter>
     );
 }

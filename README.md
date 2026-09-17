@@ -1,16 +1,97 @@
-# React + Vite
+# Learnix
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Plataforma web de cursos desarrollada con React + Vite como parte de la Práctica #1 de Desarrollo Front-End.
 
-Currently, two official plugins are available:
+El proyecto implementa navegación mediante React Router, rutas públicas y privadas, autenticación mediante Context, persistencia de sesión, protección por roles y navegación dinámica según el usuario autenticado.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 1. Tecnologías utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- React Router DOM
+- JavaScript
+- CSS
+- Context API
+- JSON Server
+- LocalStorage
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 2. Objetivo
+
+Construir una plataforma de cursos en línea que permita:
+
+- Consultar cursos disponibles.
+- Ver información detallada de cada curso.
+- Registrarse e iniciar sesión.
+- Acceder a contenido privado después de autenticarse.
+- Gestionar el perfil y las preferencias de la cuenta.
+- Matricularse en cursos mediante un proceso de pago simulado.
+- Administrar cursos y usuarios mediante una cuenta con rol administrador.
+- Proteger rutas según el estado de autenticación y el rol del usuario.
+
+---
+
+## 3. Estructura del proyecto
+
+```text
+plataforma-cursos/
+│
+├── db.json
+├── package.json
+├── vite.config.js
+├── README.md
+│
+└── src/
+    │
+    ├── components/
+    │   ├── Navbar/
+    │   │   ├── Navbar.jsx
+    │   │   └── Navbar.css
+    │   │
+    │   ├── CourseCard/
+    │   │   ├── CourseCard.jsx
+    │   │   └── CourseCard.css
+    │   │
+    │   ├── CourseModal/
+    │   │   ├── CourseModal.jsx
+    │   │   └── CourseModal.css
+    │   │
+    │   └── CourseProgressModal/
+    │       ├── CourseProgressModal.jsx
+    │       └── CourseProgressModal.css
+    │
+    ├── context/
+    │   ├── AuthContext.jsx
+    │   └── ThemeContext.jsx
+    │
+    ├── pages/
+    │   ├── Home/
+    │   ├── Login/
+    │   ├── Registro/
+    │   ├── Dashboard/
+    │   ├── Perfil/
+    │   ├── Configuracion/
+    │   ├── Ayuda/
+    │   ├── Pago/
+    │   ├── Admin/
+    │   ├── Usuarios/
+    │   ├── Forbidden/
+    │   └── NotFound/
+    │
+    ├── routes/
+    │   ├── Routing.jsx
+    │   ├── PrivateRoutes.jsx
+    │   ├── GuestRoutes.jsx
+    │   └── RoleRoutes.jsx
+    │
+    ├── services/
+    │   ├── cursosService.js
+    │   ├── matriculasService.js
+    │   └── usuariosService.js
+    │
+    ├── App.jsx
+    ├── main.jsx
+    └── index.css

@@ -1,17 +1,14 @@
 import {
     Navigate,
-    Outlet,
-    useLocation
+    Outlet
 } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 
-function PrivateRoutes() {
+function GuestRoutes() {
     const {
         authStatus
     } = useAuth();
-
-    const location = useLocation();
 
     if (authStatus === "verificando") {
         return (
@@ -26,21 +23,17 @@ function PrivateRoutes() {
                     </h1>
 
                     <p>
-                        Estamos comprobando tu sesión antes
-                        de mostrar el contenido.
+                        Estamos comprobando tu sesión.
                     </p>
                 </div>
             </main>
         );
     }
 
-    if (authStatus === "no-autenticado") {
+    if (authStatus === "autenticado") {
         return (
             <Navigate
-                to="/login"
-                state={{
-                    from: location
-                }}
+                to="/dashboard"
                 replace
             />
         );
@@ -49,4 +42,4 @@ function PrivateRoutes() {
     return <Outlet />;
 }
 
-export default PrivateRoutes;
+export default GuestRoutes;
