@@ -10,6 +10,20 @@ export const obtenerUsuarios = async () => {
     return await response.json();
 };
 
+export const obtenerUsuarioPorEmail = async (email) => {
+    const response = await fetch(
+        `${API_URL}/usuarios?email=${encodeURIComponent(email)}`
+    );
+
+    if (!response.ok) {
+        throw new Error("No se pudo obtener el usuario");
+    }
+
+    const usuarios = await response.json();
+
+    return usuarios[0] || null;
+};
+
 export const registrarUsuario = async (usuario) => {
     const response = await fetch(`${API_URL}/usuarios`, {
         method: "POST",

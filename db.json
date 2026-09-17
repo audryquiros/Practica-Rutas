@@ -8,7 +8,51 @@
       "duracion": "8 semanas",
       "modalidad": "Virtual",
       "precio": 45000,
-      "descripcion": "Aprende a crear aplicaciones web modernas utilizando React, componentes, estados y rutas."
+      "descripcion": "Aprende a crear aplicaciones web modernas utilizando React, componentes, estados y rutas.",
+      "temas": [
+        {
+          "id": 1,
+          "nombre": "Introducción a React"
+        },
+        {
+          "id": 2,
+          "nombre": "Componentes"
+        },
+        {
+          "id": 3,
+          "nombre": "Props y estado"
+        },
+        {
+          "id": 4,
+          "nombre": "React Router"
+        },
+        {
+          "id": 5,
+          "nombre": "Proyecto final"
+        }
+      ],
+      "tareas": [
+        {
+          "id": 1,
+          "nombre": "Ejercicio de componentes",
+          "descripcion": "Crear una interfaz utilizando componentes de React."
+        },
+        {
+          "id": 2,
+          "nombre": "Práctica de useState",
+          "descripcion": "Implementar una aplicación utilizando estado."
+        },
+        {
+          "id": 3,
+          "nombre": "Práctica de React Router",
+          "descripcion": "Crear diferentes rutas utilizando React Router."
+        },
+        {
+          "id": 4,
+          "nombre": "Proyecto final",
+          "descripcion": "Crear una aplicación completa utilizando React."
+        }
+      ]
     },
     {
       "id": 2,
@@ -18,7 +62,51 @@
       "duracion": "6 semanas",
       "modalidad": "Virtual",
       "precio": 35000,
-      "descripcion": "Aprende principios de diseño UX/UI y crea interfaces atractivas y fáciles de utilizar."
+      "descripcion": "Aprende principios de diseño UX/UI y crea interfaces atractivas y fáciles de utilizar.",
+      "temas": [
+        {
+          "id": 1,
+          "nombre": "Fundamentos de UX"
+        },
+        {
+          "id": 2,
+          "nombre": "Investigación de usuarios"
+        },
+        {
+          "id": 3,
+          "nombre": "Arquitectura de información"
+        },
+        {
+          "id": 4,
+          "nombre": "Wireframes y prototipos"
+        },
+        {
+          "id": 5,
+          "nombre": "Diseño de interfaces"
+        }
+      ],
+      "tareas": [
+        {
+          "id": 1,
+          "nombre": "Mapa de empatía",
+          "descripcion": "Crear un mapa de empatía para un usuario objetivo."
+        },
+        {
+          "id": 2,
+          "nombre": "User Persona",
+          "descripcion": "Diseñar un perfil de usuario basado en investigación."
+        },
+        {
+          "id": 3,
+          "nombre": "Wireframe",
+          "descripcion": "Crear un wireframe de baja fidelidad."
+        },
+        {
+          "id": 4,
+          "nombre": "Prototipo final",
+          "descripcion": "Crear un prototipo navegable de la aplicación."
+        }
+      ]
     },
     {
       "id": 3,
@@ -28,7 +116,55 @@
       "duracion": "10 semanas",
       "modalidad": "Virtual",
       "precio": 50000,
-      "descripcion": "Aprende los fundamentos de JavaScript y desarrolla aplicaciones web."
+      "descripcion": "Aprende los fundamentos de JavaScript y desarrolla aplicaciones web.",
+      "temas": [
+        {
+          "id": 1,
+          "nombre": "Introducción a JavaScript"
+        },
+        {
+          "id": 2,
+          "nombre": "Variables y tipos de datos"
+        },
+        {
+          "id": 3,
+          "nombre": "Funciones"
+        },
+        {
+          "id": 4,
+          "nombre": "Arrays y objetos"
+        },
+        {
+          "id": 5,
+          "nombre": "DOM y eventos"
+        },
+        {
+          "id": 6,
+          "nombre": "Proyecto final"
+        }
+      ],
+      "tareas": [
+        {
+          "id": 1,
+          "nombre": "Ejercicios de variables",
+          "descripcion": "Resolver ejercicios utilizando variables y tipos de datos."
+        },
+        {
+          "id": 2,
+          "nombre": "Práctica de funciones",
+          "descripcion": "Crear funciones para resolver diferentes problemas."
+        },
+        {
+          "id": 3,
+          "nombre": "Ejercicios de arrays",
+          "descripcion": "Manipular arrays utilizando métodos de JavaScript."
+        },
+        {
+          "id": 4,
+          "nombre": "Proyecto final",
+          "descripcion": "Desarrollar una pequeña aplicación utilizando JavaScript."
+        }
+      ]
     },
     {
       "id": 4,
@@ -38,9 +174,127 @@
       "duracion": "7 semanas",
       "modalidad": "Virtual",
       "precio": 40000,
-      "descripcion": "Aprende conceptos fundamentales de bases de datos, tablas, relaciones y consultas."
+      "descripcion": "Aprende conceptos fundamentales de bases de datos, tablas, relaciones y consultas.",
+      "temas": [
+        {
+          "id": 1,
+          "nombre": "Conceptos básicos de bases de datos"
+        },
+        {
+          "id": 2,
+          "nombre": "Tablas y relaciones"
+        },
+        {
+          "id": 3,
+          "nombre": "Modelo entidad-relación"
+        },
+        {
+          "id": 4,
+          "nombre": "SQL"
+        },
+        {
+          "id": 5,
+          "nombre": "Consultas avanzadas"
+        }
+      ],
+      "tareas": [
+        {
+          "id": 1,
+          "nombre": "Modelo entidad-relación",
+          "descripcion": "Diseñar un modelo entidad-relación."
+        },
+        {
+          "id": 2,
+          "nombre": "Crear una base de datos",
+          "descripcion": "Crear tablas y relaciones utilizando SQL."
+        },
+        {
+          "id": 3,
+          "nombre": "Consultas SQL",
+          "descripcion": "Resolver ejercicios utilizando consultas SQL."
+        },
+        {
+          "id": 4,
+          "nombre": "Proyecto final",
+          "descripcion": "Diseñar una base de datos para un sistema."
+        }
+      ]
     }
   ],
-  "usuarios": [],
-  "matriculas": []
+  "usuarios": [
+    {
+      "id": 1,
+      "nombre": "Audry",
+      "email": "audry@email.com",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "nombre": "Carlos",
+      "email": "carlos@email.com",
+      "password": "123456"
+    },
+    {
+      "id": 3,
+      "nombre": "María",
+      "email": "maria@email.com",
+      "password": "123456"
+    }
+  ],
+  "matriculas": [
+    {
+      "id": 1,
+      "usuarioId": 1,
+      "cursoId": 1,
+      "estado": "Activo",
+      "progreso": 75,
+      "temasVistos": [1, 2, 3],
+      "tareasCompletadas": [1, 2]
+    },
+    {
+      "id": 2,
+      "usuarioId": 1,
+      "cursoId": 2,
+      "estado": "Activo",
+      "progreso": 40,
+      "temasVistos": [1, 2],
+      "tareasCompletadas": [1]
+    },
+    {
+      "id": 3,
+      "usuarioId": 1,
+      "cursoId": 3,
+      "estado": "Activo",
+      "progreso": 20,
+      "temasVistos": [1],
+      "tareasCompletadas": []
+    },
+    {
+      "id": 4,
+      "usuarioId": 2,
+      "cursoId": 4,
+      "estado": "Activo",
+      "progreso": 100,
+      "temasVistos": [1, 2, 3, 4, 5],
+      "tareasCompletadas": [1, 2, 3, 4]
+    },
+    {
+      "id": 5,
+      "usuarioId": 3,
+      "cursoId": 2,
+      "estado": "Activo",
+      "progreso": 60,
+      "temasVistos": [1, 2, 3],
+      "tareasCompletadas": [1, 2]
+    },
+    {
+      "id": 6,
+      "usuarioId": 3,
+      "cursoId": 4,
+      "estado": "Activo",
+      "progreso": 15,
+      "temasVistos": [1],
+      "tareasCompletadas": []
+    }
+  ]
 }

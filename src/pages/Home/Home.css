@@ -1,116 +1,195 @@
-.home {
-    min-height: 100vh;
+.home-page {
+    min-height: calc(100vh - 76px);
     background: #f8f8fc;
+    padding: 70px 0 90px;
 }
 
-.home-hero {
-    padding: 90px 8% 100px;
-    background:
-        radial-gradient(
-            circle at 80% 20%,
-            rgba(108, 74, 182, 0.12),
-            transparent 35%
-        ),
-        linear-gradient(
-            135deg,
-            #f8f7fc 0%,
-            #eef2fa 100%
-        );
+.home-container {
+    width: min(1200px, 92%);
+    margin: 0 auto;
 }
 
-.hero-content {
-    max-width: 780px;
+/* =========================
+   ENCABEZADO
+========================= */
+
+.home-header {
+    max-width: 720px;
+    margin-bottom: 65px;
 }
 
-.hero-label,
-.section-label {
-    color: #62429e;
-    font-size: 12px;
+.home-label,
+.home-section-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #6c4ab6;
+    font-size: 11px;
     font-weight: 700;
     letter-spacing: 1.5px;
 }
 
-.hero-content h1 {
-    margin: 18px 0;
+.home-header h1 {
+    margin: 0 0 18px;
     color: #202033;
-    font-size: clamp(42px, 6vw, 72px);
-    line-height: 1.05;
-    letter-spacing: -2px;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.08;
+    font-weight: 700;
+    letter-spacing: -1.8px;
 }
 
-.hero-content h1 span {
-    color: #5d43a3;
-}
-
-.hero-content p {
-    max-width: 620px;
-    color: #707085;
-    font-size: 18px;
+.home-header p {
+    max-width: 600px;
+    margin: 0;
+    color: #74758a;
+    font-size: 16px;
     line-height: 1.7;
 }
 
-.courses-section {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 70px 6%;
+/* =========================
+   SECCIÓN DE CURSOS
+========================= */
+
+.home-courses {
+    width: 100%;
 }
 
-.section-heading {
+.home-section-header {
     display: flex;
+    align-items: flex-end;
     justify-content: space-between;
-    align-items: end;
-    gap: 40px;
-    margin-bottom: 40px;
+    gap: 30px;
+    margin-bottom: 30px;
 }
 
-.section-heading h2 {
-    margin-top: 8px;
-    color: #202033;
-    font-size: 34px;
+.home-section-header > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.section-heading > p {
-    max-width: 350px;
-    color: #77778b;
+.home-section-label {
+    margin-bottom: 8px;
+}
+
+.home-section-header h2 {
+    margin: 0;
+    color: #27273a;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+}
+
+.home-course-count {
+    color: #77788c;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* =========================
+   GRID DE CURSOS
+========================= */
+
+.home-course-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* =========================
+   MENSAJES
+========================= */
+
+.home-message {
+    margin: 35px 0;
+    color: #77788c;
+    font-size: 14px;
+}
+
+.home-error {
+    color: #b0445c;
+}
+
+/* =========================
+   ESTADO VACÍO
+========================= */
+
+.home-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    padding: 40px;
+    border: 1px solid #e7e5ef;
+    border-radius: 14px;
+    background: #ffffff;
+    text-align: center;
+}
+
+.home-empty h3 {
+    margin: 0 0 10px;
+    color: #29293c;
+    font-size: 18px;
+    font-weight: 650;
+}
+
+.home-empty p {
+    max-width: 430px;
+    margin: 0;
+    color: #77788c;
+    font-size: 14px;
     line-height: 1.6;
 }
 
-.courses-grid {
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(280px, 1fr)
-    );
-    gap: 24px;
-}
+/* =========================
+   RESPONSIVE
+========================= */
 
-.status-message {
-    padding: 30px;
-    text-align: center;
-    color: #707085;
-}
-
-.status-message.error {
-    color: #b14d65;
-}
-
-@media (max-width: 768px) {
-
-    .home-hero {
-        padding: 65px 6% 75px;
+@media (max-width: 950px) {
+    .home-course-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .hero-content h1 {
-        letter-spacing: -1px;
+    .home-header {
+        margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 650px) {
+    .home-page {
+        padding: 50px 0 70px;
     }
 
-    .section-heading {
-        flex-direction: column;
+    .home-header h1 {
+        font-size: 40px;
+    }
+
+    .home-section-header {
         align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .courses-section {
-        padding: 50px 6%;
+    .home-course-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    .home-header h1 {
+        font-size: 34px;
     }
 
+    .home-header p {
+        font-size: 14px;
+    }
+
+    .home-section-header h2 {
+        font-size: 24px;
+    }
+
+    .home-empty {
+        padding: 30px 20px;
+    }
 }

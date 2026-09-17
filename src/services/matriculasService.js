@@ -10,6 +10,20 @@ export const obtenerMatriculas = async () => {
     return await response.json();
 };
 
+export const obtenerMatriculasPorUsuario = async (usuarioId) => {
+    const response = await fetch(
+        `${API_URL}/matriculas?usuarioId=${usuarioId}`
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "No se pudieron obtener las matrículas del usuario"
+        );
+    }
+
+    return await response.json();
+};
+
 export const crearMatricula = async (matricula) => {
     const response = await fetch(`${API_URL}/matriculas`, {
         method: "POST",

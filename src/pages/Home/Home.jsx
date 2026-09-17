@@ -1,139 +1,174 @@
 import { useEffect, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 import { obtenerCursos } from "../../services/cursosService";
+import { obtenerMatriculasPorUsuario } from "../../services/matriculasService";
 import CourseCard from "../../components/CourseCard/CourseCard";
-import CourseModal from "../../components/CourseModal/CourseModal";
 import "./Home.css";
 
 function Home() {
+    const {
+        user,
+        isAuthenticated,
+        loadingAuth
+    } = useAuth();
 
     const [cursos, setCursos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
-    const [cursoSeleccionado, setCursoSeleccionado] = useState(null);
 
     useEffect(() => {
+        // Esperamos a que AuthContext termine
+        // de recuperar la sesión
+        if (loadingAuth) {
+            return;
+        }
 
         const cargarCursos = async () => {
-
             try {
+                setLoading(true);
+                setError("");
 
-                const data = await obtenerCursos();
+                // Obtener todos los cursos
+                const cursosDisponibles =
+                    await obtenerCursos();
 
-                setCursos(data);
+                // Si NO hay sesión, mostrar todos
+                if (!isAuthenticated || !user?.id) {
+                    setCursos(cursosDisponibles);
+                    return;
+                }
+
+                // Obtener matrículas del usuario
+                const matriculas =
+                    await obtenerMatriculasPorUsuario(user.id);
+
+                // IDs de cursos matriculados
+                const cursosMatriculados =
+                    matriculas.map(
+                        (matricula) =>
+                            Number(matricula.cursoId)
+                    );
+
+                // Mostrar solamente cursos
+                // que NO están matriculados
+                const cursosFiltrados =
+                    cursosDisponibles.filter(
+                        (curso) =>
+                            !cursosMatriculados.includes(
+                                Number(curso.id)
+                            )
+                    );
+
+                setCursos(cursosFiltrados);
 
             } catch (error) {
-
                 console.error(error);
 
                 setError(
                     "No se pudieron cargar los cursos."
                 );
-
             } finally {
-
                 setLoading(false);
-
             }
         };
 
         cargarCursos();
 
-    }, []);
-
-    const abrirModal = (curso) => {
-        setCursoSeleccionado(curso);
-    };
-
-    const cerrarModal = () => {
-        setCursoSeleccionado(null);
-    };
+    }, [
+        loadingAuth,
+        isAuthenticated,
+        user
+    ]);
 
     return (
-        <main className="home">
+        <main className="home-page">
+            <div className="home-container">
 
-            <section className="home-hero">
-
-                <div className="hero-content">
-
-                    <span className="hero-label">
-                        PLATAFORMA DE APRENDIZAJE
+                <section className="home-header">
+                    <span className="home-label">
+                        FORMACIÓN ONLINE
                     </span>
 
                     <h1>
-                        Aprende hoy,
-                        <span> transforma tu futuro.</span>
+                        Aprende algo nuevo.
                     </h1>
 
                     <p>
-                        Explora cursos diseñados para ayudarte
-                        a desarrollar nuevas habilidades y
-                        avanzar profesionalmente.
+                        Explora nuestros cursos y desarrolla
+                        nuevas habilidades a tu ritmo.
                     </p>
+                </section>
 
-                </div>
+                <section className="home-courses">
 
-            </section>
+                    <div className="home-section-header">
+                        <div>
+                            <span className="home-section-label">
+                                CURSOS DISPONIBLES
+                            </span>
 
-            <section className="courses-section">
+                            <h2>
+                                {isAuthenticated
+                                    ? "Continúa aprendiendo"
+                                    : "Encuentra tu próximo curso"}
+                            </h2>
+                        </div>
 
-                <div className="section-heading">
-
-                    <div>
-
-                        <span className="section-label">
-                            NUESTRA OFERTA
-                        </span>
-
-                        <h2>
-                            Cursos disponibles
-                        </h2>
-
+                        {!loading && (
+                            <span className="home-course-count">
+                                {cursos.length}{" "}
+                                {cursos.length === 1
+                                    ? "curso"
+                                    : "cursos"}
+                            </span>
+                        )}
                     </div>
 
-                    <p>
-                        Encuentra el curso que mejor se adapte
-                        a tus objetivos.
-                    </p>
+                    {loading && (
+                        <p className="home-message">
+                            Cargando cursos...
+                        </p>
+                    )}
 
-                </div>
+                    {error && (
+                        <p className="home-message home-error">
+                            {error}
+                        </p>
+                    )}
 
-                {loading && (
-                    <p className="status-message">
-                        Cargando cursos...
-                    </p>
-                )}
+                    {!loading &&
+                        !error &&
+                        cursos.length === 0 && (
+                            <div className="home-empty">
+                                <h3>
+                                    No hay cursos disponibles
+                                </h3>
 
-                {error && (
-                    <p className="status-message error">
-                        {error}
-                    </p>
-                )}
+                                <p>
+                                    Ya estás matriculado en
+                                    todos los cursos disponibles.
+                                </p>
+                            </div>
+                        )}
 
-                {!loading && !error && (
+                    {!loading &&
+                        !error &&
+                        cursos.length > 0 && (
+                            <div className="home-course-grid">
 
-                    <div className="courses-grid">
+                                {cursos.map((curso) => (
+                                    <CourseCard
+                                        key={curso.id}
+                                        curso={curso}
+                                    />
+                                ))}
 
-                        {cursos.map((curso) => (
+                            </div>
+                        )}
 
-                            <CourseCard
-                                key={curso.id}
-                                curso={curso}
-                                onVerInfo={abrirModal}
-                            />
+                </section>
 
-                        ))}
-
-                    </div>
-
-                )}
-
-            </section>
-
-            <CourseModal
-                curso={cursoSeleccionado}
-                onClose={cerrarModal}
-            />
-
+            </div>
         </main>
     );
 }

@@ -1,33 +1,43 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useState
+} from "react";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-
     const [user, setUser] = useState(null);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loadingAuth, setLoadingAuth] = useState(true);
 
     useEffect(() => {
-
-        const usuarioGuardado = localStorage.getItem("usuario");
+        const usuarioGuardado =
+            localStorage.getItem("usuario");
 
         if (usuarioGuardado) {
+            try {
+                const usuario =
+                    JSON.parse(usuarioGuardado);
 
-            const usuario = JSON.parse(usuarioGuardado);
+                setUser(usuario);
+                setIsAuthenticated(true);
 
-            setUser(usuario);
-            setIsAuthenticated(true);
+            } catch (error) {
+                console.error(
+                    "No se pudo recuperar la sesión:",
+                    error
+                );
 
+                localStorage.removeItem("usuario");
+            }
         }
 
+        setLoadingAuth(false);
     }, []);
 
-    const login = (nombre) => {
-
-        const usuario = {
-            nombre: nombre.trim()
-        };
-
+    const login = (usuario) => {
         setUser(usuario);
         setIsAuthenticated(true);
 
@@ -38,7 +48,6 @@ export function AuthProvider({ children }) {
     };
 
     const logout = () => {
-
         setUser(null);
         setIsAuthenticated(false);
 
@@ -50,6 +59,7 @@ export function AuthProvider({ children }) {
             value={{
                 user,
                 isAuthenticated,
+                loadingAuth,
                 login,
                 logout
             }}
