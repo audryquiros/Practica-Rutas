@@ -1,7 +1,7 @@
 {
   "cursos": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Desarrollo Web con React",
       "categoria": "Programación",
       "profesor": "Juan Pérez",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Diseño UX/UI",
       "categoria": "Diseño",
       "profesor": "María González",
@@ -109,7 +109,7 @@
       ]
     },
     {
-      "id": 3,
+      "id": "3",
       "nombre": "JavaScript desde cero",
       "categoria": "Programación",
       "profesor": "Carlos Rodríguez",
@@ -167,7 +167,7 @@
       ]
     },
     {
-      "id": 4,
+      "id": "4",
       "nombre": "Bases de Datos",
       "categoria": "Tecnología",
       "profesor": "Ana Martínez",
@@ -223,19 +223,19 @@
   ],
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Audry",
       "email": "audry@email.com",
       "password": "123456"
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Carlos",
       "email": "carlos@email.com",
       "password": "123456"
     },
     {
-      "id": 3,
+      "id": "3",
       "nombre": "María",
       "email": "maria@email.com",
       "password": "123456"
@@ -243,58 +243,102 @@
   ],
   "matriculas": [
     {
-      "id": 1,
+      "id": "1",
       "usuarioId": 1,
       "cursoId": 1,
       "estado": "Activo",
       "progreso": 75,
-      "temasVistos": [1, 2, 3],
-      "tareasCompletadas": [1, 2]
+      "temasVistos": [
+        1,
+        2,
+        3
+      ],
+      "tareasCompletadas": [
+        1,
+        2
+      ]
     },
     {
-      "id": 2,
+      "id": "2",
       "usuarioId": 1,
       "cursoId": 2,
       "estado": "Activo",
       "progreso": 40,
-      "temasVistos": [1, 2],
-      "tareasCompletadas": [1]
+      "temasVistos": [
+        1,
+        2
+      ],
+      "tareasCompletadas": [
+        1
+      ]
     },
     {
-      "id": 3,
+      "id": "3",
       "usuarioId": 1,
       "cursoId": 3,
       "estado": "Activo",
       "progreso": 20,
-      "temasVistos": [1],
+      "temasVistos": [
+        1
+      ],
       "tareasCompletadas": []
     },
     {
-      "id": 4,
+      "id": "4",
       "usuarioId": 2,
       "cursoId": 4,
       "estado": "Activo",
       "progreso": 100,
-      "temasVistos": [1, 2, 3, 4, 5],
-      "tareasCompletadas": [1, 2, 3, 4]
+      "temasVistos": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "tareasCompletadas": [
+        1,
+        2,
+        3,
+        4
+      ]
     },
     {
-      "id": 5,
+      "id": "5",
       "usuarioId": 3,
       "cursoId": 2,
       "estado": "Activo",
       "progreso": 60,
-      "temasVistos": [1, 2, 3],
-      "tareasCompletadas": [1, 2]
+      "temasVistos": [
+        1,
+        2,
+        3
+      ],
+      "tareasCompletadas": [
+        1,
+        2
+      ]
     },
     {
-      "id": 6,
+      "id": "6",
       "usuarioId": 3,
       "cursoId": 4,
       "estado": "Activo",
       "progreso": 15,
-      "temasVistos": [1],
+      "temasVistos": [
+        1
+      ],
       "tareasCompletadas": []
+    },
+    {
+      "usuarioId": "1",
+      "cursoId": 4,
+      "estado": "Activo",
+      "progreso": 0,
+      "temasVistos": [],
+      "tareasCompletadas": [],
+      "id": "B5F1YbuV9m8"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

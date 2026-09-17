@@ -1,4 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 
@@ -24,18 +28,32 @@ function Routing() {
 
                 {/* RUTAS PÚBLICAS */}
 
-                <Route path="/" element={<Home />} />
+                <Route
+                    path="/"
+                    element={<Home />}
+                />
 
-                <Route path="/login" element={<Login />} />
+                <Route
+                    path="/login"
+                    element={<Login />}
+                />
 
-                <Route path="/registro" element={<Registro />} />
+                <Route
+                    path="/registro"
+                    element={<Registro />}
+                />
 
-                <Route path="/ayuda" element={<Ayuda />} />
+                <Route
+                    path="/ayuda"
+                    element={<Ayuda />}
+                />
 
 
                 {/* RUTAS PRIVADAS */}
 
-                <Route element={<PrivateRoutes />}>
+                <Route
+                    element={<PrivateRoutes />}
+                >
 
                     <Route
                         path="/dashboard"
@@ -53,7 +71,7 @@ function Routing() {
                     />
 
                     <Route
-                        path="/pago"
+                        path="/pago/:cursoId"
                         element={<Pago />}
                     />
 

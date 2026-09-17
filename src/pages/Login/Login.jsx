@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import {
+    Link,
+    useLocation,
+    useNavigate
+} from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
 import { obtenerUsuarioPorEmail } from "../../services/usuariosService";
@@ -14,7 +18,9 @@ function Login() {
     const [loading, setLoading] = useState(false);
 
     const { login } = useAuth();
+
     const navigate = useNavigate();
+    const location = useLocation();
 
     const manejarLogin = async (event) => {
         event.preventDefault();
@@ -29,21 +35,38 @@ function Login() {
         try {
             setLoading(true);
 
-            const usuario = await obtenerUsuarioPorEmail(email);
+            const usuario =
+                await obtenerUsuarioPorEmail(email);
 
             if (!usuario) {
-                setError("El correo no está registrado.");
+                setError(
+                    "El correo no está registrado."
+                );
                 return;
             }
 
             if (usuario.password !== password) {
-                setError("La contraseña es incorrecta.");
+                setError(
+                    "La contraseña es incorrecta."
+                );
                 return;
             }
 
             login(usuario);
 
-            navigate("/dashboard");
+            const cursoId =
+                location.state?.cursoId;
+
+            if (cursoId) {
+                navigate(
+                    `/pago/${cursoId}`,
+                    {
+                        replace: true
+                    }
+                );
+            } else {
+                navigate("/dashboard");
+            }
 
         } catch (error) {
             console.error(error);
@@ -58,6 +81,7 @@ function Login() {
 
     return (
         <main className="login-page">
+
             <section className="login-container">
 
                 <div className="login-header">
@@ -66,7 +90,9 @@ function Login() {
                         BIENVENIDO DE NUEVO
                     </span>
 
-                    <h1>Inicia sesión</h1>
+                    <h1>
+                        Inicia sesión
+                    </h1>
 
                     <p>
                         Accede a tu cuenta para continuar
@@ -91,7 +117,9 @@ function Login() {
                             id="email"
                             value={email}
                             onChange={(event) => {
-                                setEmail(event.target.value);
+                                setEmail(
+                                    event.target.value
+                                );
                                 setError("");
                             }}
                             placeholder="tu@email.com"
@@ -110,7 +138,9 @@ function Login() {
                             id="password"
                             value={password}
                             onChange={(event) => {
-                                setPassword(event.target.value);
+                                setPassword(
+                                    event.target.value
+                                );
                                 setError("");
                             }}
                             placeholder="••••••••"
@@ -137,14 +167,17 @@ function Login() {
                 </form>
 
                 <p className="login-register">
+
                     ¿No tienes una cuenta?
 
                     <Link to="/registro">
                         Crear cuenta
                     </Link>
+
                 </p>
 
             </section>
+
         </main>
     );
 }

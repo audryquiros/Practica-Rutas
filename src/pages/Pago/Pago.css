@@ -30,6 +30,7 @@
 
     color: #202033;
     font-size: 34px;
+    font-weight: 700;
 }
 
 .pago-header p {
@@ -37,6 +38,7 @@
 
     color: #6f7085;
     font-size: 15px;
+    line-height: 1.6;
 }
 
 .pago-card {
@@ -61,6 +63,7 @@
 
     color: #202033;
     font-size: 20px;
+    font-weight: 700;
 }
 
 .pago-course p {
@@ -68,6 +71,17 @@
 
     color: #6f7085;
     font-size: 14px;
+    line-height: 1.6;
+}
+
+.pago-course strong {
+    display: block;
+    margin-top: 18px;
+
+    color: #6c4ab6;
+
+    font-size: 22px;
+    font-weight: 700;
 }
 
 .pago-divider {
@@ -108,22 +122,50 @@
 
     outline: none;
 
+    background: #ffffff;
+
+    color: #202033;
+
     font-family: inherit;
     font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.pago-form input::placeholder {
+    color: #a1a1b0;
 }
 
 .pago-form input:focus {
     border-color: #6c4ab6;
-    box-shadow: 0 0 0 3px rgba(108, 74, 182, 0.1);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(108, 74, 182, 0.1);
 }
 
 .pago-row {
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 15px;
 }
 
+.pago-form-error {
+    margin: -5px 0 0;
+
+    color: #b0445c;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
 .pago-button {
+    width: 100%;
+
     padding: 13px 18px;
 
     border: none;
@@ -137,13 +179,59 @@
     font-weight: 600;
 
     cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .pago-button:hover {
     background: #4b2f82;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px
+        rgba(108, 74, 182, 0.18);
+}
+
+.pago-button:disabled {
+    opacity: 0.7;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+.pago-message {
+    margin-top: 30px;
+
+    color: #74758a;
+
+    font-size: 14px;
+}
+
+.pago-error {
+    color: #b0445c;
 }
 
 @media (max-width: 550px) {
+
+    .pago-page {
+        padding: 45px 0 60px;
+    }
+
+    .pago-card {
+        padding: 24px;
+    }
+
+    .pago-header h1 {
+        font-size: 29px;
+    }
+
     .pago-row {
         grid-template-columns: 1fr;
     }

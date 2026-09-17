@@ -1,20 +1,21 @@
 import { useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 import "./CourseModal.css";
 
 function CourseModal({ curso, onClose }) {
+    const { isAuthenticated } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
-
         if (!curso) {
             return;
         }
 
         const handleEscape = (event) => {
-
             if (event.key === "Escape") {
                 onClose();
             }
-
         };
 
         document.addEventListener(
@@ -28,7 +29,6 @@ function CourseModal({ curso, onClose }) {
                 handleEscape
             );
         };
-
     }, [curso, onClose]);
 
     if (!curso) {
@@ -36,11 +36,25 @@ function CourseModal({ curso, onClose }) {
     }
 
     const handleOverlayClick = (event) => {
-
         if (event.target === event.currentTarget) {
             onClose();
         }
+    };
 
+    const handleMatricula = () => {
+        onClose();
+
+        if (!isAuthenticated) {
+            navigate("/login", {
+                state: {
+                    cursoId: curso.id
+                }
+            });
+
+            return;
+        }
+
+        navigate(`/pago/${curso.id}`);
     };
 
     return (
@@ -133,6 +147,7 @@ function CourseModal({ curso, onClose }) {
                     <button
                         type="button"
                         className="modal-enroll"
+                        onClick={handleMatricula}
                     >
                         Matricular curso
                     </button>

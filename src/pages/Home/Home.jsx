@@ -3,6 +3,7 @@ import { useAuth } from "../../context/AuthContext";
 import { obtenerCursos } from "../../services/cursosService";
 import { obtenerMatriculasPorUsuario } from "../../services/matriculasService";
 import CourseCard from "../../components/CourseCard/CourseCard";
+import CourseModal from "../../components/CourseModal/CourseModal";
 import "./Home.css";
 
 function Home() {
@@ -13,12 +14,13 @@ function Home() {
     } = useAuth();
 
     const [cursos, setCursos] = useState([]);
+    const [cursoSeleccionado, setCursoSeleccionado] =
+        useState(null);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
-        // Esperamos a que AuthContext termine
-        // de recuperar la sesión
         if (loadingAuth) {
             return;
         }
@@ -28,29 +30,23 @@ function Home() {
                 setLoading(true);
                 setError("");
 
-                // Obtener todos los cursos
                 const cursosDisponibles =
                     await obtenerCursos();
 
-                // Si NO hay sesión, mostrar todos
                 if (!isAuthenticated || !user?.id) {
                     setCursos(cursosDisponibles);
                     return;
                 }
 
-                // Obtener matrículas del usuario
                 const matriculas =
                     await obtenerMatriculasPorUsuario(user.id);
 
-                // IDs de cursos matriculados
                 const cursosMatriculados =
                     matriculas.map(
                         (matricula) =>
                             Number(matricula.cursoId)
                     );
 
-                // Mostrar solamente cursos
-                // que NO están matriculados
                 const cursosFiltrados =
                     cursosDisponibles.filter(
                         (curso) =>
@@ -82,9 +78,11 @@ function Home() {
 
     return (
         <main className="home-page">
+
             <div className="home-container">
 
                 <section className="home-header">
+
                     <span className="home-label">
                         FORMACIÓN ONLINE
                     </span>
@@ -97,12 +95,15 @@ function Home() {
                         Explora nuestros cursos y desarrolla
                         nuevas habilidades a tu ritmo.
                     </p>
+
                 </section>
 
                 <section className="home-courses">
 
                     <div className="home-section-header">
+
                         <div>
+
                             <span className="home-section-label">
                                 CURSOS DISPONIBLES
                             </span>
@@ -112,6 +113,7 @@ function Home() {
                                     ? "Continúa aprendiendo"
                                     : "Encuentra tu próximo curso"}
                             </h2>
+
                         </div>
 
                         {!loading && (
@@ -122,6 +124,7 @@ function Home() {
                                     : "cursos"}
                             </span>
                         )}
+
                     </div>
 
                     {loading && (
@@ -139,7 +142,9 @@ function Home() {
                     {!loading &&
                         !error &&
                         cursos.length === 0 && (
+
                             <div className="home-empty">
+
                                 <h3>
                                     No hay cursos disponibles
                                 </h3>
@@ -148,19 +153,26 @@ function Home() {
                                     Ya estás matriculado en
                                     todos los cursos disponibles.
                                 </p>
+
                             </div>
                         )}
 
                     {!loading &&
                         !error &&
                         cursos.length > 0 && (
+
                             <div className="home-course-grid">
 
                                 {cursos.map((curso) => (
+
                                     <CourseCard
                                         key={curso.id}
                                         curso={curso}
+                                        onVerInfo={
+                                            setCursoSeleccionado
+                                        }
                                     />
+
                                 ))}
 
                             </div>
@@ -169,6 +181,14 @@ function Home() {
                 </section>
 
             </div>
+
+            <CourseModal
+                curso={cursoSeleccionado}
+                onClose={() =>
+                    setCursoSeleccionado(null)
+                }
+            />
+
         </main>
     );
 }
