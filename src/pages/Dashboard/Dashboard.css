@@ -251,7 +251,7 @@
 
 .dashboard-heading h1 {
     margin: 0;
-    font-size: 32px;
+    font-size: var(--font-page-title);
     line-height: 1.2;
     font-weight: 700;
     letter-spacing: -0.7px;
@@ -259,7 +259,7 @@
 
 .dashboard-heading p {
     margin: 10px 0 0;
-    font-size: 15px;
+    font-size: var(--font-body);
     line-height: 1.6;
 }
 
@@ -308,7 +308,7 @@
 
 .dashboard-stat-card strong {
     margin-top: 8px;
-    font-size: 27px;
+    font-size: 25px;
     line-height: 1;
 }
 
@@ -330,7 +330,7 @@
 
 .dashboard-section-header h2 {
     margin: 0;
-    font-size: 21px;
+    font-size: var(--font-section-title);
     line-height: 1.25;
 }
 
@@ -569,7 +569,7 @@
     }
 
     .dashboard-heading h1 {
-        font-size: 27px;
+        font-size: 30px;
     }
 
     .dashboard-stats {
@@ -599,7 +599,7 @@
     }
 
     .dashboard-heading h1 {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     .dashboard-courses-section {

@@ -72,6 +72,13 @@ a {
 
     --font-size-base: 16px;
 
+    /* Escala tipográfica consistente entre páginas */
+    --font-page-title: 36px;
+    --font-section-title: 22px;
+    --font-card-title: 17px;
+    --font-body: 14px;
+    --font-small: 12px;
+
     --transition:
         background-color 0.25s ease,
         border-color 0.25s ease,

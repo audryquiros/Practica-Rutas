@@ -31,7 +31,7 @@
 .home-header h1 {
     margin: 0 0 18px;
     color: #202033;
-    font-size: clamp(38px, 5vw, 58px);
+    font-size: var(--font-page-title);
     line-height: 1.08;
     font-weight: 700;
     letter-spacing: -1.8px;
@@ -41,7 +41,7 @@
     max-width: 600px;
     margin: 0;
     color: #74758a;
-    font-size: 16px;
+    font-size: var(--font-body);
     line-height: 1.7;
 }
 
@@ -74,7 +74,7 @@
 .home-section-header h2 {
     margin: 0;
     color: #27273a;
-    font-size: 28px;
+    font-size: var(--font-section-title);
     font-weight: 700;
     letter-spacing: -0.7px;
 }
@@ -130,7 +130,7 @@
 .home-empty h3 {
     margin: 0 0 10px;
     color: #29293c;
-    font-size: 18px;
+    font-size: var(--font-card-title);
     font-weight: 650;
 }
 
@@ -162,7 +162,7 @@
     }
 
     .home-header h1 {
-        font-size: 40px;
+        font-size: 32px;
     }
 
     .home-section-header {
@@ -178,7 +178,7 @@
 
 @media (max-width: 450px) {
     .home-header h1 {
-        font-size: 34px;
+        font-size: 32px;
     }
 
     .home-header p {
@@ -186,7 +186,7 @@
     }
 
     .home-section-header h2 {
-        font-size: 24px;
+        font-size: 20px;
     }
 
     .home-empty {

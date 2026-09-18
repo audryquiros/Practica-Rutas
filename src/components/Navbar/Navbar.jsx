@@ -52,8 +52,8 @@ function Navbar() {
                     aria-label="Learnix"
                 >
                     <img
-                        src="/favicon.svg"
-                        alt=""
+                        src="/logo-icon.png"
+                        alt="Learnix Logo"
                     />
                     <span>Learnix</span>
                 </Link>
@@ -73,7 +73,7 @@ function Navbar() {
                         {t("inicio")}
                     </NavLink>
 
-                    {isAuthenticated && (
+                    {isAuthenticated && !esAdmin && (
                         <NavLink
                             to="/dashboard"
                             className={({ isActive }) =>

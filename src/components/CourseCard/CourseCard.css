@@ -109,7 +109,7 @@
 
     color: #17172d;
 
-    font-size: 21px;
+    font-size: 17px;
     line-height: 1.3;
     font-weight: 700;
 
@@ -133,7 +133,7 @@
 
     color: #73738a;
 
-    font-size: 14px;
+    font-size: var(--font-body);
     line-height: 1.6;
 
     overflow: hidden;
@@ -321,7 +321,7 @@
 .course-price-promotion strong {
     color: #51378a;
 
-    font-size: 21px;
+    font-size: 17px;
     line-height: 1;
 
     font-weight: 700;
