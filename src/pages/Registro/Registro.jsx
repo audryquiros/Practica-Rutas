@@ -1,4 +1,6 @@
-import { useState } from "react";
+import {
+    useState
+} from "react";
 
 import {
     Link,
@@ -16,31 +18,17 @@ import "./Registro.css";
 
 function Registro() {
     const { t } = useTheme();
-
     const navigate = useNavigate();
 
-    const [nombre, setNombre] =
-        useState("");
+    const [nombre, setNombre] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmarPassword, setConfirmarPassword] = useState("");
 
-    const [email, setEmail] =
-        useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const [password, setPassword] =
-        useState("");
-
-    const [confirmarPassword, setConfirmarPassword] =
-        useState("");
-
-    const [error, setError] =
-        useState("");
-
-    const [loading, setLoading] =
-        useState(false);
-
-    const manejarRegistro = async (
-        event
-    ) => {
-
+    const manejarRegistro = async (event) => {
         event.preventDefault();
 
         setError("");
@@ -51,7 +39,6 @@ function Registro() {
             !password.trim() ||
             !confirmarPassword.trim()
         ) {
-
             setError(
                 t("completaTodosCampos")
             );
@@ -59,10 +46,7 @@ function Registro() {
             return;
         }
 
-        if (
-            password.length < 6
-        ) {
-
+        if (password.length < 6) {
             setError(
                 t("minimoCaracteres")
             );
@@ -70,11 +54,7 @@ function Registro() {
             return;
         }
 
-        if (
-            password !==
-            confirmarPassword
-        ) {
-
+        if (password !== confirmarPassword) {
             setError(
                 t("contrasenasNoCoinciden")
             );
@@ -83,7 +63,6 @@ function Registro() {
         }
 
         try {
-
             setLoading(true);
 
             const usuarioExistente =
@@ -92,7 +71,6 @@ function Registro() {
                 );
 
             if (usuarioExistente) {
-
                 setError(
                     t("correoYaExiste")
                 );
@@ -102,7 +80,9 @@ function Registro() {
 
             await registrarUsuario({
                 nombre: nombre.trim(),
-                email: email.trim().toLowerCase(),
+                email: email
+                    .trim()
+                    .toLowerCase(),
                 password,
                 role: "usuario"
             });
@@ -121,7 +101,6 @@ function Registro() {
             );
 
         } catch (error) {
-
             console.error(error);
 
             setError(
@@ -129,7 +108,6 @@ function Registro() {
             );
 
         } finally {
-
             setLoading(false);
         }
     };
@@ -138,6 +116,23 @@ function Registro() {
         <main className="registro-page">
 
             <section className="registro-container">
+
+                {/* LOGO */}
+
+                <div className="registro-brand-area">
+                    <Link
+                        to="/"
+                        className="registro-logo"
+                        aria-label="Learnix"
+                    >
+                        <img
+                            src="/logo.png"
+                            alt="Learnix"
+                        />
+                    </Link>
+                </div>
+
+                {/* ENCABEZADO */}
 
                 <div className="registro-header">
 
@@ -154,6 +149,8 @@ function Registro() {
                     </p>
 
                 </div>
+
+                {/* FORMULARIO */}
 
                 <form
                     className="registro-form"
@@ -174,11 +171,10 @@ function Registro() {
                                 setNombre(
                                     event.target.value
                                 );
+
                                 setError("");
                             }}
-                            placeholder={
-                                t("tuNombre")
-                            }
+                            placeholder={t("tuNombre")}
                             autoComplete="name"
                         />
 
@@ -187,9 +183,7 @@ function Registro() {
                     <div className="form-group">
 
                         <label htmlFor="registro-email">
-                            {t(
-                                "correoElectronico"
-                            )}
+                            {t("correoElectronico")}
                         </label>
 
                         <input
@@ -200,6 +194,7 @@ function Registro() {
                                 setEmail(
                                     event.target.value
                                 );
+
                                 setError("");
                             }}
                             placeholder="tu@email.com"
@@ -222,13 +217,10 @@ function Registro() {
                                 setPassword(
                                     event.target.value
                                 );
+
                                 setError("");
                             }}
-                            placeholder={
-                                t(
-                                    "minimoCaracteres"
-                                )
-                            }
+                            placeholder={t("minimoCaracteres")}
                             autoComplete="new-password"
                         />
 
@@ -237,9 +229,7 @@ function Registro() {
                     <div className="form-group">
 
                         <label htmlFor="confirmar-password">
-                            {t(
-                                "repiteContrasena"
-                            )}
+                            {t("repiteContrasena")}
                         </label>
 
                         <input
@@ -250,13 +240,10 @@ function Registro() {
                                 setConfirmarPassword(
                                     event.target.value
                                 );
+
                                 setError("");
                             }}
-                            placeholder={
-                                t(
-                                    "repiteContrasena"
-                                )
-                            }
+                            placeholder={t("repiteContrasena")}
                             autoComplete="new-password"
                         />
 
@@ -274,19 +261,20 @@ function Registro() {
                         disabled={loading}
                     >
                         {loading
-                            ? t(
-                                "creandoCuenta"
-                            )
-                            : t(
-                                "crearCuentaTexto"
-                            )}
+                            ? t("creandoCuenta")
+                            : t("crearCuentaTexto")
+                        }
                     </button>
 
                 </form>
 
+                {/* LOGIN */}
+
                 <p className="registro-login">
 
-                    {t("yaTienesCuenta")}{" "}
+                    <span>
+                        {t("yaTienesCuenta")}
+                    </span>
 
                     <Link to="/login">
                         {t("iniciarSesion")}

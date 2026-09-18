@@ -21,22 +21,63 @@ export const obtenerMatriculasPorUsuario = async (usuarioId) => {
     );
 };
 
+export const obtenerMatriculaPorId = async (id) => {
+    const response = await fetch(
+        `${API_URL}/matriculas/${id}`
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "No se pudo obtener la matrícula"
+        );
+    }
+
+    return await response.json();
+};
+
 export const crearMatricula = async (matricula) => {
-    const response = await fetch(`${API_URL}/matriculas`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            ...matricula,
-            usuarioId: Number(matricula.usuarioId),
-            cursoId: Number(matricula.cursoId)
-        })
-    });
+    const response = await fetch(
+        `${API_URL}/matriculas`,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ...matricula,
+                usuarioId: Number(matricula.usuarioId),
+                cursoId: Number(matricula.cursoId)
+            })
+        }
+    );
 
     if (!response.ok) {
         throw new Error(
             "No se pudo crear la matrícula"
+        );
+    }
+
+    return await response.json();
+};
+
+export const actualizarMatricula = async (
+    id,
+    datos
+) => {
+    const response = await fetch(
+        `${API_URL}/matriculas/${id}`,
+        {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "No se pudo actualizar la matrícula"
         );
     }
 

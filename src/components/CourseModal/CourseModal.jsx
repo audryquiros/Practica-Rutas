@@ -1,16 +1,43 @@
 import { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import "./CourseModal.css";
 
 function CourseModal({ curso, onClose }) {
     const { isAuthenticated } = useAuth();
+    const { preferencias, t } = useTheme();
     const navigate = useNavigate();
 
+    const idiomaIngles = preferencias.idioma === "en";
+
+    const nombreCurso =
+        idiomaIngles && curso?.nombre_en
+            ? curso.nombre_en
+            : curso?.nombre;
+
+    const descripcionCurso =
+        idiomaIngles && curso?.descripcion_en
+            ? curso.descripcion_en
+            : curso?.descripcion;
+
+    const categoriaCurso =
+        idiomaIngles && curso?.categoria_en
+            ? curso.categoria_en
+            : curso?.categoria;
+
+    const duracionCurso =
+        idiomaIngles && curso?.duracion_en
+            ? curso.duracion_en
+            : curso?.duracion;
+
+    const modalidadCurso =
+        idiomaIngles && curso?.modalidad_en
+            ? curso.modalidad_en
+            : curso?.modalidad;
+
     useEffect(() => {
-        if (!curso) {
-            return;
-        }
+        if (!curso) return;
 
         const handleEscape = (event) => {
             if (event.key === "Escape") {
@@ -18,10 +45,7 @@ function CourseModal({ curso, onClose }) {
             }
         };
 
-        document.addEventListener(
-            "keydown",
-            handleEscape
-        );
+        document.addEventListener("keydown", handleEscape);
 
         return () => {
             document.removeEventListener(
@@ -31,9 +55,7 @@ function CourseModal({ curso, onClose }) {
         };
     }, [curso, onClose]);
 
-    if (!curso) {
-        return null;
-    }
+    if (!curso) return null;
 
     const handleOverlayClick = (event) => {
         if (event.target === event.currentTarget) {
@@ -59,17 +81,20 @@ function CourseModal({ curso, onClose }) {
 
     return (
         <div
-            className="modal-overlay"
+            className={`modal-overlay ${
+                preferencias.tema === "oscuro"
+                    ? "modal-dark"
+                    : "modal-light"
+            }`}
             onClick={handleOverlayClick}
         >
-
             <div className="course-modal">
 
                 <button
                     type="button"
                     className="modal-close"
                     onClick={onClose}
-                    aria-label="Cerrar"
+                    aria-label={idiomaIngles ? "Close" : "Cerrar"}
                 >
                     ×
                 </button>
@@ -77,15 +102,15 @@ function CourseModal({ curso, onClose }) {
                 <div className="modal-header">
 
                     <span className="modal-category">
-                        {curso.categoria}
+                        {categoriaCurso}
                     </span>
 
                     <h2>
-                        {curso.nombre}
+                        {nombreCurso}
                     </h2>
 
                     <p>
-                        {curso.descripcion}
+                        {descripcionCurso}
                     </p>
 
                 </div>
@@ -93,39 +118,33 @@ function CourseModal({ curso, onClose }) {
                 <div className="modal-info">
 
                     <div className="modal-info-item">
-
                         <span>
-                            Profesor
+                            {t("profesor")}
                         </span>
 
                         <strong>
                             {curso.profesor}
                         </strong>
-
                     </div>
 
                     <div className="modal-info-item">
-
                         <span>
-                            Duración
+                            {t("duracion")}
                         </span>
 
                         <strong>
-                            {curso.duracion}
+                            {duracionCurso}
                         </strong>
-
                     </div>
 
                     <div className="modal-info-item">
-
                         <span>
-                            Modalidad
+                            {t("modalidad")}
                         </span>
 
                         <strong>
-                            {curso.modalidad}
+                            {modalidadCurso}
                         </strong>
-
                     </div>
 
                 </div>
@@ -135,11 +154,14 @@ function CourseModal({ curso, onClose }) {
                     <div className="modal-price">
 
                         <span>
-                            Inversión
+                            {t("inversion")}
                         </span>
 
                         <strong>
-                            ₡{curso.precio.toLocaleString("es-CR")}
+                            ₡
+                            {Number(curso.precio).toLocaleString(
+                                "es-CR"
+                            )}
                         </strong>
 
                     </div>
@@ -149,13 +171,12 @@ function CourseModal({ curso, onClose }) {
                         className="modal-enroll"
                         onClick={handleMatricula}
                     >
-                        Matricular curso
+                        {t("matricularCurso")}
                     </button>
 
                 </div>
 
             </div>
-
         </div>
     );
 }

@@ -8,7 +8,7 @@ import {
 const ThemeContext = createContext();
 
 const preferenciasIniciales = {
-    tema: "claro",
+    tema: "oscuro",
     idioma: "es",
     tamanioLetra: "normal",
     fuente: "inter",
@@ -18,343 +18,196 @@ const preferenciasIniciales = {
 
 const traducciones = {
     es: {
-        /* =========================
-           NAVBAR
-        ========================= */
-
         inicio: "Inicio",
         misCursos: "Mis cursos",
         administracion: "Administración",
         ayuda: "Ayuda",
-        perfil: "Mi perfil",
+        perfil: "Perfil",
         configuracion: "Configuración",
         usuarios: "Usuarios",
         cerrarSesion: "Cerrar sesión",
         iniciarSesion: "Iniciar sesión",
         crearCuenta: "Crear cuenta",
+        testVocacional: "Test vocacional",
 
-        /* =========================
-           HOME
-        ========================= */
-
-        formacionOnline: "FORMACIÓN ONLINE",
-        aprendeAlgoNuevo: "Aprende algo nuevo.",
-        exploraCursos:
-            "Explora nuestros cursos y desarrolla nuevas habilidades a tu ritmo.",
-        cursosDisponibles: "CURSOS DISPONIBLES",
-        continuaAprendiendo: "Continúa aprendiendo",
-        encuentraCurso: "Encuentra tu próximo curso",
-        curso: "curso",
-        cursos: "cursos",
-        cargandoCursos: "Cargando cursos...",
-        noHayCursos: "No hay cursos disponibles",
-        todosCursos:
-            "Ya estás matriculado en todos los cursos disponibles.",
-        noSePudieronCargarCursos:
-            "No se pudieron cargar los cursos.",
-
-        /* =========================
-           LOGIN
-        ========================= */
-
-        bienvenidoDeNuevo: "BIENVENIDO DE NUEVO",
-        iniciaSesion: "Inicia sesión",
-        accesoCuenta:
-            "Accede a tu cuenta para continuar con tu aprendizaje.",
+        bienvenidoDeNuevo: "Bienvenido de nuevo",
+        accesoCuenta: "Accede a tu cuenta para continuar aprendiendo.",
         correoElectronico: "Correo electrónico",
         contrasena: "Contraseña",
-        completaTodosCampos:
-            "Completa todos los campos.",
-        correoNoRegistrado:
-            "El correo no está registrado.",
-        contrasenaIncorrecta:
-            "La contraseña es incorrecta.",
-        iniciandoSesion:
-            "Iniciando sesión...",
-        errorLogin:
-            "No se pudo iniciar sesión. Intenta nuevamente.",
-        cuentaCreada:
-            "Cuenta creada correctamente. Ahora puedes iniciar sesión.",
-        noTienesCuenta:
-            "¿No tienes una cuenta?",
+        completaTodosCampos: "Completa todos los campos.",
+        correoNoRegistrado: "El correo no está registrado.",
+        contrasenaIncorrecta: "La contraseña es incorrecta.",
+        errorLogin: "No se pudo iniciar sesión.",
+        iniciandoSesion: "Iniciando sesión...",
+        noTienesCuenta: "¿No tienes una cuenta?",
 
-        /* =========================
-           REGISTRO
-        ========================= */
-
-        comienzaAprender: "COMIENZA A APRENDER",
+        comienzaAprender: "Comienza a aprender",
         creaTuCuenta: "Crea tu cuenta",
         registroDescripcion:
             "Regístrate para comenzar a explorar nuestros cursos.",
         nombreCompleto: "Nombre completo",
         tuNombre: "Tu nombre",
-        minimoCaracteres:
-            "Mínimo 6 caracteres",
-        repiteContrasena:
-            "Repite la contraseña",
+        minimoCaracteres: "Mínimo 6 caracteres",
+        repiteContrasena: "Repite la contraseña",
         contrasenasNoCoinciden:
             "Las contraseñas no coinciden.",
-        correoYaExiste:
-            "Ya existe una cuenta con este correo.",
-        cuentaNoCreada:
-            "No se pudo crear la cuenta. Intenta nuevamente.",
-        creandoCuenta:
-            "Creando cuenta...",
-        crearCuentaTexto:
-            "Crear cuenta",
-        yaTienesCuenta:
-            "¿Ya tienes una cuenta?",
+        correoYaExiste: "El correo ya está registrado.",
+        cuentaNoCreada: "No se pudo crear la cuenta.",
+        creandoCuenta: "Creando cuenta...",
+        crearCuentaTexto: "Crear cuenta",
+        yaTienesCuenta: "¿Ya tienes una cuenta?",
+        cuentaCreada:
+            "Cuenta creada correctamente. Ahora puedes iniciar sesión.",
 
-        /* =========================
-           DASHBOARD
-        ========================= */
-
-        miEspacio: "Mi espacio",
-        bienvenida: "Bienvenido",
-        cursosMatriculados: "Cursos matriculados",
-        cursosActualmente: "Cursos actualmente",
-        cursosCompletados: "Cursos completados",
-        progresoGeneral: "Progreso general",
-        progreso: "Progreso",
-        consultaProgreso:
-            "Consulta tu progreso y continúa con tus cursos.",
-        cargandoTusCursos:
-            "Cargando tus cursos...",
-        noSePudieronCargarTusCursos:
-            "No se pudieron cargar tus cursos.",
-        aunNoCursos:
-            "Aún no tienes cursos matriculados.",
-        exploraOferta:
-            "Explora nuestra oferta de cursos para comenzar a aprender.",
-        verCurso: "Ver curso",
-        yaMatriculado: "Ya estás matriculado",
-        misCursosTitulo: "Mis cursos",
-
-        /* =========================
-           PERFIL
-        ========================= */
-
-        miCuenta: "Mi cuenta",
-        informacionPersonal:
-            "Información personal",
-        datosCuenta:
-            "Datos de tu cuenta",
-        editarInformacion:
-            "Editar información",
-        informacionActualizada:
-            "Información actualizada correctamente.",
-        errorActualizar:
-            "No se pudo actualizar la información.",
-        estudiante: "Estudiante",
-        administrador: "Administrador",
-        tipoCuenta: "Tipo de cuenta",
-        idUsuario: "ID de usuario",
-        nombre: "Nombre",
-        correo: "Correo",
-        consultaActualiza:
-            "Consulta y actualiza tu información personal.",
-        otroUsuarioCorreo:
-            "Correo de usuario",
-        guardarCambios:
-            "Guardar cambios",
-        guardando: "Guardando...",
-
-        /* =========================
-           CONFIGURACIÓN
-        ========================= */
-
+        configuracion: "Configuración",
         preferencias: "Preferencias",
         personalizaLearnix:
-            "Personaliza Learnix según tus preferencias.",
+            "Personaliza tu experiencia en Learnix.",
+
         idioma: "Idioma",
-        idiomaPlataforma:
-            "Idioma de la plataforma",
+        idiomaPlataforma: "Idioma de la plataforma",
         seleccionaIdioma:
-            "Selecciona el idioma que deseas utilizar.",
+            "Selecciona el idioma que quieres utilizar.",
         espanol: "Español",
         ingles: "Inglés",
 
-        apariencia:
-            "Apariencia",
+        apariencia: "Apariencia",
         tema: "Tema",
         cambiaColores:
-            "Cambia los colores de la interfaz.",
+            "Cambia la apariencia visual de la plataforma.",
         claro: "Claro",
         oscuro: "Oscuro",
         lavanda: "Lavanda",
         azul: "Azul",
-        interfazClara:
-            "Interfaz clara y luminosa.",
-        menorLuminosidad:
-            "Menor luminosidad y mayor contraste visual.",
-        tonosSuaves:
-            "Tonos suaves y relajados.",
-        tonosFrios:
-            "Tonos fríos y profesionales.",
+        interfazClara: "Interfaz clara",
+        menorLuminosidad: "Menor luminosidad",
+        tonosSuaves: "Tonos suaves",
+        tonosFrios: "Tonos fríos",
 
+        accesibilidad: "Accesibilidad",
         tamanoLetra: "Tamaño de letra",
         ajustaTamano:
             "Ajusta el tamaño del texto según tus necesidades.",
+        "muy-pequena": "Muy pequeña",
+        pequena: "Pequeña",
         normal: "Normal",
         grande: "Grande",
-        muyGrande: "Muy grande",
+        "muy-grande": "Muy grande",
+        tamanoActual: "Tamaño actual",
 
-        fuente: "Fuente",
         tipografia: "Tipografía",
+        fuente: "Fuente",
         seleccionaFuente:
-            "Selecciona la fuente que deseas utilizar.",
-        estiloSerif:
-            "Estilo serif clásico.",
-        modernaLimpia:
-            "Moderna y limpia.",
-        simpleFamiliar:
-            "Simple y familiar.",
+            "Selecciona la fuente que prefieras.",
+        modernaLimpia: "Moderna y limpia",
+        simpleFamiliar: "Simple y familiar",
+        altaLegibilidad: "Alta legibilidad",
+        estiloSerif: "Estilo serif",
 
-        accesibilidad: "Accesibilidad",
         opcionesAccesibilidad:
             "Opciones de accesibilidad",
+        activaOpciones:
+            "Activa las opciones que necesites.",
         altoContraste: "Alto contraste",
         aumentaDiferencia:
-            "Aumenta la diferencia entre colores para mejorar la legibilidad.",
-        reducirAnimaciones:
-            "Reducir animaciones",
+            "Aumenta la diferencia entre colores.",
+        reducirAnimaciones: "Reducir animaciones",
         reduceTransiciones:
-            "Reduce las transiciones y animaciones de la interfaz.",
-        altaLegibilidad:
-            "Alta legibilidad",
+            "Reduce las transiciones y animaciones.",
 
+        preferenciasGuardadas:
+            "Las preferencias se guardan automáticamente.",
         restablecerPreferencias:
             "Restablecer preferencias",
-        preferenciasGuardadas:
-            "Preferencias guardadas correctamente.",
 
-        /* =========================
-           ADMINISTRACIÓN
-        ========================= */
+        cursosDisponibles: "Cursos disponibles",
+        sigueAprendiendo: "Sigue aprendiendo",
+        cursos: "cursos",
+        profesor: "Profesor",
+        instructor: "Instructor",
+        duracion: "Duración",
+        modalidad: "Modalidad",
+        inversion: "Inversión",
+        verInformacion: "Ver información",
+        descuento: "descuento",
+        ahorras: "Ahorras",
 
-        panelAdministracion:
-            "Panel de administración",
-        gestionaOferta:
-            "Gestiona la oferta académica de Learnix.",
-        agregarCurso:
-            "Agregar curso",
-        nuevoCurso:
-            "Nuevo curso",
-        informacionNuevoCurso:
-            "Información del nuevo curso",
-        nombreCurso:
-            "Nombre del curso",
-        descripcion:
-            "Descripción",
-        descripcionCurso:
-            "Descripción del curso",
-        categoria:
-            "Categoría",
-        profesor:
-            "Profesor",
-        duracion:
-            "Duración",
-        modalidad:
-            "Modalidad",
-        precio:
-            "Precio",
-        publicarCurso:
-            "Publicar curso",
-        publicando:
-            "Publicando...",
-        cursoCreado:
-            "Curso creado correctamente.",
-        errorCrearCurso:
-            "No se pudo crear el curso.",
-        temasCurso:
-            "Temas del curso",
-        tareas:
-            "Tareas",
-
-        /* =========================
-           PAGO
-        ========================= */
-
-        cursoSeleccionado:
-            "Curso seleccionado",
-        completarDatosPago:
-            "Completa los datos de pago",
-        numeroTarjeta:
-            "Número de tarjeta",
-        cvv:
-            "CVV",
-        revisaInformacion:
-            "Revisa la información antes de completar la matrícula.",
-        completarMatricula:
-            "Completar matrícula",
-        confirmarMatricula:
-            "Confirmar matrícula",
-        procesandoMatricula:
-            "Procesando matrícula...",
-        matricula:
-            "Matrícula",
-        noSePudoCompletar:
-            "No se pudo completar la matrícula.",
-        necesitasSesion:
-            "Necesitas iniciar sesión para matricularte.",
-
-        /* =========================
-           OTROS
-        ========================= */
-
-        cancelar: "Cancelar",
-        cargar: "Cargar",
+        matricularCurso: "Matricular curso",
+        cursoSeleccionado: "Curso seleccionado",
+        inscripcion: "Inscripción",
+        completarInscripcion: "Completa tu inscripción",
+        revisarInformacion:
+            "Revisa la información antes de completar tu inscripción.",
+        numeroTarjeta: "Número de tarjeta",
         vencimiento: "Vencimiento",
-        unaTareaLinea:
-            "Una tarea pendiente.",
-        unTemaLinea:
-            "Un tema del curso.",
-        activaOpciones:
-            "Activa las opciones que necesites."
+        confirmarInscripcion:
+            "Confirmar inscripción",
+        cancelar: "Cancelar",
+        volver: "Volver",
+
+        miEspacio: "Mi espacio",
+        bienvenida: "Bienvenido",
+        progresoCursos:
+            "Revisa tu progreso y continúa con tus cursos.",
+        cursosMatriculados: "Cursos matriculados",
+        cursosCompletados: "Cursos completados",
+        progresoGeneral: "Progreso general",
+        misCursosTitulo: "Mis cursos",
+        cursosActuales: "Cursos actuales",
+        progreso: "Progreso",
+        activo: "Activo",
+        completado: "Completado",
+        continuarCurso: "Continuar curso",
+        verCurso: "Ver curso",
+
+        temas: "Temas",
+        tareas: "Tareas",
+        elementosCompletados:
+            "elementos completados",
+        guardarProgreso: "Guardar progreso",
+        finalizarCurso: "Finalizar curso",
+
+        centroAyuda: "Centro de ayuda",
+        comoAyudarte: "¿Cómo podemos ayudarte?",
+        ayudaDescripcion:
+            "Encuentra respuestas a las preguntas más frecuentes sobre Learnix.",
+        comoMatricularme:
+            "¿Cómo puedo matricularme en un curso?",
+        comoMatricularmeTexto:
+            "Selecciona un curso, revisa su información y pulsa el botón para matricularte.",
+        dondeVeoCursos:
+            "¿Dónde puedo ver mis cursos?",
+        dondeVeoCursosTexto:
+            "Después de iniciar sesión encontrarás tus cursos en la sección Mis cursos.",
+        comoConsultoProgreso:
+            "¿Cómo consulto mi progreso?",
+        comoConsultoProgresoTexto:
+            "Desde Mis cursos puedes abrir cada curso y actualizar los temas y tareas completadas.",
+        necesitoCuenta:
+            "¿Necesito una cuenta?",
+        necesitoCuentaTexto:
+            "Sí. Necesitas iniciar sesión para matricularte y acceder a tus cursos.",
+        todaviaDudas:
+            "¿Todavía tienes dudas?",
+        comienzaExplorando:
+            "Comienza explorando nuestros cursos.",
+        verCursos: "Ver cursos"
     },
 
     en: {
-        /* =========================
-           NAVBAR
-        ========================= */
-
         inicio: "Home",
         misCursos: "My courses",
         administracion: "Administration",
         ayuda: "Help",
-        perfil: "My profile",
+        perfil: "Profile",
         configuracion: "Settings",
         usuarios: "Users",
         cerrarSesion: "Log out",
         iniciarSesion: "Log in",
         crearCuenta: "Create account",
+        testVocacional: "Career assessment",
 
-        /* =========================
-           HOME
-        ========================= */
-
-        formacionOnline: "ONLINE LEARNING",
-        aprendeAlgoNuevo: "Learn something new.",
-        exploraCursos:
-            "Explore our courses and develop new skills at your own pace.",
-        cursosDisponibles: "AVAILABLE COURSES",
-        continuaAprendiendo: "Continue learning",
-        encuentraCurso: "Find your next course",
-        curso: "course",
-        cursos: "courses",
-        cargandoCursos: "Loading courses...",
-        noHayCursos: "No courses available",
-        todosCursos:
-            "You are already enrolled in all available courses.",
-        noSePudieronCargarCursos:
-            "Courses could not be loaded.",
-
-        /* =========================
-           LOGIN
-        ========================= */
-
-        bienvenidoDeNuevo: "WELCOME BACK",
-        iniciaSesion: "Log in",
+        bienvenidoDeNuevo: "Welcome back",
         accesoCuenta:
             "Access your account to continue your learning.",
         correoElectronico: "Email address",
@@ -362,23 +215,15 @@ const traducciones = {
         completaTodosCampos:
             "Complete all fields.",
         correoNoRegistrado:
-            "This email is not registered.",
+            "The email is not registered.",
         contrasenaIncorrecta:
             "The password is incorrect.",
-        iniciandoSesion:
-            "Logging in...",
-        errorLogin:
-            "Could not log in. Please try again.",
-        cuentaCreada:
-            "Account created successfully. You can now log in.",
+        errorLogin: "Could not log in.",
+        iniciandoSesion: "Logging in...",
         noTienesCuenta:
             "Don't have an account?",
 
-        /* =========================
-           REGISTRO
-        ========================= */
-
-        comienzaAprender: "START LEARNING",
+        comienzaAprender: "Start learning",
         creaTuCuenta: "Create your account",
         registroDescripcion:
             "Sign up to start exploring our courses.",
@@ -391,77 +236,22 @@ const traducciones = {
         contrasenasNoCoinciden:
             "Passwords do not match.",
         correoYaExiste:
-            "An account with this email already exists.",
+            "The email is already registered.",
         cuentaNoCreada:
-            "The account could not be created. Please try again.",
+            "Could not create the account.",
         creandoCuenta:
             "Creating account...",
         crearCuentaTexto:
             "Create account",
         yaTienesCuenta:
             "Already have an account?",
-
-        /* =========================
-           DASHBOARD
-        ========================= */
-
-        miEspacio: "My space",
-        bienvenida: "Welcome",
-        cursosMatriculados: "Enrolled courses",
-        cursosActualmente: "Current courses",
-        cursosCompletados: "Completed courses",
-        progresoGeneral: "Overall progress",
-        progreso: "Progress",
-        consultaProgreso:
-            "Check your progress and continue with your courses.",
-        cargandoTusCursos:
-            "Loading your courses...",
-        noSePudieronCargarTusCursos:
-            "Your courses could not be loaded.",
-        aunNoCursos:
-            "You do not have any enrolled courses yet.",
-        exploraOferta:
-            "Explore our course offering to start learning.",
-        verCurso: "View course",
-        yaMatriculado: "Already enrolled",
-        misCursosTitulo: "My courses",
-
-        /* =========================
-           PROFILE
-        ========================= */
-
-        miCuenta: "My account",
-        informacionPersonal:
-            "Personal information",
-        datosCuenta:
-            "Account information",
-        editarInformacion:
-            "Edit information",
-        informacionActualizada:
-            "Information updated successfully.",
-        errorActualizar:
-            "The information could not be updated.",
-        estudiante: "Student",
-        administrador: "Administrator",
-        tipoCuenta: "Account type",
-        idUsuario: "User ID",
-        nombre: "Name",
-        correo: "Email",
-        consultaActualiza:
-            "View and update your personal information.",
-        otroUsuarioCorreo:
-            "User email",
-        guardarCambios:
-            "Save changes",
-        guardando: "Saving...",
-
-        /* =========================
-           SETTINGS
-        ========================= */
+        cuentaCreada:
+            "Account created successfully. You can now log in.",
 
         preferencias: "Preferences",
         personalizaLearnix:
-            "Customize Learnix according to your preferences.",
+            "Customize your Learnix experience.",
+
         idioma: "Language",
         idiomaPlataforma:
             "Platform language",
@@ -470,169 +260,294 @@ const traducciones = {
         espanol: "Spanish",
         ingles: "English",
 
-        apariencia:
-            "Appearance",
+        apariencia: "Appearance",
         tema: "Theme",
         cambiaColores:
-            "Change the interface colors.",
+            "Change the visual appearance of the platform.",
         claro: "Light",
         oscuro: "Dark",
         lavanda: "Lavender",
         azul: "Blue",
         interfazClara:
-            "Clear and bright interface.",
+            "Light interface",
         menorLuminosidad:
-            "Lower brightness and higher visual contrast.",
+            "Lower brightness",
         tonosSuaves:
-            "Soft and relaxing tones.",
+            "Soft tones",
         tonosFrios:
-            "Cool and professional tones.",
+            "Cool tones",
 
+        accesibilidad: "Accessibility",
         tamanoLetra: "Font size",
         ajustaTamano:
             "Adjust the text size according to your needs.",
+        "muy-pequena": "Very small",
+        pequena: "Small",
         normal: "Normal",
         grande: "Large",
-        muyGrande: "Extra large",
+        "muy-grande": "Very large",
+        tamanoActual: "Current size",
 
-        fuente: "Font",
         tipografia: "Typography",
+        fuente: "Font",
         seleccionaFuente:
-            "Select the font you want to use.",
-        estiloSerif:
-            "Classic serif style.",
+            "Select your preferred font.",
         modernaLimpia:
-            "Modern and clean.",
+            "Modern and clean",
         simpleFamiliar:
-            "Simple and familiar.",
+            "Simple and familiar",
+        altaLegibilidad:
+            "High readability",
+        estiloSerif:
+            "Serif style",
 
-        accesibilidad: "Accessibility",
         opcionesAccesibilidad:
             "Accessibility options",
-        altoContraste: "High contrast",
+        activaOpciones:
+            "Enable the options you need.",
+        altoContraste:
+            "High contrast",
         aumentaDiferencia:
-            "Increase color differences to improve readability.",
+            "Increase the difference between colors.",
         reducirAnimaciones:
             "Reduce animations",
         reduceTransiciones:
-            "Reduce interface transitions and animations.",
-        altaLegibilidad:
-            "High readability",
+            "Reduce transitions and animations.",
 
+        preferenciasGuardadas:
+            "Preferences are saved automatically.",
         restablecerPreferencias:
             "Reset preferences",
-        preferenciasGuardadas:
-            "Preferences saved successfully.",
 
-        /* =========================
-           ADMINISTRATION
-        ========================= */
+        cursosDisponibles:
+            "Available courses",
+        sigueAprendiendo:
+            "Keep learning",
+        cursos: "courses",
+        profesor: "Instructor",
+        instructor: "Instructor",
+        duracion: "Duration",
+        modalidad: "Modality",
+        inversion: "Investment",
+        verInformacion:
+            "View information",
+        descuento: "discount",
+        ahorras: "You save",
 
-        panelAdministracion:
-            "Administration panel",
-        gestionaOferta:
-            "Manage Learnix's academic course offering.",
-        agregarCurso:
-            "Add course",
-        nuevoCurso:
-            "New course",
-        informacionNuevoCurso:
-            "New course information",
-        nombreCurso:
-            "Course name",
-        descripcion:
-            "Description",
-        descripcionCurso:
-            "Course description",
-        categoria:
-            "Category",
-        profesor:
-            "Instructor",
-        duracion:
-            "Duration",
-        modalidad:
-            "Modality",
-        precio:
-            "Price",
-        publicarCurso:
-            "Publish course",
-        publicando:
-            "Publishing...",
-        cursoCreado:
-            "Course created successfully.",
-        errorCrearCurso:
-            "The course could not be created.",
-        temasCurso:
-            "Course topics",
-        tareas:
-            "Tasks",
-
-        /* =========================
-           PAYMENT
-        ========================= */
-
+        matricularCurso:
+            "Enroll course",
         cursoSeleccionado:
             "Selected course",
-        completarDatosPago:
-            "Complete payment information",
+        inscripcion: "Enrollment",
+        completarInscripcion:
+            "Complete enrollment",
+        revisarInformacion:
+            "Review the information before completing your enrollment.",
         numeroTarjeta:
             "Card number",
-        cvv:
-            "CVV",
-        revisaInformacion:
-            "Review the information before completing your enrollment.",
-        completarMatricula:
-            "Complete enrollment",
-        confirmarMatricula:
+        vencimiento:
+            "Expiration",
+        confirmarInscripcion:
             "Confirm enrollment",
-        procesandoMatricula:
-            "Processing enrollment...",
-        matricula:
-            "Enrollment",
-        noSePudoCompletar:
-            "The enrollment could not be completed.",
-        necesitasSesion:
-            "You need to log in to enroll.",
-
-        /* =========================
-           OTHER
-        ========================= */
-
         cancelar: "Cancel",
-        cargar: "Load",
-        vencimiento: "Due date",
-        unaTareaLinea:
-            "A pending task.",
-        unTemaLinea:
-            "A course topic.",
-        activaOpciones:
-            "Enable the options you need."
+        volver: "Back",
+
+        miEspacio: "My space",
+        bienvenida: "Welcome",
+        progresoCursos:
+            "Check your progress and continue with your courses.",
+        cursosMatriculados:
+            "Enrolled courses",
+        cursosCompletados:
+            "Completed courses",
+        progresoGeneral:
+            "Overall progress",
+        misCursosTitulo:
+            "My courses",
+        cursosActuales:
+            "Current courses",
+        progreso: "Progress",
+        activo: "Active",
+        completado:
+            "Completed",
+        continuarCurso:
+            "Continue course",
+        verCurso:
+            "View course",
+
+        temas: "Topics",
+        tareas: "Tasks",
+        elementosCompletados:
+            "elements completed",
+        guardarProgreso:
+            "Save progress",
+        finalizarCurso:
+            "Complete course",
+
+        centroAyuda:
+            "Help center",
+        comoAyudarte:
+            "How can we help?",
+        ayudaDescripcion:
+            "Find answers to frequently asked questions about Learnix.",
+        comoMatricularme:
+            "How can I enroll in a course?",
+        comoMatricularmeTexto:
+            "Select a course, review its information and click the enrollment button.",
+        dondeVeoCursos:
+            "Where can I see my courses?",
+        dondeVeoCursosTexto:
+            "After logging in, you will find your courses in the My courses section.",
+        comoConsultoProgreso:
+            "How can I check my progress?",
+        comoConsultoProgresoTexto:
+            "From My courses you can open each course and update completed topics and tasks.",
+        necesitoCuenta:
+            "Do I need an account?",
+        necesitoCuentaTexto:
+            "Yes. You need to log in to enroll and access your courses.",
+        todaviaDudas:
+            "Still have questions?",
+        comienzaExplorando:
+            "Start by exploring our courses.",
+        verCursos:
+            "View courses"
     }
 };
 
-export function ThemeProvider({ children }) {
 
-    const [preferencias, setPreferencias] = useState(() => {
+/* =========================================
+   ESCALAS
+========================================= */
 
-        const guardadas =
-            localStorage.getItem("preferenciasLearnix");
+const escalasLetra = {
+    "muy-pequena": 0.85,
+    pequena: 0.92,
+    normal: 1,
+    grande: 1.10,
+    "muy-grande": 1.20
+};
 
-        if (!guardadas) {
-            return preferenciasIniciales;
+
+/* =========================================
+   APLICAR ESCALA GLOBAL
+========================================= */
+
+function aplicarEscalaGlobal(escala) {
+    const elementos = document.querySelectorAll(
+        "body *"
+    );
+
+    elementos.forEach((elemento) => {
+        if (
+            elemento.matches(
+                "script, style, svg, path, circle, rect, line, polyline, polygon"
+            )
+        ) {
+            return;
         }
 
-        try {
-            return {
-                ...preferenciasIniciales,
-                ...JSON.parse(guardadas)
-            };
-        } catch {
-            return preferenciasIniciales;
+        const estilo = window.getComputedStyle(
+            elemento
+        );
+
+        const fontSize = parseFloat(
+            estilo.fontSize
+        );
+
+        if (
+            !fontSize ||
+            Number.isNaN(fontSize)
+        ) {
+            return;
         }
+
+        if (
+            !elemento.dataset.learnixOriginalFontSize
+        ) {
+            elemento.dataset.learnixOriginalFontSize =
+                fontSize;
+        }
+
+        const original = parseFloat(
+            elemento.dataset
+                .learnixOriginalFontSize
+        );
+
+        if (
+            !original ||
+            Number.isNaN(original)
+        ) {
+            return;
+        }
+
+        elemento.style.setProperty(
+            "font-size",
+            `${original * escala}px`,
+            "important"
+        );
     });
+}
+
+
+/* =========================================
+   RESTAURAR TAMAÑOS ORIGINALES
+========================================= */
+
+function limpiarEscalaGlobal() {
+    const elementos = document.querySelectorAll(
+        "[data-learnix-original-font-size]"
+    );
+
+    elementos.forEach((elemento) => {
+        elemento.style.removeProperty(
+            "font-size"
+        );
+
+        delete elemento.dataset
+            .learnixOriginalFontSize;
+    });
+}
+
+
+/* =========================================
+   PROVIDER
+========================================= */
+
+export function ThemeProvider({
+    children
+}) {
+    const [preferencias, setPreferencias] =
+        useState(() => {
+            const guardadas =
+                localStorage.getItem(
+                    "preferenciasLearnix"
+                );
+
+            if (!guardadas) {
+                return {
+                    ...preferenciasIniciales
+                };
+            }
+
+            try {
+                return {
+                    ...preferenciasIniciales,
+                    ...JSON.parse(guardadas)
+                };
+            } catch {
+                return {
+                    ...preferenciasIniciales
+                };
+            }
+        });
+
+
+    /* =====================================
+       PREFERENCIAS
+    ===================================== */
 
     useEffect(() => {
-
         localStorage.setItem(
             "preferenciasLearnix",
             JSON.stringify(preferencias)
@@ -660,37 +575,102 @@ export function ThemeProvider({ children }) {
                 ? "reducidas"
                 : "normales";
 
+        const escala =
+            escalasLetra[
+                preferencias.tamanioLetra
+            ] || 1;
+
+        root.style.setProperty(
+            "--learnix-font-scale",
+            escala
+        );
+
+        /*
+         * Aplicar la escala después de que
+         * React haya actualizado la interfaz.
+         */
+        requestAnimationFrame(() => {
+            aplicarEscalaGlobal(escala);
+        });
+
     }, [preferencias]);
+
+
+    /* =====================================
+       OBSERVAR NUEVOS ELEMENTOS
+    ===================================== */
+
+    useEffect(() => {
+        const escala =
+            escalasLetra[
+                preferencias.tamanioLetra
+            ] || 1;
+
+        const observer =
+            new MutationObserver(() => {
+                requestAnimationFrame(() => {
+                    aplicarEscalaGlobal(
+                        escala
+                    );
+                });
+            });
+
+        observer.observe(
+            document.body,
+            {
+                childList: true,
+                subtree: true
+            }
+        );
+
+        return () => {
+            observer.disconnect();
+        };
+    }, [
+        preferencias.tamanioLetra
+    ]);
+
+
+    /* =====================================
+       PREFERENCIAS
+    ===================================== */
 
     const cambiarPreferencia = (
         propiedad,
         valor
     ) => {
-
-        setPreferencias((actuales) => ({
-            ...actuales,
-            [propiedad]: valor
-        }));
-
+        setPreferencias(
+            (actuales) => ({
+                ...actuales,
+                [propiedad]: valor
+            })
+        );
     };
 
+
     const restablecerPreferencias = () => {
+        limpiarEscalaGlobal();
 
         setPreferencias({
             ...preferenciasIniciales
         });
-
     };
 
-    const t = (clave) => {
 
+    /* =====================================
+       TRADUCCIÓN
+    ===================================== */
+
+    const t = (clave) => {
         return (
             traducciones[
                 preferencias.idioma
-            ]?.[clave] || clave
+            ]?.[clave] ||
+            traducciones.es?.[clave] ||
+            clave
         );
-
     };
+
 
     return (
         <ThemeContext.Provider
@@ -706,6 +686,9 @@ export function ThemeProvider({ children }) {
     );
 }
 
+
 export function useTheme() {
-    return useContext(ThemeContext);
+    return useContext(
+        ThemeContext
+    );
 }

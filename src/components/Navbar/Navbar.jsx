@@ -1,13 +1,40 @@
+import { useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 import "./Navbar.css";
 
 function Navbar() {
     const { user, isAuthenticated, logout } = useAuth();
-
+    const { t } = useTheme();
     const navigate = useNavigate();
 
+    const userMenuRef = useRef(null);
+
     const esAdmin = user?.role === "admin";
+
+    useEffect(() => {
+        const cerrarMenuAlHacerClickAfuera = (event) => {
+            if (
+                userMenuRef.current &&
+                !userMenuRef.current.contains(event.target)
+            ) {
+                userMenuRef.current.removeAttribute("open");
+            }
+        };
+
+        document.addEventListener(
+            "mousedown",
+            cerrarMenuAlHacerClickAfuera
+        );
+
+        return () => {
+            document.removeEventListener(
+                "mousedown",
+                cerrarMenuAlHacerClickAfuera
+            );
+        };
+    }, []);
 
     const manejarLogout = () => {
         logout();
@@ -18,33 +45,57 @@ function Navbar() {
         <header className="navbar">
             <div className="navbar-container">
 
+                {/* LOGO */}
                 <Link
                     to="/"
                     className="navbar-logo"
+                    aria-label="Learnix"
                 >
-                    Learnix
+                    <img
+                        src="/favicon.svg"
+                        alt=""
+                    />
+                    <span>Learnix</span>
                 </Link>
 
+                {/* NAVEGACIÓN */}
                 <nav className="navbar-links">
 
                     <NavLink
                         to="/"
                         end
                         className={({ isActive }) =>
-                            `navbar-link ${isActive ? "active" : ""}`
+                            `navbar-link ${
+                                isActive ? "active" : ""
+                            }`
                         }
                     >
-                        Inicio
+                        {t("inicio")}
                     </NavLink>
+
+                    {isAuthenticated && (
+                        <NavLink
+                            to="/dashboard"
+                            className={({ isActive }) =>
+                                `navbar-link ${
+                                    isActive ? "active" : ""
+                                }`
+                            }
+                        >
+                            {t("misCursos")}
+                        </NavLink>
+                    )}
 
                     {isAuthenticated && (
                         <NavLink
                             to="/test-vocacional"
                             className={({ isActive }) =>
-                                `navbar-link ${isActive ? "active" : ""}`
+                                `navbar-link ${
+                                    isActive ? "active" : ""
+                                }`
                             }
                         >
-                            Test vocacional
+                            {t("testVocacional")}
                         </NavLink>
                     )}
 
@@ -52,78 +103,84 @@ function Navbar() {
                         <NavLink
                             to="/admin"
                             className={({ isActive }) =>
-                                `navbar-link ${isActive ? "active" : ""}`
+                                `navbar-link ${
+                                    isActive ? "active" : ""
+                                }`
                             }
                         >
-                            Administración
+                            {t("administracion")}
                         </NavLink>
                     )}
 
                     <NavLink
                         to="/ayuda"
                         className={({ isActive }) =>
-                            `navbar-link ${isActive ? "active" : ""}`
+                            `navbar-link ${
+                                isActive ? "active" : ""
+                            }`
                         }
                     >
-                        Ayuda
+                        {t("ayuda")}
                     </NavLink>
 
                 </nav>
 
+                {/* USUARIO */}
                 <div className="navbar-user">
 
                     {isAuthenticated && user ? (
-                        <div className="navbar-user-menu">
 
-                            <details className="navbar-user-details">
+                        <details
+                            className="navbar-user-details"
+                            ref={userMenuRef}
+                        >
+                            <summary className="navbar-user-button">
 
-                                <summary className="navbar-user-button">
+                                <span className="navbar-avatar">
+                                    {user.nombre
+                                        ?.charAt(0)
+                                        ?.toUpperCase() || "U"}
+                                </span>
 
-                                    <span className="navbar-avatar">
-                                        {user.nombre
-                                            ?.charAt(0)
-                                            ?.toUpperCase() || "U"}
-                                    </span>
+                                <span className="navbar-user-name">
+                                    {user.nombre}
+                                </span>
 
-                                    <span className="navbar-user-name">
-                                        {user.nombre}
-                                    </span>
+                                <span className="navbar-user-arrow">
+                                    ˅
+                                </span>
 
-                                    <span className="navbar-user-arrow">
-                                        ˅
-                                    </span>
+                            </summary>
 
-                                </summary>
+                            <div className="navbar-user-dropdown">
 
-                                <div className="navbar-user-dropdown">
+                                <Link to="/perfil">
+                                    {t("perfil")}
+                                </Link>
 
-                                    <Link to="/perfil">
-                                        Perfil
-                                    </Link>
+                                <Link to="/configuracion">
+                                    {t("configuracion")}
+                                </Link>
 
-                                    <Link to="/configuracion">
-                                        Configuración
-                                    </Link>
+                                <button
+                                    type="button"
+                                    onClick={manejarLogout}
+                                >
+                                    {t("cerrarSesion")}
+                                </button>
 
-                                    <button
-                                        type="button"
-                                        onClick={manejarLogout}
-                                    >
-                                        Cerrar sesión
-                                    </button>
+                            </div>
+                        </details>
 
-                                </div>
-
-                            </details>
-
-                        </div>
                     ) : (
+
                         <Link
                             to="/login"
                             className="navbar-login"
                         >
-                            Iniciar sesión
+                            {t("iniciarSesion")}
                         </Link>
+
                     )}
 
                 </div>

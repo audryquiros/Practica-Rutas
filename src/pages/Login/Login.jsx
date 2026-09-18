@@ -1,8 +1,21 @@
-import { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+    useEffect,
+    useState
+} from "react";
+
+import {
+    Link,
+    useLocation,
+    useNavigate
+} from "react-router-dom";
+
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
-import { obtenerUsuarioPorEmail } from "../../services/usuariosService";
+
+import {
+    obtenerUsuarioPorEmail
+} from "../../services/usuariosService";
+
 import "./Login.css";
 
 function Login() {
@@ -15,6 +28,7 @@ function Login() {
     const [loading, setLoading] = useState(false);
 
     const { login } = useAuth();
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -26,12 +40,19 @@ function Login() {
                 setEmail(location.state.email);
             }
 
-            navigate(location.pathname, {
-                replace: true,
-                state: {}
-            });
+            navigate(
+                location.pathname,
+                {
+                    replace: true,
+                    state: {}
+                }
+            );
         }
-    }, [location, navigate, t]);
+    }, [
+        location,
+        navigate,
+        t
+    ]);
 
     const obtenerRutaRetorno = () => {
         const from = location.state?.from;
@@ -58,72 +79,92 @@ function Login() {
         setMensaje("");
 
         if (!email.trim() || !password.trim()) {
-            setError(t("completaTodosCampos"));
+            setError(
+                t("completaTodosCampos")
+            );
+
             return;
         }
 
         try {
             setLoading(true);
 
-            const usuario = await obtenerUsuarioPorEmail(email.trim());
+            const usuario =
+                await obtenerUsuarioPorEmail(
+                    email.trim()
+                );
 
             if (!usuario) {
-                setError(t("correoNoRegistrado"));
+                setError(
+                    t("correoNoRegistrado")
+                );
+
                 return;
             }
 
             if (usuario.password !== password) {
-                setError(t("contrasenaIncorrecta"));
+                setError(
+                    t("contrasenaIncorrecta")
+                );
+
                 return;
             }
 
             login(usuario);
 
-            /*
-             * Si el usuario intentó acceder a una ruta privada
-             * antes de iniciar sesión, regresamos a esa ruta.
-             */
-            const rutaRetorno = obtenerRutaRetorno();
+            const rutaRetorno =
+                obtenerRutaRetorno();
 
             if (rutaRetorno) {
-                navigate(rutaRetorno, {
-                    replace: true
-                });
+                navigate(
+                    rutaRetorno,
+                    {
+                        replace: true
+                    }
+                );
+
                 return;
             }
 
-            /*
-             * Si venía desde un curso para matricularse,
-             * continúa hacia la pantalla de pago.
-             */
-            const cursoId = location.state?.cursoId;
+            const cursoId =
+                location.state?.cursoId;
 
             if (cursoId) {
-                navigate(`/pago/${cursoId}`, {
-                    replace: true
-                });
+                navigate(
+                    `/pago/${cursoId}`,
+                    {
+                        replace: true
+                    }
+                );
+
                 return;
             }
 
-            /*
-             * Si no hay una ruta pendiente:
-             * - Admin → Panel administrativo
-             * - Usuario → Dashboard
-             */
             if (usuario.role === "admin") {
-                navigate("/admin", {
-                    replace: true
-                });
+                navigate(
+                    "/admin",
+                    {
+                        replace: true
+                    }
+                );
+
                 return;
             }
 
-            navigate("/dashboard", {
-                replace: true
-            });
+            navigate(
+                "/dashboard",
+                {
+                    replace: true
+                }
+            );
 
         } catch (error) {
             console.error(error);
-            setError(t("errorLogin"));
+
+            setError(
+                t("errorLogin")
+            );
+
         } finally {
             setLoading(false);
         }
@@ -131,11 +172,21 @@ function Login() {
 
     return (
         <main className="login-page">
+
             <section className="login-card">
 
+                <div className="login-brand-area">
+                    <img
+                        className="login-logo"
+                        src="/logo.png"
+                        alt="Learnix"
+                    />
+                </div>
+
                 <div className="login-header">
-                    <span className="login-brand">
-                        LEARNIX
+
+                    <span className="login-label">
+                        {t("bienvenidoDeNuevo")}
                     </span>
 
                     <h1>
@@ -143,8 +194,9 @@ function Login() {
                     </h1>
 
                     <p>
-                        {t("bienvenido")}
+                        {t("accesoCuenta")}
                     </p>
+
                 </div>
 
                 {mensaje && (
@@ -163,24 +215,32 @@ function Login() {
                     className="login-form"
                     onSubmit={manejarLogin}
                 >
+
                     <div className="login-field">
+
                         <label htmlFor="email">
-                            {t("correo")}
+                            {t("correoElectronico")}
                         </label>
 
                         <input
                             id="email"
                             type="email"
                             value={email}
-                            onChange={(event) =>
-                                setEmail(event.target.value)
-                            }
+                            onChange={(event) => {
+                                setEmail(
+                                    event.target.value
+                                );
+
+                                setError("");
+                            }}
                             placeholder="correo@ejemplo.com"
                             autoComplete="email"
                         />
+
                     </div>
 
                     <div className="login-field">
+
                         <label htmlFor="password">
                             {t("contrasena")}
                         </label>
@@ -189,12 +249,17 @@ function Login() {
                             id="password"
                             type="password"
                             value={password}
-                            onChange={(event) =>
-                                setPassword(event.target.value)
-                            }
+                            onChange={(event) => {
+                                setPassword(
+                                    event.target.value
+                                );
+
+                                setError("");
+                            }}
                             placeholder="••••••••"
                             autoComplete="current-password"
                         />
+
                     </div>
 
                     <button
@@ -203,12 +268,15 @@ function Login() {
                         disabled={loading}
                     >
                         {loading
-                            ? t("cargando")
-                            : t("iniciarSesion")}
+                            ? t("iniciandoSesion")
+                            : t("iniciarSesion")
+                        }
                     </button>
+
                 </form>
 
                 <div className="login-register">
+
                     <span>
                         {t("noTienesCuenta")}
                     </span>
@@ -216,9 +284,11 @@ function Login() {
                     <Link to="/registro">
                         {t("crearCuenta")}
                     </Link>
+
                 </div>
 
             </section>
+
         </main>
     );
 }

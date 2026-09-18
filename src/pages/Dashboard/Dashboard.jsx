@@ -1,5 +1,6 @@
 import {
     useEffect,
+    useMemo,
     useState
 } from "react";
 
@@ -7,146 +8,270 @@ import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
 
 import {
-    obtenerMatriculasPorUsuario
-} from "../../services/matriculasService";
-
-import {
+    obtenerCursos,
     obtenerCursoPorId
 } from "../../services/cursosService";
+
+import {
+    obtenerMatriculasPorUsuario
+} from "../../services/matriculasService";
 
 import CourseProgressModal from "../../components/CourseProgressModal/CourseProgressModal";
 
 import "./Dashboard.css";
 
 function Dashboard() {
-    const { user } = useAuth();
-    const { t } = useTheme();
+    const {
+        user
+    } = useAuth();
 
-    const [cursos, setCursos] =
-        useState([]);
+    const {
+        preferencias,
+        t
+    } = useTheme();
 
-    const [cursoSeleccionado, setCursoSeleccionado] =
-        useState(null);
+    const [
+        cursos,
+        setCursos
+    ] = useState([]);
 
-    const [loading, setLoading] =
-        useState(true);
+    const [
+        cursoSeleccionado,
+        setCursoSeleccionado
+    ] = useState(null);
 
-    const [error, setError] =
-        useState("");
+    const [
+        loading,
+        setLoading
+    ] = useState(true);
+
+    const [
+        error,
+        setError
+    ] = useState("");
+
+    const idiomaIngles =
+        preferencias.idioma === "en";
+
+    const temaOscuro =
+        preferencias.tema === "oscuro";
+
+
+    /* =====================================================
+       CARGAR MIS CURSOS
+    ===================================================== */
+
+    const cargarCursos = async () => {
+        try {
+            setLoading(true);
+            setError("");
+
+            const [
+                cursosDisponibles,
+                matriculas
+            ] = await Promise.all([
+                obtenerCursos(),
+                obtenerMatriculasPorUsuario(
+                    user.id
+                )
+            ]);
+
+            const cursosMatriculados =
+                await Promise.all(
+                    matriculas.map(
+                        async (matricula) => {
+
+                            const curso =
+                                cursosDisponibles.find(
+                                    (item) =>
+                                        Number(item.id) ===
+                                        Number(
+                                            matricula.cursoId
+                                        )
+                                ) ||
+                                await obtenerCursoPorId(
+                                    matricula.cursoId
+                                );
+
+                            if (!curso) {
+                                return null;
+                            }
+
+                            return {
+                                ...curso,
+                                ...matricula,
+                                matriculaId:
+                                    matricula.id,
+                                progreso:
+                                    Number(
+                                        matricula.progreso ||
+                                        0
+                                    ),
+                                temasVistos:
+                                    matricula.temasVistos ||
+                                    [],
+                                tareasCompletadas:
+                                    matricula.tareasCompletadas ||
+                                    []
+                            };
+                        }
+                    )
+                );
+
+            setCursos(
+                cursosMatriculados.filter(Boolean)
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Error cargando mis cursos:",
+                error
+            );
+
+            setError(
+                t(
+                    "noSePudieronCargarTusCursos"
+                )
+            );
+
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     useEffect(() => {
+        if (user?.id) {
+            cargarCursos();
+        }
+    }, [user?.id]);
 
-        const cargarCursosUsuario =
-            async () => {
 
-                if (!user?.id) {
-
-                    setLoading(false);
-
-                    return;
-                }
-
-                try {
-
-                    setLoading(true);
-                    setError("");
-
-                    const matriculas =
-                        await obtenerMatriculasPorUsuario(
-                            user.id
-                        );
-
-                    const cursosUsuario =
-                        await Promise.all(
-                            matriculas.map(
-                                async (
-                                    matricula
-                                ) => {
-
-                                    const curso =
-                                        await obtenerCursoPorId(
-                                            matricula.cursoId
-                                        );
-
-                                    return {
-                                        ...curso,
-                                        progreso:
-                                            matricula.progreso,
-                                        estado:
-                                            matricula.estado,
-                                        temasVistos:
-                                            matricula.temasVistos ||
-                                            [],
-                                        tareasCompletadas:
-                                            matricula.tareasCompletadas ||
-                                            []
-                                    };
-                                }
-                            )
-                        );
-
-                    setCursos(
-                        cursosUsuario
-                    );
-
-                } catch (error) {
-
-                    console.error(error);
-
-                    setError(
-                        t(
-                            "noSePudieronCargarTusCursos"
-                        )
-                    );
-
-                } finally {
-
-                    setLoading(false);
-                }
-            };
-
-        cargarCursosUsuario();
-
-    }, [user, t]);
+    /* =====================================================
+       ESTADÍSTICAS
+    ===================================================== */
 
     const cursosCompletados =
-        cursos.filter(
-            (curso) =>
-                curso.progreso === 100
-        ).length;
+        useMemo(
+            () =>
+                cursos.filter(
+                    (curso) =>
+                        Number(
+                            curso.progreso
+                        ) === 100 ||
+                        curso.estado ===
+                            "Completado"
+                ).length,
+            [cursos]
+        );
 
     const progresoGeneral =
-        cursos.length > 0
-            ? Math.round(
+        useMemo(() => {
+
+            if (cursos.length === 0) {
+                return 0;
+            }
+
+            const total =
                 cursos.reduce(
                     (
-                        total,
+                        acumulado,
                         curso
                     ) =>
-                        total +
-                        curso.progreso,
+                        acumulado +
+                        Number(
+                            curso.progreso ||
+                            0
+                        ),
                     0
-                ) / cursos.length
-            )
-            : 0;
+                );
 
-    return (
-        <main className="dashboard-page">
+            return Math.round(
+                total /
+                cursos.length
+            );
 
-            <div className="dashboard-container">
+        }, [cursos]);
 
-                <section className="dashboard-header">
 
-                    <div>
+    /* =====================================================
+       TEXTO DE CURSO
+    ===================================================== */
 
-                        <span className="dashboard-label">
+    const obtenerDatosCurso =
+        (curso) => {
+
+            return {
+                nombre:
+                    idiomaIngles &&
+                    curso.nombre_en
+                        ? curso.nombre_en
+                        : curso.nombre,
+
+                categoria:
+                    idiomaIngles &&
+                    curso.categoria_en
+                        ? curso.categoria_en
+                        : curso.categoria,
+
+                duracion:
+                    idiomaIngles &&
+                    curso.duracion_en
+                        ? curso.duracion_en
+                        : curso.duracion
+            };
+        };
+
+
+    /* =====================================================
+       ACTUALIZAR DESDE MODAL
+    ===================================================== */
+
+    const actualizarCurso =
+        (cursoActualizado) => {
+
+            setCursos(
+                (actuales) =>
+                    actuales.map(
+                        (curso) =>
+                            Number(
+                                curso.matriculaId
+                            ) ===
+                            Number(
+                                cursoActualizado.matriculaId
+                            )
+                                ? cursoActualizado
+                                : curso
+                    )
+            );
+        };
+
+
+    /* =====================================================
+       LOADING
+    ===================================================== */
+
+    if (loading) {
+
+        return (
+            <main
+                className={`dashboard-page ${
+                    temaOscuro
+                        ? "dashboard-dark"
+                        : "dashboard-light"
+                }`}
+            >
+                <div className="dashboard-container">
+
+                    <div className="dashboard-heading">
+
+                        <span className="dashboard-eyebrow">
                             {t("miEspacio")}
                         </span>
 
                         <h1>
-                            {t("bienvenida")},{" "}
-                            {user?.nombre ||
-                                "Usuario"}
+                            {t("bienvenida")}
                         </h1>
 
                         <p>
@@ -157,11 +282,74 @@ function Dashboard() {
 
                     </div>
 
+                    <div className="dashboard-loading">
+                        <div className="dashboard-spinner"></div>
+
+                        <span>
+                            {t(
+                                "cargandoTusCursos"
+                            )}
+                        </span>
+                    </div>
+
+                </div>
+            </main>
+        );
+    }
+
+
+    return (
+        <main
+            className={`dashboard-page ${
+                temaOscuro
+                    ? "dashboard-dark"
+                    : "dashboard-light"
+            }`}
+        >
+            <div className="dashboard-container">
+
+                {/* =========================================
+                   HEADER
+                ========================================= */}
+
+                <section className="dashboard-heading">
+
+                    <span className="dashboard-eyebrow">
+                        {t("miEspacio")}
+                    </span>
+
+                    <h1>
+                        {t("bienvenida")},{" "}
+                        {user?.nombre}
+                    </h1>
+
+                    <p>
+                        {t(
+                            "consultaProgreso"
+                        )}
+                    </p>
+
                 </section>
+
+
+                {/* =========================================
+                   ERROR
+                ========================================= */}
+
+                {error && (
+                    <div className="dashboard-error">
+                        {error}
+                    </div>
+                )}
+
+
+                {/* =========================================
+                   ESTADÍSTICAS
+                ========================================= */}
 
                 <section className="dashboard-stats">
 
-                    <article className="dashboard-stat">
+                    <article className="dashboard-stat-card">
 
                         <span>
                             {t(
@@ -175,7 +363,8 @@ function Dashboard() {
 
                     </article>
 
-                    <article className="dashboard-stat">
+
+                    <article className="dashboard-stat-card">
 
                         <span>
                             {t(
@@ -189,7 +378,8 @@ function Dashboard() {
 
                     </article>
 
-                    <article className="dashboard-stat">
+
+                    <article className="dashboard-stat-card">
 
                         <span>
                             {t(
@@ -205,86 +395,99 @@ function Dashboard() {
 
                 </section>
 
-                <section className="dashboard-courses">
+
+                {/* =========================================
+                   MIS CURSOS
+                ========================================= */}
+
+                <section className="dashboard-courses-section">
 
                     <div className="dashboard-section-header">
 
-                        <h2>
-                            {t(
-                                "misCursosTitulo"
-                            )}
-                        </h2>
+                        <div>
+                            <h2>
+                                {t(
+                                    "misCursosTitulo"
+                                )}
+                            </h2>
 
-                        <p>
-                            {t(
-                                "cursosActualmente"
-                            )}
-                        </p>
+                            <p>
+                                {t(
+                                    "cursosActualmente"
+                                )}
+                            </p>
+                        </div>
 
                     </div>
 
-                    {loading && (
-                        <p className="dashboard-message">
-                            {t(
-                                "cargandoTusCursos"
-                            )}
-                        </p>
-                    )}
 
-                    {error && (
-                        <p className="dashboard-message dashboard-error">
-                            {error}
-                        </p>
-                    )}
+                    {cursos.length === 0 ? (
 
-                    {!loading &&
-                        !error &&
-                        cursos.length === 0 && (
+                        <div className="dashboard-empty">
 
-                            <div className="empty-courses">
+                            <h3>
+                                {t(
+                                    "aunNoCursos"
+                                )}
+                            </h3>
 
-                                <h3>
-                                    {t(
-                                        "aunNoCursos"
-                                    )}
-                                </h3>
+                            <p>
+                                {t(
+                                    "exploraOferta"
+                                )}
+                            </p>
 
-                                <p>
-                                    {t(
-                                        "exploraOferta"
-                                    )}
-                                </p>
+                        </div>
 
-                            </div>
-                        )}
+                    ) : (
 
-                    {!loading &&
-                        !error &&
-                        cursos.length > 0 && (
+                        <div className="dashboard-courses-grid">
 
-                            <div className="dashboard-course-grid">
+                            {cursos.map(
+                                (curso) => {
 
-                                {cursos.map(
-                                    (curso) => (
+                                    const datos =
+                                        obtenerDatosCurso(
+                                            curso
+                                        );
 
+                                    const completado =
+                                        Number(
+                                            curso.progreso
+                                        ) === 100 ||
+                                        curso.estado ===
+                                            "Completado";
+
+                                    return (
                                         <article
                                             className="dashboard-course-card"
-                                            key={curso.id}
+                                            key={
+                                                curso.matriculaId
+                                            }
                                         >
 
-                                            <span className="course-category">
-                                                {curso.categoria}
+                                            <span className="dashboard-course-category">
+                                                {
+                                                    datos.categoria
+                                                }
                                             </span>
 
+
                                             <h3>
-                                                {curso.nombre}
+                                                {
+                                                    datos.nombre
+                                                }
                                             </h3>
 
-                                            <p className="course-professor">
-                                                {curso.profesor}
+
+                                            <p className="dashboard-course-professor">
+                                                {
+                                                    curso.profesor
+                                                }
                                             </p>
 
-                                            <div className="course-progress-header">
+
+                                            <div className="dashboard-progress-header">
 
                                                 <span>
                                                     {t(
@@ -293,28 +496,57 @@ function Dashboard() {
                                                 </span>
 
                                                 <strong>
-                                                    {curso.progreso}%
+                                                    {
+                                                        Number(
+                                                            curso.progreso ||
+                                                            0
+                                                        )
+                                                    }%
                                                 </strong>
 
                                             </div>
 
-                                            <div className="course-progress">
+
+                                            <div className="dashboard-progress-bar">
 
                                                 <div
-                                                    className="course-progress-bar"
+                                                    className="dashboard-progress-fill"
                                                     style={{
-                                                        width:
-                                                            `${curso.progreso}%`
+                                                        width: `${Math.min(
+                                                            100,
+                                                            Math.max(
+                                                                0,
+                                                                Number(
+                                                                    curso.progreso ||
+                                                                    0
+                                                                )
+                                                            )
+                                                        )}%`
                                                     }}
-                                                ></div>
+                                                />
 
                                             </div>
 
-                                            <span className="course-status">
-                                                {curso.estado}
+
+                                            <span
+                                                className={`dashboard-status ${
+                                                    completado
+                                                        ? "completed"
+                                                        : ""
+                                                }`}
+                                            >
+                                                {completado
+                                                    ? t(
+                                                        "completado"
+                                                    )
+                                                    : t(
+                                                        "activo"
+                                                    )}
                                             </span>
 
+
                                             <button
+                                                type="button"
                                                 className="dashboard-course-button"
                                                 onClick={() =>
                                                     setCursoSeleccionado(
@@ -322,21 +554,32 @@ function Dashboard() {
                                                     )
                                                 }
                                             >
-                                                {t(
-                                                    "verCurso"
-                                                )}
+                                                {completado
+                                                    ? t(
+                                                        "verCurso"
+                                                    )
+                                                    : t(
+                                                        "continuarCurso"
+                                                    )}
                                             </button>
 
                                         </article>
-                                    )
-                                )}
+                                    );
+                                }
+                            )}
 
-                            </div>
-                        )}
+                        </div>
+
+                    )}
 
                 </section>
 
             </div>
+
+
+            {/* =============================================
+               MODAL DE PROGRESO
+            ============================================= */}
 
             <CourseProgressModal
                 curso={
@@ -346,6 +589,9 @@ function Dashboard() {
                     setCursoSeleccionado(
                         null
                     )
+                }
+                onUpdated={
+                    actualizarCurso
                 }
             />
 

@@ -16,47 +16,65 @@
       "temas": [
         {
           "id": 1,
-          "nombre": "Introducción a React"
+          "nombre": "Introducción a React",
+          "nombre_en": "Introduction to React"
         },
         {
           "id": 2,
-          "nombre": "Componentes"
+          "nombre": "Componentes",
+          "nombre_en": "Components"
         },
         {
           "id": 3,
-          "nombre": "Props y estado"
+          "nombre": "Props y estado",
+          "nombre_en": "Props and State"
         },
         {
           "id": 4,
-          "nombre": "React Router"
+          "nombre": "React Router",
+          "nombre_en": "React Router"
         },
         {
           "id": 5,
-          "nombre": "Proyecto final"
+          "nombre": "Proyecto final",
+          "nombre_en": "Final Project"
         }
       ],
       "tareas": [
         {
           "id": 1,
           "nombre": "Ejercicio de componentes",
-          "descripcion": "Crear una interfaz utilizando componentes de React."
+          "descripcion": "Crear una interfaz utilizando componentes de React.",
+          "nombre_en": "Components Exercise",
+          "descripcion_en": "Create an interface using React components."
         },
         {
           "id": 2,
           "nombre": "Práctica de useState",
-          "descripcion": "Implementar una aplicación utilizando estado."
+          "descripcion": "Implementar una aplicación utilizando estado.",
+          "nombre_en": "useState Practice",
+          "descripcion_en": "Build an application using state."
         },
         {
           "id": 3,
           "nombre": "Práctica de React Router",
-          "descripcion": "Crear diferentes rutas utilizando React Router."
+          "descripcion": "Crear diferentes rutas utilizando React Router.",
+          "nombre_en": "React Router Practice",
+          "descripcion_en": "Create different routes using React Router."
         },
         {
           "id": 4,
           "nombre": "Proyecto final",
-          "descripcion": "Crear una aplicación completa utilizando React."
+          "descripcion": "Crear una aplicación completa utilizando React.",
+          "nombre_en": "Final Project",
+          "descripcion_en": "Create a complete application using React."
         }
-      ]
+      ],
+      "nombre_en": "Web Development with React",
+      "categoria_en": "Programming",
+      "duracion_en": "8 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn to create modern web applications using React, components, state, and routing."
     },
     {
       "id": "2",
@@ -73,47 +91,65 @@
       "temas": [
         {
           "id": 1,
-          "nombre": "Fundamentos de UX"
+          "nombre": "Fundamentos de UX",
+          "nombre_en": "UX Fundamentals"
         },
         {
           "id": 2,
-          "nombre": "Investigación de usuarios"
+          "nombre": "Investigación de usuarios",
+          "nombre_en": "User Research"
         },
         {
           "id": 3,
-          "nombre": "Arquitectura de información"
+          "nombre": "Arquitectura de información",
+          "nombre_en": "Information Architecture"
         },
         {
           "id": 4,
-          "nombre": "Wireframes y prototipos"
+          "nombre": "Wireframes y prototipos",
+          "nombre_en": "Wireframes and Prototypes"
         },
         {
           "id": 5,
-          "nombre": "Diseño de interfaces"
+          "nombre": "Diseño de interfaces",
+          "nombre_en": "Interface Design"
         }
       ],
       "tareas": [
         {
           "id": 1,
           "nombre": "Mapa de empatía",
-          "descripcion": "Crear un mapa de empatía para un usuario objetivo."
+          "descripcion": "Crear un mapa de empatía para un usuario objetivo.",
+          "nombre_en": "Empathy Map",
+          "descripcion_en": "Create an empathy map for a target user."
         },
         {
           "id": 2,
           "nombre": "User Persona",
-          "descripcion": "Diseñar un perfil de usuario basado en investigación."
+          "descripcion": "Diseñar un perfil de usuario basado en investigación.",
+          "nombre_en": "User Persona",
+          "descripcion_en": "Design a user profile based on research."
         },
         {
           "id": 3,
           "nombre": "Wireframe",
-          "descripcion": "Crear un wireframe de baja fidelidad."
+          "descripcion": "Crear un wireframe de baja fidelidad.",
+          "nombre_en": "Wireframe",
+          "descripcion_en": "Create a low-fidelity wireframe."
         },
         {
           "id": 4,
           "nombre": "Prototipo final",
-          "descripcion": "Crear un prototipo navegable de la aplicación."
+          "descripcion": "Crear un prototipo navegable de la aplicación.",
+          "nombre_en": "Final Prototype",
+          "descripcion_en": "Create a navigable prototype of the application."
         }
-      ]
+      ],
+      "nombre_en": "UX/UI Design",
+      "categoria_en": "Design",
+      "duracion_en": "6 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn UX/UI design principles and create attractive and easy-to-use interfaces."
     },
     {
       "id": "3",
@@ -131,51 +167,70 @@
       "temas": [
         {
           "id": 1,
-          "nombre": "Introducción a JavaScript"
+          "nombre": "Introducción a JavaScript",
+          "nombre_en": "Introduction to JavaScript"
         },
         {
           "id": 2,
-          "nombre": "Variables y tipos de datos"
+          "nombre": "Variables y tipos de datos",
+          "nombre_en": "Variables and Data Types"
         },
         {
           "id": 3,
-          "nombre": "Funciones"
+          "nombre": "Funciones",
+          "nombre_en": "Functions"
         },
         {
           "id": 4,
-          "nombre": "Arrays y objetos"
+          "nombre": "Arrays y objetos",
+          "nombre_en": "Arrays and Objects"
         },
         {
           "id": 5,
-          "nombre": "DOM y eventos"
+          "nombre": "DOM y eventos",
+          "nombre_en": "DOM and Events"
         },
         {
           "id": 6,
-          "nombre": "Proyecto final"
+          "nombre": "Proyecto final",
+          "nombre_en": "Final Project"
         }
       ],
       "tareas": [
         {
           "id": 1,
           "nombre": "Ejercicios de variables",
-          "descripcion": "Resolver ejercicios utilizando variables y tipos de datos."
+          "descripcion": "Resolver ejercicios utilizando variables y tipos de datos.",
+          "nombre_en": "Variable Exercises",
+          "descripcion_en": "Solve exercises using variables and data types."
         },
         {
           "id": 2,
           "nombre": "Práctica de funciones",
-          "descripcion": "Crear funciones para resolver diferentes problemas."
+          "descripcion": "Crear funciones para resolver diferentes problemas.",
+          "nombre_en": "Functions Practice",
+          "descripcion_en": "Create functions to solve different problems."
         },
         {
           "id": 3,
           "nombre": "Ejercicios de arrays",
-          "descripcion": "Manipular arrays utilizando métodos de JavaScript."
+          "descripcion": "Manipular arrays utilizando métodos de JavaScript.",
+          "nombre_en": "Array Exercises",
+          "descripcion_en": "Manipulate arrays using JavaScript methods."
         },
         {
           "id": 4,
           "nombre": "Proyecto final",
-          "descripcion": "Desarrollar una pequeña aplicación utilizando JavaScript."
+          "descripcion": "Desarrollar una pequeña aplicación utilizando JavaScript.",
+          "nombre_en": "Final Project",
+          "descripcion_en": "Develop a small application using JavaScript."
         }
-      ]
+      ],
+      "nombre_en": "JavaScript from Scratch",
+      "categoria_en": "Programming",
+      "duracion_en": "10 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn the fundamentals of JavaScript and develop web applications."
     },
     {
       "id": "4",
@@ -193,47 +248,65 @@
       "temas": [
         {
           "id": 1,
-          "nombre": "Conceptos básicos de bases de datos"
+          "nombre": "Conceptos básicos de bases de datos",
+          "nombre_en": "Database Fundamentals"
         },
         {
           "id": 2,
-          "nombre": "Tablas y relaciones"
+          "nombre": "Tablas y relaciones",
+          "nombre_en": "Tables and Relationships"
         },
         {
           "id": 3,
-          "nombre": "Modelo entidad-relación"
+          "nombre": "Modelo entidad-relación",
+          "nombre_en": "Entity-Relationship Model"
         },
         {
           "id": 4,
-          "nombre": "SQL"
+          "nombre": "SQL",
+          "nombre_en": "SQL"
         },
         {
           "id": 5,
-          "nombre": "Consultas avanzadas"
+          "nombre": "Consultas avanzadas",
+          "nombre_en": "Advanced Queries"
         }
       ],
       "tareas": [
         {
           "id": 1,
           "nombre": "Modelo entidad-relación",
-          "descripcion": "Diseñar un modelo entidad-relación."
+          "descripcion": "Diseñar un modelo entidad-relación.",
+          "nombre_en": "Entity-Relationship Model",
+          "descripcion_en": "Design an entity-relationship model."
         },
         {
           "id": 2,
           "nombre": "Crear una base de datos",
-          "descripcion": "Crear tablas y relaciones utilizando SQL."
+          "descripcion": "Crear tablas y relaciones utilizando SQL.",
+          "nombre_en": "Create a Database",
+          "descripcion_en": "Create tables and relationships using SQL."
         },
         {
           "id": 3,
           "nombre": "Consultas SQL",
-          "descripcion": "Resolver ejercicios utilizando consultas SQL."
+          "descripcion": "Resolver ejercicios utilizando consultas SQL.",
+          "nombre_en": "SQL Queries",
+          "descripcion_en": "Solve exercises using SQL queries."
         },
         {
           "id": 4,
           "nombre": "Proyecto final",
-          "descripcion": "Diseñar una base de datos para un sistema."
+          "descripcion": "Diseñar una base de datos para un sistema.",
+          "nombre_en": "Final Project",
+          "descripcion_en": "Design a database for a system."
         }
-      ]
+      ],
+      "nombre_en": "Databases",
+      "categoria_en": "Technology",
+      "duracion_en": "7 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn fundamental database concepts, tables, relationships, and queries."
     },
     {
       "id": "5",
@@ -249,7 +322,12 @@
         "logica"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Python for Beginners",
+      "categoria_en": "Programming",
+      "duracion_en": "8 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn Python from scratch and develop practical programs using variables, functions, data structures, and projects."
     },
     {
       "id": "6",
@@ -265,7 +343,12 @@
         "negocios"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Data Analysis with Excel",
+      "categoria_en": "Data",
+      "duracion_en": "6 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn to organize, analyze, and visualize information to turn data into decisions."
     },
     {
       "id": "7",
@@ -282,7 +365,12 @@
         "programacion"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Introduction to Cybersecurity",
+      "categoria_en": "Technology",
+      "duracion_en": "7 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn the fundamentals of digital security, threats, best practices, and system and data protection."
     },
     {
       "id": "8",
@@ -298,7 +386,12 @@
         "negocios"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Digital Marketing",
+      "categoria_en": "Marketing",
+      "duracion_en": "6 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Develop digital marketing strategies, content, social media, and results measurement."
     },
     {
       "id": "9",
@@ -314,7 +407,12 @@
         "negocios"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Project Management",
+      "categoria_en": "Business",
+      "duracion_en": "5 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Learn to plan projects, organize tasks, manage resources, and track objectives."
     },
     {
       "id": "10",
@@ -330,7 +428,12 @@
         "negocios"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "English for the Professional Environment",
+      "categoria_en": "Languages",
+      "duracion_en": "10 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Strengthen your English communication skills for academic and professional situations."
     },
     {
       "id": "11",
@@ -346,7 +449,12 @@
         "marketing"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Digital Graphic Design",
+      "categoria_en": "Design",
+      "duracion_en": "8 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Explore the fundamentals of composition, color, typography, and digital visual content creation."
     },
     {
       "id": "12",
@@ -363,7 +471,12 @@
         "gestion"
       ],
       "temas": [],
-      "tareas": []
+      "tareas": [],
+      "nombre_en": "Entrepreneurship and Business Models",
+      "categoria_en": "Business",
+      "duracion_en": "6 weeks",
+      "modalidad_en": "Online",
+      "descripcion_en": "Turn an idea into a business proposal by working on customers, revenue models, and strategy."
     }
   ],
   "usuarios": [
@@ -401,16 +514,20 @@
       "id": "1",
       "usuarioId": 1,
       "cursoId": 1,
-      "estado": "Activo",
-      "progreso": 75,
+      "estado": "Completado",
+      "progreso": 100,
       "temasVistos": [
         1,
         2,
-        3
+        3,
+        4,
+        5
       ],
       "tareasCompletadas": [
         1,
-        2
+        2,
+        3,
+        4
       ]
     },
     {
@@ -504,76 +621,77 @@
       "fechaFin": "2026-10-17",
       "activa": true,
       "id": "UujLGHTcIzE"
-    }, {
-    "id": "2",
-    "cursoId": "8",
-    "nombre": "Promoción mensual",
-    "tipo": "porcentaje",
-    "valor": 25,
-    "fechaInicio": "2026-09-01",
-    "fechaFin": "2026-09-30",
-    "activa": true
-  },
-  {
-    "id": "3",
-    "cursoId": "7",
-    "nombre": "Oferta tecnológica",
-    "tipo": "monto",
-    "valor": 8000,
-    "fechaInicio": "2026-09-01",
-    "fechaFin": "2026-10-20",
-    "activa": true
-  },
-  {
-    "id": "4",
-    "cursoId": "6",
-    "nombre": "Descuento especial",
-    "tipo": "porcentaje",
-    "valor": 15,
-    "fechaInicio": "2026-09-01",
-    "fechaFin": "2026-10-31",
-    "activa": true
-  },
-  {
-    "id": "5",
-    "cursoId": "9",
-    "nombre": "Oferta profesional",
-    "tipo": "porcentaje",
-    "valor": 10,
-    "fechaInicio": "2026-09-15",
-    "fechaFin": "2026-11-15",
-    "activa": true
-  },
-  {
-    "id": "6",
-    "cursoId": "10",
-    "nombre": "Regreso a clases",
-    "tipo": "monto",
-    "valor": 7000,
-    "fechaInicio": "2026-09-01",
-    "fechaFin": "2026-10-15",
-    "activa": true
-  },
-  {
-    "id": "7",
-    "cursoId": "11",
-    "nombre": "Oferta creativa",
-    "tipo": "porcentaje",
-    "valor": 20,
-    "fechaInicio": "2026-09-05",
-    "fechaFin": "2026-10-05",
-    "activa": true
-  },
-  {
-    "id": "8",
-    "cursoId": "12",
-    "nombre": "Impulsa tu idea",
-    "tipo": "porcentaje",
-    "valor": 15,
-    "fechaInicio": "2026-09-01",
-    "fechaFin": "2026-10-31",
-    "activa": true
-  }
+    },
+    {
+      "id": "2",
+      "cursoId": "8",
+      "nombre": "Promoción mensual",
+      "tipo": "porcentaje",
+      "valor": 25,
+      "fechaInicio": "2026-09-01",
+      "fechaFin": "2026-09-30",
+      "activa": true
+    },
+    {
+      "id": "3",
+      "cursoId": "7",
+      "nombre": "Oferta tecnológica",
+      "tipo": "monto",
+      "valor": 8000,
+      "fechaInicio": "2026-09-01",
+      "fechaFin": "2026-10-20",
+      "activa": true
+    },
+    {
+      "id": "4",
+      "cursoId": "6",
+      "nombre": "Descuento especial",
+      "tipo": "porcentaje",
+      "valor": 15,
+      "fechaInicio": "2026-09-01",
+      "fechaFin": "2026-10-31",
+      "activa": true
+    },
+    {
+      "id": "5",
+      "cursoId": "9",
+      "nombre": "Oferta profesional",
+      "tipo": "porcentaje",
+      "valor": 10,
+      "fechaInicio": "2026-09-15",
+      "fechaFin": "2026-11-15",
+      "activa": true
+    },
+    {
+      "id": "6",
+      "cursoId": "10",
+      "nombre": "Regreso a clases",
+      "tipo": "monto",
+      "valor": 7000,
+      "fechaInicio": "2026-09-01",
+      "fechaFin": "2026-10-15",
+      "activa": true
+    },
+    {
+      "id": "7",
+      "cursoId": "11",
+      "nombre": "Oferta creativa",
+      "tipo": "porcentaje",
+      "valor": 20,
+      "fechaInicio": "2026-09-05",
+      "fechaFin": "2026-10-05",
+      "activa": true
+    },
+    {
+      "id": "8",
+      "cursoId": "12",
+      "nombre": "Impulsa tu idea",
+      "tipo": "porcentaje",
+      "valor": 15,
+      "fechaInicio": "2026-09-01",
+      "fechaFin": "2026-10-31",
+      "activa": true
+    }
   ],
   "$schema": "./node_modules/json-server/schema.json"
 }

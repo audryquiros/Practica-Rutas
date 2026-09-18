@@ -10,6 +10,52 @@ function Configuracion() {
         t
     } = useTheme();
 
+    const tamanios = [
+        {
+            valor: "muy-pequena",
+            escala: 0.85
+        },
+        {
+            valor: "pequena",
+            escala: 0.92
+        },
+        {
+            valor: "normal",
+            escala: 1
+        },
+        {
+            valor: "grande",
+            escala: 1.10
+        },
+        {
+            valor: "muy-grande",
+            escala: 1.20
+        }
+    ];
+
+    const tamanioActual =
+        tamanios.find(
+            (item) =>
+                item.valor === preferencias.tamanioLetra
+        ) || tamanios[2];
+
+    const cambiarTamanio = (event) => {
+        const indice = Number(event.target.value);
+
+        cambiarPreferencia(
+            "tamanioLetra",
+            tamanios[indice].valor
+        );
+    };
+
+    const indiceActual = Math.max(
+        0,
+        tamanios.findIndex(
+            (item) =>
+                item.valor === preferencias.tamanioLetra
+        )
+    );
+
     return (
         <main className="configuracion-page">
 
@@ -26,12 +72,11 @@ function Configuracion() {
                     </h1>
 
                     <p>
-                        {t(
-                            "personalizaLearnix"
-                        )}
+                        {t("personalizaLearnix")}
                     </p>
 
                 </section>
+
 
                 <section className="configuracion-card">
 
@@ -46,15 +91,11 @@ function Configuracion() {
                             </span>
 
                             <h2>
-                                {t(
-                                    "idiomaPlataforma"
-                                )}
+                                {t("idiomaPlataforma")}
                             </h2>
 
                             <p>
-                                {t(
-                                    "seleccionaIdioma"
-                                )}
+                                {t("seleccionaIdioma")}
                             </p>
 
                         </div>
@@ -64,8 +105,7 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.idioma ===
-                                    "es"
+                                    preferencias.idioma === "es"
                                         ? "configuracion-choice active"
                                         : "configuracion-choice"
                                 }
@@ -85,11 +125,11 @@ function Configuracion() {
                                 </span>
                             </button>
 
+
                             <button
                                 type="button"
                                 className={
-                                    preferencias.idioma ===
-                                    "en"
+                                    preferencias.idioma === "en"
                                         ? "configuracion-choice active"
                                         : "configuracion-choice"
                                 }
@@ -113,6 +153,7 @@ function Configuracion() {
 
                     </div>
 
+
                     <div className="configuracion-divider"></div>
 
 
@@ -123,9 +164,7 @@ function Configuracion() {
                         <div className="configuracion-section-header">
 
                             <span className="configuracion-section-label">
-                                {t(
-                                    "apariencia"
-                                )}
+                                {t("apariencia")}
                             </span>
 
                             <h2>
@@ -133,20 +172,18 @@ function Configuracion() {
                             </h2>
 
                             <p>
-                                {t(
-                                    "cambiaColores"
-                                )}
+                                {t("cambiaColores")}
                             </p>
 
                         </div>
+
 
                         <div className="configuracion-theme-grid">
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema ===
-                                    "claro"
+                                    preferencias.tema === "claro"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
@@ -157,31 +194,24 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <span className="theme-preview theme-light"></span>
 
                                 <div>
-
                                     <strong>
                                         {t("claro")}
                                     </strong>
 
                                     <span>
-                                        {t(
-                                            "interfazClara"
-                                        )}
+                                        {t("interfazClara")}
                                     </span>
-
                                 </div>
-
                             </button>
 
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema ===
-                                    "oscuro"
+                                    preferencias.tema === "oscuro"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
@@ -192,31 +222,24 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <span className="theme-preview theme-dark"></span>
 
                                 <div>
-
                                     <strong>
                                         {t("oscuro")}
                                     </strong>
 
                                     <span>
-                                        {t(
-                                            "menorLuminosidad"
-                                        )}
+                                        {t("menorLuminosidad")}
                                     </span>
-
                                 </div>
-
                             </button>
 
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema ===
-                                    "lavanda"
+                                    preferencias.tema === "lavanda"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
@@ -227,31 +250,24 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <span className="theme-preview theme-lavender"></span>
 
                                 <div>
-
                                     <strong>
                                         {t("lavanda")}
                                     </strong>
 
                                     <span>
-                                        {t(
-                                            "tonosSuaves"
-                                        )}
+                                        {t("tonosSuaves")}
                                     </span>
-
                                 </div>
-
                             </button>
 
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema ===
-                                    "azul"
+                                    preferencias.tema === "azul"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
@@ -262,28 +278,23 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <span className="theme-preview theme-blue"></span>
 
                                 <div>
-
                                     <strong>
                                         {t("azul")}
                                     </strong>
 
                                     <span>
-                                        {t(
-                                            "tonosFrios"
-                                        )}
+                                        {t("tonosFrios")}
                                     </span>
-
                                 </div>
-
                             </button>
 
                         </div>
 
                     </div>
+
 
                     <div className="configuracion-divider"></div>
 
@@ -295,108 +306,102 @@ function Configuracion() {
                         <div className="configuracion-section-header">
 
                             <span className="configuracion-section-label">
-                                {t(
-                                    "accesibilidad"
-                                )}
+                                {t("accesibilidad")}
                             </span>
 
                             <h2>
-                                {t(
-                                    "tamanoLetra"
-                                )}
+                                {t("tamanoLetra")}
                             </h2>
 
                             <p>
-                                {t(
-                                    "ajustaTamano"
-                                )}
+                                {t("ajustaTamano")}
                             </p>
 
                         </div>
 
-                        <div className="configuracion-options-grid">
 
-                            <button
-                                type="button"
-                                className={
-                                    preferencias.tamanioLetra ===
-                                    "normal"
-                                        ? "configuracion-choice active"
-                                        : "configuracion-choice"
-                                }
-                                onClick={() =>
-                                    cambiarPreferencia(
-                                        "tamanioLetra",
-                                        "normal"
+                        <div className="font-size-control">
+
+                            <div className="font-size-scale">
+
+                                <span className="font-size-a font-size-a-small">
+                                    A
+                                </span>
+
+
+                                <div className="font-size-track">
+
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max="4"
+                                        step="1"
+                                        value={indiceActual}
+                                        onChange={cambiarTamanio}
+                                        className="font-size-slider"
+                                        aria-label={t("tamanoLetra")}
+                                    />
+
+                                    <div className="font-size-points">
+                                        {tamanios.map((item) => (
+                                            <span
+                                                key={item.valor}
+                                                className={
+                                                    preferencias.tamanioLetra === item.valor
+                                                        ? "active"
+                                                        : ""
+                                                }
+                                            ></span>
+                                        ))}
+                                    </div>
+
+                                </div>
+
+
+                                <span className="font-size-a font-size-a-large">
+                                    A
+                                </span>
+
+                            </div>
+
+
+                            <div className="font-size-labels">
+
+                                {tamanios.map(
+                                    (item) => (
+                                        <span
+                                            key={item.valor}
+                                            className={
+                                                preferencias.tamanioLetra ===
+                                                item.valor
+                                                    ? "active"
+                                                    : ""
+                                            }
+                                        >
+                                            {t(item.valor)}
+                                        </span>
                                     )
-                                }
-                            >
+                                )}
 
-                                <strong>
-                                    {t("normal")}
-                                </strong>
+                            </div>
+
+
+                            <div className="font-size-current">
 
                                 <span>
-                                    A
+                                    {t("tamanoActual")}:
                                 </span>
-
-                            </button>
-
-                            <button
-                                type="button"
-                                className={
-                                    preferencias.tamanioLetra ===
-                                    "grande"
-                                        ? "configuracion-choice active"
-                                        : "configuracion-choice"
-                                }
-                                onClick={() =>
-                                    cambiarPreferencia(
-                                        "tamanioLetra",
-                                        "grande"
-                                    )
-                                }
-                            >
 
                                 <strong>
-                                    {t("grande")}
+                                    {t(tamanioActual.valor)}
                                 </strong>
 
-                                <span className="choice-large">
-                                    A
-                                </span>
-
-                            </button>
-
-                            <button
-                                type="button"
-                                className={
-                                    preferencias.tamanioLetra ===
-                                    "muy-grande"
-                                        ? "configuracion-choice active"
-                                        : "configuracion-choice"
-                                }
-                                onClick={() =>
-                                    cambiarPreferencia(
-                                        "tamanioLetra",
-                                        "muy-grande"
-                                    )
-                                }
-                            >
-
-                                <strong>
-                                    {t("muyGrande")}
-                                </strong>
-
-                                <span className="choice-xlarge">
-                                    A
-                                </span>
-
-                            </button>
+                            </div>
 
                         </div>
 
                     </div>
+
 
                     <div className="configuracion-divider"></div>
 
@@ -408,9 +413,7 @@ function Configuracion() {
                         <div className="configuracion-section-header">
 
                             <span className="configuracion-section-label">
-                                {t(
-                                    "tipografia"
-                                )}
+                                {t("tipografia")}
                             </span>
 
                             <h2>
@@ -418,20 +421,18 @@ function Configuracion() {
                             </h2>
 
                             <p>
-                                {t(
-                                    "seleccionaFuente"
-                                )}
+                                {t("seleccionaFuente")}
                             </p>
 
                         </div>
+
 
                         <div className="configuracion-font-grid">
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente ===
-                                    "inter"
+                                    preferencias.fuente === "inter"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
@@ -442,25 +443,20 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <strong className="font-inter">
                                     Inter
                                 </strong>
 
                                 <span>
-                                    {t(
-                                        "modernaLimpia"
-                                    )}
+                                    {t("modernaLimpia")}
                                 </span>
-
                             </button>
 
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente ===
-                                    "arial"
+                                    preferencias.fuente === "arial"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
@@ -471,25 +467,20 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <strong className="font-arial">
                                     Arial
                                 </strong>
 
                                 <span>
-                                    {t(
-                                        "simpleFamiliar"
-                                    )}
+                                    {t("simpleFamiliar")}
                                 </span>
-
                             </button>
 
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente ===
-                                    "verdana"
+                                    preferencias.fuente === "verdana"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
@@ -500,25 +491,20 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <strong className="font-verdana">
                                     Verdana
                                 </strong>
 
                                 <span>
-                                    {t(
-                                        "altaLegibilidad"
-                                    )}
+                                    {t("altaLegibilidad")}
                                 </span>
-
                             </button>
 
 
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente ===
-                                    "georgia"
+                                    preferencias.fuente === "georgia"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
@@ -529,22 +515,19 @@ function Configuracion() {
                                     )
                                 }
                             >
-
                                 <strong className="font-georgia">
                                     Georgia
                                 </strong>
 
                                 <span>
-                                    {t(
-                                        "estiloSerif"
-                                    )}
+                                    {t("estiloSerif")}
                                 </span>
-
                             </button>
 
                         </div>
 
                     </div>
+
 
                     <div className="configuracion-divider"></div>
 
@@ -556,24 +539,19 @@ function Configuracion() {
                         <div className="configuracion-section-header">
 
                             <span className="configuracion-section-label">
-                                {t(
-                                    "accesibilidad"
-                                )}
+                                {t("accesibilidad")}
                             </span>
 
                             <h2>
-                                {t(
-                                    "opcionesAccesibilidad"
-                                )}
+                                {t("opcionesAccesibilidad")}
                             </h2>
 
                             <p>
-                                {t(
-                                    "activaOpciones"
-                                )}
+                                {t("activaOpciones")}
                             </p>
 
                         </div>
+
 
                         <div className="configuracion-accessibility">
 
@@ -582,18 +560,15 @@ function Configuracion() {
                                 <div className="configuracion-option-info">
 
                                     <strong>
-                                        {t(
-                                            "altoContraste"
-                                        )}
+                                        {t("altoContraste")}
                                     </strong>
 
                                     <span>
-                                        {t(
-                                            "aumentaDiferencia"
-                                        )}
+                                        {t("aumentaDiferencia")}
                                     </span>
 
                                 </div>
+
 
                                 <button
                                     type="button"
@@ -623,18 +598,15 @@ function Configuracion() {
                                 <div className="configuracion-option-info">
 
                                     <strong>
-                                        {t(
-                                            "reducirAnimaciones"
-                                        )}
+                                        {t("reducirAnimaciones")}
                                     </strong>
 
                                     <span>
-                                        {t(
-                                            "reduceTransiciones"
-                                        )}
+                                        {t("reduceTransiciones")}
                                     </span>
 
                                 </div>
+
 
                                 <button
                                     type="button"
@@ -662,29 +634,22 @@ function Configuracion() {
 
                     </div>
 
+
                     <div className="configuracion-divider"></div>
 
-
-                    {/* FOOTER */}
 
                     <div className="configuracion-footer">
 
                         <span>
-                            {t(
-                                "preferenciasGuardadas"
-                            )}
+                            {t("preferenciasGuardadas")}
                         </span>
 
                         <button
                             type="button"
                             className="configuracion-reset"
-                            onClick={
-                                restablecerPreferencias
-                            }
+                            onClick={restablecerPreferencias}
                         >
-                            {t(
-                                "restablecerPreferencias"
-                            )}
+                            {t("restablecerPreferencias")}
                         </button>
 
                     </div>

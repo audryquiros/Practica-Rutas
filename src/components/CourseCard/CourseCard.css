@@ -1,5 +1,5 @@
 .course-card {
-    height: 360px;
+    height: 420px;
     width: 100%;
 
     display: flex;
@@ -8,17 +8,35 @@
     background: #ffffff;
     border: 1px solid #e3e1eb;
     border-radius: 18px;
+
     overflow: hidden;
 
     transition:
         transform 0.25s ease,
-        box-shadow 0.25s ease;
+        box-shadow 0.25s ease,
+        background-color 0.25s ease,
+        border-color 0.25s ease;
 }
 
 .course-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 28px rgba(70, 50, 120, 0.10);
 }
+
+
+/* =========================
+   TEMA OSCURO
+========================= */
+
+.course-card-dark {
+    background: #20202f;
+    border-color: #353447;
+}
+
+.course-card-dark:hover {
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
 
 /* =========================
    LÍNEA SUPERIOR
@@ -35,6 +53,7 @@
     );
 }
 
+
 /* =========================
    CONTENIDO
 ========================= */
@@ -46,7 +65,10 @@
     height: calc(100% - 9px);
 
     padding: 18px 24px 20px;
+
+    box-sizing: border-box;
 }
+
 
 /* =========================
    CATEGORÍA
@@ -64,9 +86,16 @@
 
     font-size: 12px;
     font-weight: 600;
+
     letter-spacing: 0.3px;
     text-transform: uppercase;
 }
+
+.course-card-dark .course-category {
+    background: #302d40;
+    color: #b29be8;
+}
+
 
 /* =========================
    TÍTULO
@@ -87,6 +116,11 @@
     overflow: hidden;
 }
 
+.course-card-dark h3 {
+    color: #ffffff;
+}
+
+
 /* =========================
    DESCRIPCIÓN
 ========================= */
@@ -105,6 +139,11 @@
     overflow: hidden;
 }
 
+.course-card-dark p {
+    color: #aaa7ba;
+}
+
+
 /* =========================
    INFORMACIÓN
 ========================= */
@@ -112,6 +151,7 @@
 .course-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
+
     gap: 20px;
 
     height: 68px;
@@ -122,11 +162,18 @@
 
     border-top: 1px solid #ebe9f1;
     border-bottom: 1px solid #ebe9f1;
+
+    box-sizing: border-box;
+}
+
+.course-card-dark .course-details {
+    border-color: #353447;
 }
 
 .course-details div {
     display: flex;
     flex-direction: column;
+
     justify-content: center;
 
     gap: 4px;
@@ -137,6 +184,11 @@
     color: #8a899c;
 
     font-size: 12px;
+}
+
+.course-card-dark .course-details span,
+.course-card-dark .course-price > span {
+    color: #8f8ca0;
 }
 
 .course-details strong {
@@ -150,12 +202,18 @@
     text-overflow: ellipsis;
 }
 
+.course-card-dark .course-details strong {
+    color: #e8e6ef;
+}
+
+
 /* =========================
    PARTE INFERIOR
 ========================= */
 
 .course-card-footer {
     display: flex;
+
     align-items: center;
     justify-content: space-between;
 
@@ -163,6 +221,7 @@
 
     gap: 12px;
 }
+
 
 /* =========================
    PRECIO
@@ -173,8 +232,10 @@
 
     display: flex;
     flex-direction: column;
+
     gap: 4px;
 }
+
 
 /* Precio normal */
 
@@ -186,6 +247,11 @@
 
     font-weight: 700;
 }
+
+.course-card-dark .course-price > strong {
+    color: #b69aef;
+}
+
 
 /* =========================
    PROMOCIÓN
@@ -211,11 +277,28 @@
     white-space: nowrap;
 }
 
+.course-card-dark .course-promotion-label {
+    background: rgba(169, 139, 233, 0.14);
+    color: #bda8ef;
+}
+
+
+/* =========================
+   PRECIO CON PROMOCIÓN
+========================= */
+
 .course-price-promotion {
     display: flex;
+
     align-items: baseline;
+
     gap: 7px;
+
+    min-width: 0;
 }
+
+
+/* Precio anterior */
 
 .course-original-price {
     color: #9996a7;
@@ -228,6 +311,13 @@
     white-space: nowrap;
 }
 
+.course-card-dark .course-original-price {
+    color: #858296;
+}
+
+
+/* Precio final */
+
 .course-price-promotion strong {
     color: #51378a;
 
@@ -239,6 +329,27 @@
     white-space: nowrap;
 }
 
+.course-card-dark .course-price-promotion strong {
+    color: #b69aef;
+}
+
+
+/* Ahorro */
+
+.course-savings {
+    color: #8064bd;
+
+    font-size: 10px;
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+.course-card-dark .course-savings {
+    color: #b39ae3;
+}
+
+
 /* =========================
    BOTÓN
 ========================= */
@@ -248,6 +359,7 @@
     height: 54px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -263,35 +375,50 @@
 
     font-size: 14px;
     font-weight: 600;
+
     line-height: 1.25;
 
     cursor: pointer;
 
     transition:
         background 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 .course-card-footer button:hover {
     background: #493383;
+
     transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(93, 67, 163, 0.22);
 }
+
+.course-card-footer button:active {
+    transform: translateY(0);
+}
+
 
 /* =========================
    TABLET
 ========================= */
 
 @media (max-width: 1100px) {
+
     .course-card {
         height: 430px;
     }
+
 }
+
 
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 768px) {
+
     .course-card {
         height: auto;
         min-height: 430px;
@@ -300,23 +427,32 @@
     .course-card-content {
         height: auto;
     }
+
 }
+
 
 /* =========================
    MOBILE PEQUEÑO
 ========================= */
 
 @media (max-width: 480px) {
+
     .course-card {
         height: auto;
     }
 
     .course-card-footer {
         align-items: stretch;
+
         flex-direction: column;
     }
 
     .course-card-footer button {
         width: 100%;
     }
+
+    .course-price-promotion {
+        flex-wrap: wrap;
+    }
+
 }

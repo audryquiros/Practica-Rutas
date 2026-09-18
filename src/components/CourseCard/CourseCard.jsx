@@ -1,3 +1,5 @@
+import { useTheme } from "../../context/ThemeContext";
+import { calcularPrecioPromocional } from "../../services/promocionesService";
 import "./CourseCard.css";
 
 function CourseCard({
@@ -5,162 +7,136 @@ function CourseCard({
     promocion,
     onVerInfo
 }) {
+    const { preferencias, t } = useTheme();
+
+    const temaOscuro = preferencias.tema === "oscuro";
+    const idiomaIngles = preferencias.idioma === "en";
+
+    const precioOriginal = Number(curso.precio);
+    const promocionActiva = Boolean(promocion);
+
+    const precioFinal = promocionActiva
+        ? calcularPrecioPromocional(precioOriginal, promocion)
+        : precioOriginal;
+
+    const descuento = promocionActiva
+        ? Math.max(0, precioOriginal - precioFinal)
+        : 0;
+
+    const porcentajeDescuento =
+        promocionActiva && precioOriginal > 0
+            ? Math.round((descuento / precioOriginal) * 100)
+            : 0;
+
+    const nombreCurso =
+        idiomaIngles && curso.nombre_en
+            ? curso.nombre_en
+            : curso.nombre;
+
+    const descripcionCurso =
+        idiomaIngles && curso.descripcion_en
+            ? curso.descripcion_en
+            : curso.descripcion;
+
+    const categoriaCurso =
+        idiomaIngles && curso.categoria_en
+            ? curso.categoria_en
+            : curso.categoria;
+
+    const duracionCurso =
+        idiomaIngles && curso.duracion_en
+            ? curso.duracion_en
+            : curso.duracion;
+
+    const formatoPrecio = (precio) =>
+        `₡${Number(precio).toLocaleString("es-CR")}`;
+
+    const obtenerTextoPromocion = () => {
+        if (!promocionActiva) return "";
+
+        if (promocion.tipo === "porcentaje") {
+            return `${promocion.valor}% ${t("descuento")}`;
+        }
+
+        return `${formatoPrecio(promocion.valor)} ${t("deDescuento")}`;
+    };
+
     const handleVerInformacion = () => {
         onVerInfo(curso);
     };
 
-    const calcularPrecioFinal = () => {
-        if (!promocion) {
-            return Number(curso.precio);
-        }
-
-        if (promocion.tipo === "porcentaje") {
-            return Math.max(
-                0,
-                Number(curso.precio) -
-                    (
-                        Number(curso.precio) *
-                        Number(promocion.valor)
-                    ) /
-                    100
-            );
-        }
-
-        if (promocion.tipo === "monto") {
-            return Math.max(
-                0,
-                Number(curso.precio) -
-                    Number(promocion.valor)
-            );
-        }
-
-        return Number(curso.precio);
-    };
-
-    const precioOriginal =
-        Number(curso.precio);
-
-    const precioFinal =
-        calcularPrecioFinal();
-
-    const formatearPrecio = (precio) => {
-        return `₡${Number(precio).toLocaleString(
-            "es-CR"
-        )}`;
-    };
-
-    const obtenerTextoPromocion = () => {
-        if (!promocion) {
-            return "";
-        }
-
-        if (promocion.tipo === "porcentaje") {
-            return `${promocion.valor}% de descuento`;
-        }
-
-        return `${formatearPrecio(
-            promocion.valor
-        )} de descuento`;
-    };
-
     return (
-        <article className="course-card">
-
-            <div className="course-card-top">
-
-                <span className="course-category">
-                    {curso.categoria}
-                </span>
-
-            </div>
+        <article
+            className={`course-card ${
+                temaOscuro
+                    ? "course-card-dark"
+                    : "course-card-light"
+            }`}
+        >
+            <div className="course-card-top"></div>
 
             <div className="course-card-content">
+                <span className="course-category">
+                    {categoriaCurso}
+                </span>
 
-                <h3>
-                    {curso.nombre}
-                </h3>
+                <h3>{nombreCurso}</h3>
 
-                <p>
-                    {curso.descripcion}
-                </p>
+                <p>{descripcionCurso}</p>
 
                 <div className="course-details">
-
                     <div>
-                        <span>
-                            Profesor
-                        </span>
-
-                        <strong>
-                            {curso.profesor}
-                        </strong>
+                        <span>{t("profesor")}</span>
+                        <strong>{curso.profesor}</strong>
                     </div>
 
                     <div>
-                        <span>
-                            Duración
-                        </span>
-
-                        <strong>
-                            {curso.duracion}
-                        </strong>
+                        <span>{t("duracion")}</span>
+                        <strong>{duracionCurso}</strong>
                     </div>
-
                 </div>
 
                 <div className="course-card-footer">
-
                     <div className="course-price">
+                        <span>{t("inversion")}</span>
 
-                        {promocion ? (
+                        {promocionActiva ? (
                             <>
                                 <span className="course-promotion-label">
                                     {obtenerTextoPromocion()}
                                 </span>
 
                                 <div className="course-price-promotion">
-
                                     <span className="course-original-price">
-                                        {formatearPrecio(
-                                            precioOriginal
-                                        )}
+                                        {formatoPrecio(precioOriginal)}
                                     </span>
 
                                     <strong>
-                                        {formatearPrecio(
-                                            precioFinal
-                                        )}
+                                        {formatoPrecio(precioFinal)}
                                     </strong>
-
                                 </div>
+
+                                <span className="course-savings">
+                                    {t("ahorras")}{" "}
+                                    {formatoPrecio(descuento)}{" "}
+                                    ({porcentajeDescuento}%)
+                                </span>
                             </>
                         ) : (
-                            <>
-                                <span>
-                                    Inversión
-                                </span>
-
-                                <strong>
-                                    {formatearPrecio(
-                                        precioOriginal
-                                    )}
-                                </strong>
-                            </>
+                            <strong>
+                                {formatoPrecio(precioOriginal)}
+                            </strong>
                         )}
-
                     </div>
 
                     <button
                         type="button"
                         onClick={handleVerInformacion}
                     >
-                        Ver información
+                        {t("verInformacion")}
                     </button>
-
                 </div>
-
             </div>
-
         </article>
     );
 }

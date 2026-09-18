@@ -1,90 +1,95 @@
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 import "./Ayuda.css";
 
 function Ayuda() {
+    const { t } = useTheme();
+
     return (
         <main className="ayuda-page">
+
             <div className="ayuda-container">
 
                 <section className="ayuda-header">
+
                     <span className="ayuda-label">
-                        CENTRO DE AYUDA
+                        {t("centroAyuda")}
                     </span>
 
                     <h1>
-                        ¿Cómo podemos ayudarte?
+                        {t("comoAyudarte")}
                     </h1>
 
                     <p>
-                        Encuentra información sobre la plataforma,
-                        tus cursos y el proceso de matrícula.
+                        {t("ayudaDescripcion")}
                     </p>
+
                 </section>
 
                 <section className="ayuda-grid">
 
                     <article className="ayuda-card">
+
                         <span className="ayuda-number">
                             01
                         </span>
 
                         <h2>
-                            ¿Cómo matricularme?
+                            {t("comoMatricularme")}
                         </h2>
 
                         <p>
-                            Explora los cursos disponibles desde
-                            Inicio, selecciona el curso que te
-                            interesa y presiona "Matricular curso".
+                            {t("comoMatricularmeTexto")}
                         </p>
+
                     </article>
 
                     <article className="ayuda-card">
+
                         <span className="ayuda-number">
                             02
                         </span>
 
                         <h2>
-                            ¿Dónde veo mis cursos?
+                            {t("dondeVeoCursos")}
                         </h2>
 
                         <p>
-                            Después de iniciar sesión y completar
-                            una matrícula, podrás consultar tus
-                            cursos desde la sección "Mis cursos".
+                            {t("dondeVeoCursosTexto")}
                         </p>
+
                     </article>
 
                     <article className="ayuda-card">
+
                         <span className="ayuda-number">
                             03
                         </span>
 
                         <h2>
-                            ¿Cómo consulto mi progreso?
+                            {t("comoConsultoProgreso")}
                         </h2>
 
                         <p>
-                            Desde Mis cursos puedes seleccionar
-                            cualquier curso matriculado y consultar
-                            tus temas, tareas y porcentaje de progreso.
+                            {t("comoConsultoProgresoTexto")}
                         </p>
+
                     </article>
 
                     <article className="ayuda-card">
+
                         <span className="ayuda-number">
                             04
                         </span>
 
                         <h2>
-                            ¿Necesito una cuenta?
+                            {t("necesitoCuenta")}
                         </h2>
 
                         <p>
-                            Sí. Para matricular un curso debes iniciar
-                            sesión. Si todavía no tienes una cuenta,
-                            puedes registrarte gratuitamente.
+                            {t("necesitoCuentaTexto")}
                         </p>
+
                     </article>
 
                 </section>
@@ -92,25 +97,28 @@ function Ayuda() {
                 <section className="ayuda-contact">
 
                     <div>
+
                         <span className="ayuda-contact-label">
-                            ¿TODAVÍA TIENES DUDAS?
+                            {t("todaviaDudas")}
                         </span>
 
                         <h2>
-                            Comienza explorando nuestros cursos.
+                            {t("comienzaExplorando")}
                         </h2>
+
                     </div>
 
                     <Link
                         to="/"
                         className="ayuda-button"
                     >
-                        Ver cursos
+                        {t("verCursos")}
                     </Link>
 
                 </section>
 
             </div>
+
         </main>
     );
 }
