@@ -1,4 +1,8 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route
+} from "react-router-dom";
 
 import Navbar from "../components/Navbar/Navbar";
 
@@ -12,6 +16,8 @@ import Ayuda from "../pages/Ayuda/Ayuda";
 import Pago from "../pages/Pago/Pago";
 import Admin from "../pages/Admin/Admin";
 import Usuarios from "../pages/Usuarios/Usuarios";
+import CursosAdmin from "../pages/CursosAdmin/CursosAdmin";
+import Promociones from "../pages/Promociones/Promociones";
 import Forbidden from "../pages/Forbidden/Forbidden";
 import NotFound from "../pages/NotFound/NotFound";
 import TestVocacional from "../pages/TestVocacional/TestVocacional";
@@ -29,7 +35,7 @@ function Routing() {
 
                 {/* =========================
                     RUTAS PÚBLICAS
-                ========================== */}
+                ========================= */}
 
                 <Route
                     path="/"
@@ -47,10 +53,11 @@ function Routing() {
                 />
 
                 {/* =========================
-                    RUTAS PARA INVITADOS
-                ========================== */}
+                    SOLO INVITADOS
+                ========================= */}
 
                 <Route element={<GuestRoutes />}>
+
                     <Route
                         path="/login"
                         element={<Login />}
@@ -60,11 +67,12 @@ function Routing() {
                         path="/registro"
                         element={<Registro />}
                     />
+
                 </Route>
 
                 {/* =========================
                     RUTAS PRIVADAS
-                ========================== */}
+                ========================= */}
 
                 <Route element={<PrivateRoutes />}>
 
@@ -93,38 +101,50 @@ function Routing() {
                         element={<Pago />}
                     />
 
-                    {/* Test vocacional:
-                        solamente usuarios autenticados */}
                     <Route
                         path="/test-vocacional"
                         element={<TestVocacional />}
                     />
 
                     {/* =========================
-                        RUTAS SOLO PARA ADMIN
-                    ========================== */}
+                        SOLO ADMIN
+                    ========================= */}
 
                     <Route
                         element={
-                            <RoleRoutes requiredRole="admin" />
+                            <RoleRoutes
+                                requiredRole="admin"
+                            />
                         }
                     >
+
                         <Route
                             path="/admin"
                             element={<Admin />}
                         />
 
                         <Route
+                            path="/admin/cursos"
+                            element={<CursosAdmin />}
+                        />
+
+                        <Route
+                            path="/admin/promociones"
+                            element={<Promociones />}
+                        />
+
+                        <Route
                             path="/dashboard/usuarios"
                             element={<Usuarios />}
                         />
+
                     </Route>
 
                 </Route>
 
                 {/* =========================
-                    RUTA 404
-                ========================== */}
+                    404
+                ========================= */}
 
                 <Route
                     path="*"

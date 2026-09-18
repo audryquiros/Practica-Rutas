@@ -1,281 +1,129 @@
-import { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
-
 import "./Navbar.css";
 
 function Navbar() {
     const { user, isAuthenticated, logout } = useAuth();
-    const { t } = useTheme();
+
     const navigate = useNavigate();
 
-    const [menuAbierto, setMenuAbierto] = useState(false);
+    const esAdmin = user?.role === "admin";
 
     const manejarLogout = () => {
         logout();
-        setMenuAbierto(false);
-
-        navigate("/", {
-            replace: true
-        });
+        navigate("/");
     };
-
-    const cerrarMenu = () => {
-        setMenuAbierto(false);
-    };
-
-    const esAdministrador =
-        isAuthenticated &&
-        user?.role === "admin";
 
     return (
         <header className="navbar">
             <div className="navbar-container">
 
-                {/* LOGO */}
-
                 <Link
                     to="/"
                     className="navbar-logo"
-                    onClick={cerrarMenu}
                 >
-                    <span className="logo-text">
-                        Learnix
-                    </span>
+                    Learnix
                 </Link>
-
-                {/* NAVEGACIÓN */}
 
                 <nav className="navbar-links">
 
-                    {/* INICIO */}
-
                     <NavLink
                         to="/"
+                        end
                         className={({ isActive }) =>
-                            `nav-link ${
-                                isActive ? "active" : ""
-                            }`
+                            `navbar-link ${isActive ? "active" : ""}`
                         }
                     >
-                        {t("inicio")}
+                        Inicio
                     </NavLink>
-
-                    {/* MIS CURSOS
-                        Solo usuarios normales */}
-
-                    {isAuthenticated &&
-                        user?.role === "usuario" && (
-                            <NavLink
-                                to="/dashboard"
-                                className={({ isActive }) =>
-                                    `nav-link ${
-                                        isActive
-                                            ? "active"
-                                            : ""
-                                    }`
-                                }
-                            >
-                                {t("misCursos")}
-                            </NavLink>
-                        )}
-
-                    {/* TEST VOCACIONAL
-                        Solo usuarios autenticados */}
 
                     {isAuthenticated && (
                         <NavLink
                             to="/test-vocacional"
                             className={({ isActive }) =>
-                                `nav-link ${
-                                    isActive
-                                        ? "active"
-                                        : ""
-                                }`
+                                `navbar-link ${isActive ? "active" : ""}`
                             }
                         >
                             Test vocacional
                         </NavLink>
                     )}
 
-                    {/* ADMINISTRACIÓN
-                        Solo administradores */}
-
-                    {esAdministrador && (
+                    {esAdmin && (
                         <NavLink
                             to="/admin"
                             className={({ isActive }) =>
-                                `nav-link ${
-                                    isActive
-                                        ? "active"
-                                        : ""
-                                }`
+                                `navbar-link ${isActive ? "active" : ""}`
                             }
                         >
-                            {t("administracion")}
+                            Administración
                         </NavLink>
                     )}
-
-                    {/* AYUDA */}
 
                     <NavLink
                         to="/ayuda"
                         className={({ isActive }) =>
-                            `nav-link ${
-                                isActive ? "active" : ""
-                            }`
+                            `navbar-link ${isActive ? "active" : ""}`
                         }
                     >
-                        {t("ayuda")}
+                        Ayuda
                     </NavLink>
 
                 </nav>
 
-                {/* ACCIONES DE USUARIO */}
+                <div className="navbar-user">
 
-                <div className="navbar-actions">
+                    {isAuthenticated && user ? (
+                        <div className="navbar-user-menu">
 
-                    {/* USUARIO NO AUTENTICADO */}
+                            <details className="navbar-user-details">
 
-                    {!isAuthenticated && (
-                        <>
-                            <Link
-                                to="/login"
-                                className="nav-login"
-                            >
-                                {t("iniciarSesion")}
-                            </Link>
+                                <summary className="navbar-user-button">
 
-                            <Link
-                                to="/registro"
-                                className="nav-register"
-                            >
-                                {t("crearCuenta")}
-                            </Link>
-                        </>
-                    )}
+                                    <span className="navbar-avatar">
+                                        {user.nombre
+                                            ?.charAt(0)
+                                            ?.toUpperCase() || "U"}
+                                    </span>
 
-                    {/* USUARIO AUTENTICADO */}
+                                    <span className="navbar-user-name">
+                                        {user.nombre}
+                                    </span>
 
-                    {isAuthenticated && (
-                        <div className="profile-menu">
+                                    <span className="navbar-user-arrow">
+                                        ˅
+                                    </span>
 
-                            <button
-                                type="button"
-                                className="profile-trigger"
-                                onClick={() =>
-                                    setMenuAbierto(
-                                        (actual) =>
-                                            !actual
-                                    )
-                                }
-                                aria-expanded={
-                                    menuAbierto
-                                }
-                            >
+                                </summary>
 
-                                <span className="profile-avatar">
-                                    {user?.nombre
-                                        ?.charAt(0)
-                                        ?.toUpperCase() ||
-                                        "U"}
-                                </span>
+                                <div className="navbar-user-dropdown">
 
-                                <span className="profile-trigger-name">
-                                    {user?.nombre ||
-                                        "Usuario"}
-                                </span>
-
-                                <span className="profile-trigger-arrow">
-                                    {menuAbierto
-                                        ? "⌃"
-                                        : "⌄"}
-                                </span>
-
-                            </button>
-
-                            {/* MENÚ DEL PERFIL */}
-
-                            {menuAbierto && (
-                                <div className="profile-dropdown">
-
-                                    <div className="profile-dropdown-header">
-
-                                        <strong>
-                                            {user?.nombre}
-                                        </strong>
-
-                                        <span>
-                                            {user?.email}
-                                        </span>
-
-                                    </div>
-
-                                    <div className="profile-dropdown-divider" />
-
-                                    {/* PERFIL */}
-
-                                    <Link
-                                        to="/perfil"
-                                        className="profile-dropdown-item"
-                                        onClick={
-                                            cerrarMenu
-                                        }
-                                    >
-                                        {t("perfil")}
+                                    <Link to="/perfil">
+                                        Perfil
                                     </Link>
 
-                                    {/* CONFIGURACIÓN */}
-
-                                    <Link
-                                        to="/perfil/configuracion"
-                                        className="profile-dropdown-item"
-                                        onClick={
-                                            cerrarMenu
-                                        }
-                                    >
-                                        {t(
-                                            "configuracion"
-                                        )}
+                                    <Link to="/configuracion">
+                                        Configuración
                                     </Link>
-
-                                    {/* USUARIOS
-                                        SOLO ADMIN */}
-
-                                    {esAdministrador && (
-                                        <Link
-                                            to="/dashboard/usuarios"
-                                            className="profile-dropdown-item profile-dropdown-users"
-                                            onClick={
-                                                cerrarMenu
-                                            }
-                                        >
-                                            Usuarios
-                                        </Link>
-                                    )}
-
-                                    <div className="profile-dropdown-divider" />
-
-                                    {/* CERRAR SESIÓN */}
 
                                     <button
                                         type="button"
-                                        className="profile-dropdown-item profile-dropdown-logout"
-                                        onClick={
-                                            manejarLogout
-                                        }
+                                        onClick={manejarLogout}
                                     >
-                                        {t(
-                                            "cerrarSesion"
-                                        )}
+                                        Cerrar sesión
                                     </button>
 
                                 </div>
-                            )}
+
+                            </details>
 
                         </div>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="navbar-login"
+                        >
+                            Iniciar sesión
+                        </Link>
                     )}
 
                 </div>
@@ -285,4 +133,4 @@ function Navbar() {
     );
 }
 
-export default Navbar;  
+export default Navbar;

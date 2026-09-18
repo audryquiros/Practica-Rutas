@@ -29,8 +29,7 @@ export const obtenerUsuarioPorEmail = async (
         );
     }
 
-    const usuarios =
-        await response.json();
+    const usuarios = await response.json();
 
     return usuarios[0] || null;
 };
@@ -43,8 +42,7 @@ export const registrarUsuario = async (
         {
             method: "POST",
             headers: {
-                "Content-Type":
-                    "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(usuario)
         }
@@ -68,8 +66,7 @@ export const actualizarUsuario = async (
         {
             method: "PATCH",
             headers: {
-                "Content-Type":
-                    "application/json"
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(datos)
         }
@@ -82,4 +79,23 @@ export const actualizarUsuario = async (
     }
 
     return await response.json();
+};
+
+export const eliminarUsuario = async (
+    id
+) => {
+    const response = await fetch(
+        `${API_URL}/usuarios/${id}`,
+        {
+            method: "DELETE"
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+            "No se pudo eliminar el usuario"
+        );
+    }
+
+    return true;
 };

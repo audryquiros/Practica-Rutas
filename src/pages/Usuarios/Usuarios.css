@@ -1,70 +1,169 @@
-.usuarios-page {
+.usuarios-admin-page {
     min-height: calc(100vh - 76px);
-    padding: 48px 0 60px;
+    padding: 50px 0 70px;
     background: var(--color-background);
 }
 
-.usuarios-container {
-    width: min(1100px, 92%);
+.usuarios-admin-container {
+    width: min(1180px, 92%);
     margin: 0 auto;
 }
 
-.usuarios-header {
-    margin-bottom: 28px;
+.usuarios-admin-header {
+    margin-bottom: 30px;
 }
 
-.usuarios-label,
-.usuarios-section-label {
+.usuarios-admin-header > span,
+.usuario-edit-header span,
+.usuarios-list-header > div > span {
     display: inline-block;
     margin-bottom: 8px;
     color: var(--color-primary);
     font-size: 10px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 1.4px;
 }
 
-.usuarios-header h1 {
-    margin: 0 0 8px;
+.usuarios-admin-header h1 {
+    margin: 0 0 9px;
     color: var(--color-text);
-    font-size: 34px;
-    line-height: 1.15;
-    font-weight: 700;
+    font-size: 36px;
+    font-weight: 800;
     letter-spacing: -1px;
 }
 
-.usuarios-header p {
+.usuarios-admin-header p {
     margin: 0;
     color: var(--color-text-secondary);
     font-size: 14px;
     line-height: 1.6;
 }
 
-.usuarios-card {
+.usuario-edit-card,
+.usuarios-list-card {
     padding: 28px;
     border: 1px solid var(--color-border);
-    border-radius: 16px;
+    border-radius: 17px;
     background: var(--color-surface);
     box-shadow: var(--shadow-card);
 }
 
-.usuarios-card-header {
+.usuario-edit-card {
+    margin-bottom: 22px;
+}
+
+.usuario-edit-header,
+.usuarios-list-header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     gap: 20px;
-    margin-bottom: 22px;
+    margin-bottom: 24px;
 }
 
-.usuarios-card-header h2 {
+.usuario-edit-header h2,
+.usuarios-list-header h2 {
     margin: 0;
     color: var(--color-text);
-    font-size: 20px;
+    font-size: 21px;
+}
+
+.usuario-edit-header > button {
+    padding: 9px 13px;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    background: var(--color-surface);
+    color: var(--color-text-secondary);
+    font-family: inherit;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.usuario-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 17px;
+}
+
+.usuario-field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.usuario-field label {
+    color: var(--color-text);
+    font-size: 12px;
     font-weight: 650;
 }
 
-.usuarios-count {
-    color: var(--color-text-muted);
+.usuario-field input,
+.usuario-field select {
+    width: 100%;
+    min-height: 43px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 9px;
+    outline: none;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: inherit;
+    font-size: 13px;
+}
+
+.usuario-field input:focus,
+.usuario-field select:focus {
+    border-color: var(--color-primary);
+    box-shadow:
+        0 0 0 3px
+        var(--color-primary-soft);
+}
+
+.usuario-edit-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--color-border);
+}
+
+.usuario-edit-footer button {
+    min-height: 42px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 9px;
+    background: var(--color-primary);
+    color: #ffffff;
+    font-family: inherit;
     font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.usuarios-error,
+.usuarios-success {
+    margin: 0 0 20px;
+    padding: 11px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.usuarios-error {
+    border: 1px solid var(--color-danger);
+    background: var(--color-danger-soft);
+    color: var(--color-danger);
+}
+
+.usuarios-success {
+    border: 1px solid var(--color-success);
+    background: var(--color-success-soft);
+    color: var(--color-success);
+}
+
+.usuarios-list-header strong {
+    color: var(--color-primary);
+    font-size: 24px;
 }
 
 .usuarios-table-wrapper {
@@ -75,74 +174,87 @@
 
 .usuarios-table {
     width: 100%;
+    min-width: 760px;
     border-collapse: collapse;
-    min-width: 600px;
 }
 
 .usuarios-table th {
-    padding: 13px 16px;
+    padding: 13px 15px;
     border-bottom: 1px solid var(--color-border);
     background: var(--color-surface-soft);
     color: var(--color-text-muted);
     font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
     text-align: left;
     text-transform: uppercase;
 }
 
 .usuarios-table td {
-    padding: 15px 16px;
+    padding: 15px;
     border-bottom: 1px solid var(--color-border);
     color: var(--color-text-secondary);
     font-size: 13px;
 }
 
 .usuarios-table tbody tr:last-child td {
-    border-bottom: 0;
+    border-bottom: none;
 }
 
 .usuarios-table td strong {
     color: var(--color-text);
-    font-weight: 600;
 }
 
 .usuario-role {
     display: inline-flex;
-    align-items: center;
     padding: 5px 9px;
-    border-radius: 7px;
+    border-radius: 999px;
     background: var(--color-primary-soft);
     color: var(--color-primary);
     font-size: 10px;
-    font-weight: 650;
+    font-weight: 700;
+    text-transform: capitalize;
 }
 
-.usuario-role.admin {
-    background: var(--color-success-soft);
-    color: var(--color-success);
+.usuario-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.usuario-edit-button,
+.usuario-delete-button {
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.usuario-edit-button {
+    border: 1px solid var(--color-primary);
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.usuario-delete-button {
+    border: 1px solid var(--color-danger);
+    background: transparent;
+    color: var(--color-danger);
+}
+
+.usuario-delete-button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
 }
 
 .usuarios-message {
-    margin: 25px 0;
     color: var(--color-text-secondary);
     font-size: 13px;
 }
 
-.usuarios-error {
-    color: var(--color-danger);
-}
-
-@media (max-width: 600px) {
-    .usuarios-page {
-        padding: 38px 0 50px;
-    }
-
-    .usuarios-card {
-        padding: 20px;
-    }
-
-    .usuarios-header h1 {
-        font-size: 29px;
+@media (max-width: 700px) {
+    .usuario-form-grid {
+        grid-template-columns: 1fr;
     }
 }

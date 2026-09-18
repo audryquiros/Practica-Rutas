@@ -1,0 +1,733 @@
+.cursos-admin-page {
+    min-height: calc(100vh - 92px);
+    padding: 42px 48px 80px;
+    box-sizing: border-box;
+    background: #14131d;
+}
+
+.cursos-admin-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* =========================
+   VOLVER
+========================= */
+
+.admin-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 30px;
+    padding: 8px 0;
+
+    border: none;
+    background: transparent;
+
+    color: #aaa6ba;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.admin-back-button span {
+    color: #a98be9;
+    font-size: 20px;
+}
+
+.admin-back-button:hover {
+    color: #ffffff;
+    transform: translateX(-3px);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.cursos-admin-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 34px;
+}
+
+.cursos-admin-eyebrow {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #a98be9;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.cursos-admin-header h1 {
+    margin: 0;
+
+    color: #f7f5fb;
+
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1.3px;
+}
+
+.cursos-admin-header p {
+    margin: 12px 0 0;
+
+    color: #aaa6ba;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* =========================
+   ACCIONES HEADER
+========================= */
+
+.cursos-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cursos-total {
+    min-width: 78px;
+
+    padding: 12px 16px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #20202f;
+
+    border: 1px solid #373649;
+    border-radius: 10px;
+}
+
+.cursos-total span {
+    color: #8f8ba0;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.cursos-total strong {
+    margin-top: 4px;
+
+    color: #a98be9;
+
+    font-size: 24px;
+    line-height: 1;
+}
+
+.add-course-button {
+    height: 45px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0 17px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #a98be9;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.add-course-button span {
+    font-size: 19px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+.add-course-button:hover {
+    background: #9475d5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(169, 139, 233, 0.18);
+}
+
+/* =========================
+   MENSAJES
+========================= */
+
+.cursos-admin-message {
+    padding: 13px 17px;
+    margin-bottom: 20px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+}
+
+.cursos-admin-message.error {
+    border: 1px solid #8d5364;
+    background: rgba(173, 76, 102, 0.13);
+    color: #e79aaa;
+}
+
+.cursos-admin-message.success {
+    border: 1px solid #5d806d;
+    background: rgba(80, 145, 106, 0.11);
+    color: #9bc9aa;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.curso-form-section {
+    padding: 30px;
+    margin-bottom: 28px;
+
+    background: #1d1c2a;
+
+    border: 1px solid #353447;
+    border-radius: 16px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 26px;
+}
+
+.section-number {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #a98be9;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.section-heading h2,
+.courses-list-header h2 {
+    margin: 0;
+
+    color: #f4f2f9;
+
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.close-form-button,
+.cancel-form-button {
+    border: 1px solid #454357;
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #aaa6ba;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.close-form-button {
+    padding: 8px 13px;
+}
+
+.close-form-button:hover,
+.cancel-form-button:hover {
+    color: #ffffff;
+    border-color: #665f7a;
+    background: #252435;
+}
+
+.curso-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group.full-width {
+    width: 100%;
+}
+
+.form-group label {
+    color: #ddd9e7;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid #39384a;
+    border-radius: 8px;
+
+    background: #222130;
+    color: #eeeaf5;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-group input,
+.form-group select {
+    height: 43px;
+    padding: 0 12px;
+}
+
+.form-group textarea {
+    min-height: 110px;
+    padding: 11px 12px;
+
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #77748a;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #8066ad;
+    background: #252435;
+    box-shadow: 0 0 0 3px rgba(169, 139, 233, 0.08);
+}
+
+.form-group small {
+    color: #77748a;
+
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+/* =========================
+   PRECIO
+========================= */
+
+.price-input {
+    position: relative;
+}
+
+.price-input span {
+    position: absolute;
+
+    left: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #89859a;
+
+    font-size: 13px;
+}
+
+.price-input input {
+    padding-left: 27px !important;
+}
+
+/* =========================
+   FOOTER FORM
+========================= */
+
+.form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #343345;
+}
+
+.form-footer p {
+    margin: 0;
+
+    color: #77748a;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.cancel-form-button {
+    height: 42px;
+    padding: 0 15px;
+}
+
+.save-course-button {
+    min-width: 145px;
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #a98be9;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.save-course-button:hover:not(:disabled) {
+    background: #9475d5;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(169, 139, 233, 0.18);
+}
+
+.save-course-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* =========================
+   LISTA
+========================= */
+
+.courses-list-section {
+    padding: 30px;
+
+    background: #1d1c2a;
+
+    border: 1px solid #353447;
+    border-radius: 16px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.courses-list-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+.courses-list-header p {
+    margin: 7px 0 0;
+
+    color: #77748a;
+
+    font-size: 12px;
+}
+
+.courses-count {
+    color: #a98be9;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.courses-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #343345;
+    border-radius: 10px;
+}
+
+.courses-table {
+    width: 100%;
+    min-width: 780px;
+
+    border-collapse: collapse;
+}
+
+.courses-table thead {
+    background: #252435;
+}
+
+.courses-table th {
+    padding: 12px 13px;
+
+    border-bottom: 1px solid #39384a;
+
+    color: #8f8ba0;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    text-align: left;
+}
+
+.courses-table td {
+    padding: 13px;
+
+    border-bottom: 1px solid #302f40;
+
+    color: #aaa6ba;
+
+    font-size: 11px;
+}
+
+.courses-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.courses-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.courses-table tbody tr:hover {
+    background: rgba(169, 139, 233, 0.035);
+}
+
+.course-name {
+    max-width: 250px;
+
+    color: #eeeaf5;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.course-category {
+    display: inline-flex;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    background: #efedf5;
+    color: #8b829d;
+
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.course-price {
+    color: #d0c6e5;
+
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =========================
+   ACCIONES
+========================= */
+
+.course-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.edit-button,
+.delete-button {
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.edit-button {
+    border: 1px solid #725b99;
+    background: rgba(169, 139, 233, 0.07);
+    color: #b395ef;
+}
+
+.edit-button:hover {
+    background: rgba(169, 139, 233, 0.16);
+    border-color: #9275bf;
+}
+
+.delete-button {
+    border: 1px solid #875367;
+    background: transparent;
+    color: #df8f9f;
+}
+
+.delete-button:hover {
+    background: rgba(220, 100, 125, 0.08);
+    border-color: #a36578;
+}
+
+/* =========================
+   ESTADOS
+========================= */
+
+.courses-loading,
+.courses-empty {
+    padding: 50px 20px;
+
+    border: 1px dashed #3c3b4c;
+    border-radius: 10px;
+
+    color: #858195;
+
+    font-size: 13px;
+    text-align: center;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .cursos-admin-page {
+        padding: 35px 25px 60px;
+    }
+
+    .cursos-admin-header {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .cursos-admin-page {
+        padding: 30px 16px 50px;
+    }
+
+    .cursos-admin-header {
+        display: block;
+    }
+
+    .cursos-admin-header h1 {
+        font-size: 34px;
+    }
+
+    .cursos-header-actions {
+        margin-top: 20px;
+        justify-content: space-between;
+    }
+
+    .curso-form-section,
+    .courses-list-section {
+        padding: 22px 18px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .form-actions {
+        width: 100%;
+    }
+
+    .cancel-form-button,
+    .save-course-button {
+        flex: 1;
+    }
+
+    .section-heading,
+    .courses-list-header {
+        align-items: flex-start;
+    }
+
+    .course-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

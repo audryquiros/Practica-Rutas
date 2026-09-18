@@ -1,42 +1,23 @@
-import {
-    Navigate,
-    Outlet
-} from "react-router-dom";
-
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function GuestRoutes() {
-    const {
-        authStatus
-    } = useAuth();
+    const { isAuthenticated, loadingAuth, user } = useAuth();
 
-    if (authStatus === "verificando") {
+    if (loadingAuth) {
         return (
-            <main className="auth-verification-page">
-                <div className="auth-verification-card">
-                    <span className="auth-verification-label">
-                        LEARNIX
-                    </span>
-
-                    <h1>
-                        Verificando sesión…
-                    </h1>
-
-                    <p>
-                        Estamos comprobando tu sesión.
-                    </p>
-                </div>
-            </main>
+            <div className="auth-loading">
+                Verificando sesión…
+            </div>
         );
     }
 
-    if (authStatus === "autenticado") {
-        return (
-            <Navigate
-                to="/dashboard"
-                replace
-            />
-        );
+    if (isAuthenticated) {
+        if (user?.role === "admin") {
+            return <Navigate to="/admin" replace />;
+        }
+
+        return <Navigate to="/dashboard" replace />;
     }
 
     return <Outlet />;

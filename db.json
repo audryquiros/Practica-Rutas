@@ -58,7 +58,6 @@
         }
       ]
     },
-
     {
       "id": "2",
       "nombre": "Diseño UX/UI",
@@ -116,7 +115,6 @@
         }
       ]
     },
-
     {
       "id": "3",
       "nombre": "JavaScript desde cero",
@@ -179,7 +177,6 @@
         }
       ]
     },
-
     {
       "id": "4",
       "nombre": "Bases de Datos",
@@ -238,7 +235,6 @@
         }
       ]
     },
-
     {
       "id": "5",
       "nombre": "Python para principiantes",
@@ -255,7 +251,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "6",
       "nombre": "Análisis de Datos con Excel",
@@ -272,7 +267,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "7",
       "nombre": "Introducción a la Ciberseguridad",
@@ -290,7 +284,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "8",
       "nombre": "Marketing Digital",
@@ -307,7 +300,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "9",
       "nombre": "Gestión de Proyectos",
@@ -324,7 +316,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "10",
       "nombre": "Inglés para el entorno profesional",
@@ -341,7 +332,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "11",
       "nombre": "Diseño Gráfico Digital",
@@ -358,7 +348,6 @@
       "temas": [],
       "tareas": []
     },
-
     {
       "id": "12",
       "nombre": "Emprendimiento y Modelos de Negocio",
@@ -377,38 +366,36 @@
       "tareas": []
     }
   ],
-
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "nombre": "Audry",
       "email": "audry@email.com",
       "password": "123456",
       "role": "usuario"
     },
     {
-      "id": 2,
+      "id": "2",
       "nombre": "Carlos",
       "email": "carlos@email.com",
       "password": "123456",
       "role": "usuario"
     },
     {
-      "id": 3,
+      "id": "3",
       "nombre": "María",
       "email": "maria@email.com",
       "password": "123456",
       "role": "usuario"
     },
     {
-      "id": 4,
+      "id": "4",
       "nombre": "Administrador",
       "email": "admin@learnix.com",
       "password": "admin123",
       "role": "admin"
     }
   ],
-
   "matriculas": [
     {
       "id": "1",
@@ -507,5 +494,86 @@
       "tareasCompletadas": [],
       "id": "B5F1YbuV9m8"
     }
-  ]
+  ],
+  "promociones": [
+    {
+      "cursoId": "1",
+      "tipo": "porcentaje",
+      "valor": 20,
+      "fechaInicio": "2026-09-17",
+      "fechaFin": "2026-10-17",
+      "activa": true,
+      "id": "UujLGHTcIzE"
+    }, {
+    "id": "2",
+    "cursoId": "8",
+    "nombre": "Promoción mensual",
+    "tipo": "porcentaje",
+    "valor": 25,
+    "fechaInicio": "2026-09-01",
+    "fechaFin": "2026-09-30",
+    "activa": true
+  },
+  {
+    "id": "3",
+    "cursoId": "7",
+    "nombre": "Oferta tecnológica",
+    "tipo": "monto",
+    "valor": 8000,
+    "fechaInicio": "2026-09-01",
+    "fechaFin": "2026-10-20",
+    "activa": true
+  },
+  {
+    "id": "4",
+    "cursoId": "6",
+    "nombre": "Descuento especial",
+    "tipo": "porcentaje",
+    "valor": 15,
+    "fechaInicio": "2026-09-01",
+    "fechaFin": "2026-10-31",
+    "activa": true
+  },
+  {
+    "id": "5",
+    "cursoId": "9",
+    "nombre": "Oferta profesional",
+    "tipo": "porcentaje",
+    "valor": 10,
+    "fechaInicio": "2026-09-15",
+    "fechaFin": "2026-11-15",
+    "activa": true
+  },
+  {
+    "id": "6",
+    "cursoId": "10",
+    "nombre": "Regreso a clases",
+    "tipo": "monto",
+    "valor": 7000,
+    "fechaInicio": "2026-09-01",
+    "fechaFin": "2026-10-15",
+    "activa": true
+  },
+  {
+    "id": "7",
+    "cursoId": "11",
+    "nombre": "Oferta creativa",
+    "tipo": "porcentaje",
+    "valor": 20,
+    "fechaInicio": "2026-09-05",
+    "fechaFin": "2026-10-05",
+    "activa": true
+  },
+  {
+    "id": "8",
+    "cursoId": "12",
+    "nombre": "Impulsa tu idea",
+    "tipo": "porcentaje",
+    "valor": 15,
+    "fechaInicio": "2026-09-01",
+    "fechaFin": "2026-10-31",
+    "activa": true
+  }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

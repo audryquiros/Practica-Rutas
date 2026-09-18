@@ -1,0 +1,813 @@
+.promociones-page {
+    min-height: calc(100vh - 92px);
+    padding: 42px 48px 80px;
+    box-sizing: border-box;
+
+    background: #14131d;
+}
+
+.promociones-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/* =========================
+   VOLVER
+========================= */
+
+.promociones-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 30px;
+    padding: 8px 0;
+
+    border: none;
+    background: transparent;
+
+    color: #aaa6ba;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.promociones-back-button span {
+    color: #a98be9;
+    font-size: 20px;
+}
+
+.promociones-back-button:hover {
+    color: #ffffff;
+    transform: translateX(-3px);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.promociones-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom: 34px;
+}
+
+.promociones-eyebrow {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #a98be9;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.promociones-header h1 {
+    margin: 0;
+
+    color: #f7f5fb;
+
+    font-size: 42px;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -1.3px;
+}
+
+.promociones-header p {
+    margin: 12px 0 0;
+
+    color: #aaa6ba;
+
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/* =========================
+   ACCIONES HEADER
+========================= */
+
+.promociones-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.add-promotion-button {
+    height: 45px;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 0 17px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #a98be9;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.add-promotion-button span {
+    font-size: 19px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+.add-promotion-button:hover {
+    background: #9475d5;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(169, 139, 233, 0.18);
+}
+
+.promociones-total {
+    min-width: 78px;
+
+    padding: 12px 16px;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: #20202f;
+
+    border: 1px solid #373649;
+    border-radius: 10px;
+}
+
+.promociones-total span {
+    color: #8f8ba0;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.promociones-total strong {
+    margin-top: 4px;
+
+    color: #a98be9;
+
+    font-size: 24px;
+    line-height: 1;
+}
+
+/* =========================
+   MENSAJES
+========================= */
+
+.promociones-message {
+    padding: 13px 17px;
+    margin-bottom: 20px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+}
+
+.promociones-message.error {
+    border: 1px solid #8d5364;
+    background: rgba(173, 76, 102, 0.13);
+    color: #e79aaa;
+}
+
+.promociones-message.success {
+    border: 1px solid #5d806d;
+    background: rgba(80, 145, 106, 0.11);
+    color: #9bc9aa;
+}
+
+/* =========================
+   FORMULARIO
+========================= */
+
+.promocion-form-section {
+    padding: 30px;
+    margin-bottom: 28px;
+
+    background: #1d1c2a;
+
+    border: 1px solid #353447;
+    border-radius: 16px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.promocion-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 26px;
+}
+
+.section-number {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #a98be9;
+
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+.promocion-section-heading h2,
+.promotions-list-header h2 {
+    margin: 0;
+
+    color: #f4f2f9;
+
+    font-size: 23px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.close-promotion-button,
+.cancel-promotion-button {
+    border: 1px solid #454357;
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #aaa6ba;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.close-promotion-button {
+    padding: 8px 13px;
+}
+
+.close-promotion-button:hover,
+.cancel-promotion-button:hover {
+    color: #ffffff;
+    border-color: #665f7a;
+    background: #252435;
+}
+
+.promocion-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.promotion-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+}
+
+.promotion-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.promotion-form-group label {
+    color: #ddd9e7;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.promotion-form-group input,
+.promotion-form-group select {
+    width: 100%;
+    height: 43px;
+
+    box-sizing: border-box;
+
+    padding: 0 12px;
+
+    border: 1px solid #39384a;
+    border-radius: 8px;
+
+    background: #222130;
+    color: #eeeaf5;
+
+    font-family: inherit;
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.promotion-form-group input:focus,
+.promotion-form-group select:focus {
+    border-color: #8066ad;
+    background: #252435;
+    box-shadow: 0 0 0 3px rgba(169, 139, 233, 0.08);
+}
+
+/* =========================
+   VALOR
+========================= */
+
+.promotion-value-input {
+    position: relative;
+}
+
+.promotion-value-input input {
+    padding-right: 38px;
+}
+
+.promotion-value-input span {
+    position: absolute;
+
+    right: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8f8ba0;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================
+   CHECKBOX
+========================= */
+
+.promotion-checkbox {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    width: fit-content;
+
+    color: #c3bfd0;
+
+    font-size: 13px;
+
+    cursor: pointer;
+}
+
+.promotion-checkbox input {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.checkbox-custom {
+    width: 17px;
+    height: 17px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #514d62;
+    border-radius: 4px;
+
+    background: #222130;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.promotion-checkbox input:checked + .checkbox-custom {
+    background: #a98be9;
+    border-color: #a98be9;
+}
+
+.promotion-checkbox input:checked + .checkbox-custom::after {
+    content: "✓";
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+/* =========================
+   FOOTER FORM
+========================= */
+
+.promotion-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid #343345;
+}
+
+.promotion-form-footer p {
+    max-width: 500px;
+
+    margin: 0;
+
+    color: #77748a;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.promotion-form-actions {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.cancel-promotion-button {
+    height: 42px;
+
+    padding: 0 15px;
+}
+
+.save-promotion-button {
+    min-width: 160px;
+    height: 42px;
+
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #a98be9;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.save-promotion-button:hover:not(:disabled) {
+    background: #9475d5;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(169, 139, 233, 0.18);
+}
+
+.save-promotion-button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* =========================
+   LISTA
+========================= */
+
+.promotions-list-section {
+    padding: 30px;
+
+    background: #1d1c2a;
+
+    border: 1px solid #353447;
+    border-radius: 16px;
+
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+}
+
+.promotions-list-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 22px;
+}
+
+.promotions-list-header p {
+    margin: 7px 0 0;
+
+    color: #77748a;
+
+    font-size: 12px;
+}
+
+.promotions-count {
+    color: #a98be9;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* =========================
+   TABLA
+========================= */
+
+.promotions-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #343345;
+    border-radius: 10px;
+}
+
+.promotions-table {
+    width: 100%;
+    min-width: 900px;
+
+    border-collapse: collapse;
+}
+
+.promotions-table thead {
+    background: #252435;
+}
+
+.promotions-table th {
+    padding: 12px 13px;
+
+    border-bottom: 1px solid #39384a;
+
+    color: #8f8ba0;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+
+    text-align: left;
+}
+
+.promotions-table td {
+    padding: 13px;
+
+    border-bottom: 1px solid #302f40;
+
+    color: #aaa6ba;
+
+    font-size: 11px;
+}
+
+.promotions-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.promotions-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.promotions-table tbody tr:hover {
+    background: rgba(169, 139, 233, 0.035);
+}
+
+.promotion-course-name {
+    max-width: 250px;
+
+    color: #eeeaf5;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.promotion-discount {
+    color: #b395ef;
+
+    font-weight: 700;
+}
+
+/* =========================
+   ESTADO
+========================= */
+
+.promotion-status {
+    display: inline-flex;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.promotion-status.activa {
+    background: rgba(95, 160, 118, 0.12);
+    color: #93c9a4;
+}
+
+.promotion-status.inactiva {
+    background: rgba(150, 145, 165, 0.1);
+    color: #9691a5;
+}
+
+.promotion-status.programada {
+    background: rgba(169, 139, 233, 0.12);
+    color: #b395ef;
+}
+
+.promotion-status.finalizada {
+    background: rgba(220, 150, 100, 0.1);
+    color: #d6a181;
+}
+
+/* =========================
+   ACCIONES
+========================= */
+
+.promotion-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.edit-promotion-button,
+.delete-promotion-button {
+    padding: 6px 9px;
+
+    border-radius: 6px;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.edit-promotion-button {
+    border: 1px solid #725b99;
+
+    background: rgba(169, 139, 233, 0.07);
+
+    color: #b395ef;
+}
+
+.edit-promotion-button:hover {
+    background: rgba(169, 139, 233, 0.16);
+    border-color: #9275bf;
+}
+
+.delete-promotion-button {
+    border: 1px solid #875367;
+
+    background: transparent;
+
+    color: #df8f9f;
+}
+
+.delete-promotion-button:hover {
+    background: rgba(220, 100, 125, 0.08);
+    border-color: #a36578;
+}
+
+/* =========================
+   ESTADOS VACÍOS
+========================= */
+
+.promotions-loading,
+.promotions-empty {
+    padding: 50px 20px;
+
+    border: 1px dashed #3c3b4c;
+    border-radius: 10px;
+
+    color: #858195;
+
+    font-size: 13px;
+    text-align: center;
+}
+
+.promotions-empty strong {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #c5c0d1;
+
+    font-size: 14px;
+}
+
+.promotions-empty p {
+    margin: 0;
+
+    color: #77748a;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .promociones-page {
+        padding: 35px 25px 60px;
+    }
+
+    .promociones-header {
+        align-items: flex-start;
+    }
+
+    .promotion-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .promociones-page {
+        padding: 30px 16px 50px;
+    }
+
+    .promociones-header {
+        display: block;
+    }
+
+    .promociones-header h1 {
+        font-size: 34px;
+    }
+
+    .promociones-header-actions {
+        margin-top: 20px;
+        justify-content: flex-start;
+    }
+
+    .promocion-form-section,
+    .promotions-list-section {
+        padding: 22px 18px;
+    }
+
+    .promocion-section-heading,
+    .promotions-list-header {
+        align-items: flex-start;
+    }
+
+    .promotion-form-footer {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .promotion-form-actions {
+        width: 100%;
+    }
+
+    .cancel-promotion-button,
+    .save-promotion-button {
+        flex: 1;
+    }
+
+    .promotion-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}

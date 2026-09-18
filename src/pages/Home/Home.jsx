@@ -7,6 +7,9 @@ import { obtenerCursos } from "../../services/cursosService";
 import {
     obtenerMatriculasPorUsuario
 } from "../../services/matriculasService";
+import {
+    obtenerPromocionesActivas
+} from "../../services/promocionesService";
 
 import CourseCard from "../../components/CourseCard/CourseCard";
 import CourseModal from "../../components/CourseModal/CourseModal";
@@ -23,6 +26,8 @@ function Home() {
     const { t } = useTheme();
 
     const [cursos, setCursos] = useState([]);
+    const [promociones, setPromociones] = useState([]);
+
     const [cursoSeleccionado, setCursoSeleccionado] =
         useState(null);
 
@@ -35,50 +40,76 @@ function Home() {
     useEffect(() => {
         if (loadingAuth) return;
 
-        const cargarCursos = async () => {
+        const cargarDatos = async () => {
             try {
                 setLoading(true);
                 setError("");
 
-                const cursosDisponibles =
-                    await obtenerCursos();
+                // Cargar cursos y promociones
+                // independientemente de si hay sesión
+                const [
+                    cursosDisponibles,
+                    promocionesActivas
+                ] = await Promise.all([
+                    obtenerCursos(),
+                    obtenerPromocionesActivas()
+                ]);
 
+                console.log(
+                    "Promociones activas:",
+                    promocionesActivas
+                );
+
+                console.log(
+                    "Cursos disponibles:",
+                    cursosDisponibles
+                );
+
+                setPromociones(
+                    promocionesActivas || []
+                );
+
+                let cursosParaMostrar =
+                    cursosDisponibles;
+
+                // Si el usuario está autenticado,
+                // ocultamos solamente los cursos
+                // que ya tiene matriculados.
                 if (
-                    !isAuthenticated ||
-                    !user?.id
+                    isAuthenticated &&
+                    user?.id
                 ) {
-                    setCursos(
-                        cursosDisponibles
-                    );
+                    const matriculas =
+                        await obtenerMatriculasPorUsuario(
+                            user.id
+                        );
 
-                    return;
+                    const cursosMatriculados =
+                        matriculas.map(
+                            (matricula) =>
+                                String(
+                                    matricula.cursoId
+                                )
+                        );
+
+                    cursosParaMostrar =
+                        cursosDisponibles.filter(
+                            (curso) =>
+                                !cursosMatriculados.includes(
+                                    String(curso.id)
+                                )
+                        );
                 }
 
-                const matriculas =
-                    await obtenerMatriculasPorUsuario(
-                        user.id
-                    );
-
-                const cursosMatriculados =
-                    matriculas.map(
-                        (matricula) =>
-                            Number(
-                                matricula.cursoId
-                            )
-                    );
-
-                const cursosFiltrados =
-                    cursosDisponibles.filter(
-                        (curso) =>
-                            !cursosMatriculados.includes(
-                                Number(curso.id)
-                            )
-                    );
-
-                setCursos(cursosFiltrados);
+                setCursos(
+                    cursosParaMostrar
+                );
 
             } catch (error) {
-                console.error(error);
+                console.error(
+                    "Error cargando Home:",
+                    error
+                );
 
                 setError(
                     t(
@@ -91,7 +122,7 @@ function Home() {
             }
         };
 
-        cargarCursos();
+        cargarDatos();
 
     }, [
         loadingAuth,
@@ -99,6 +130,21 @@ function Home() {
         user,
         t
     ]);
+
+    const obtenerPromocionDelCurso = (cursoId) => {
+        if (!promociones.length) {
+            return null;
+        }
+
+        const promocionEncontrada =
+            promociones.find(
+                (promocion) =>
+                    String(promocion.cursoId) ===
+                    String(cursoId)
+            );
+
+        return promocionEncontrada || null;
+    };
 
     return (
         <main className="home-page">
@@ -193,15 +239,26 @@ function Home() {
                             <div className="home-course-grid">
 
                                 {cursos.map(
-                                    (curso) => (
-                                        <CourseCard
-                                            key={curso.id}
-                                            curso={curso}
-                                            onVerInfo={
-                                                setCursoSeleccionado
-                                            }
-                                        />
-                                    )
+                                    (curso) => {
+
+                                        const promocion =
+                                            obtenerPromocionDelCurso(
+                                                curso.id
+                                            );
+
+                                        return (
+                                            <CourseCard
+                                                key={curso.id}
+                                                curso={curso}
+                                                promocion={
+                                                    promocion
+                                                }
+                                                onVerInfo={
+                                                    setCursoSeleccionado
+                                                }
+                                            />
+                                        );
+                                    }
                                 )}
 
                             </div>

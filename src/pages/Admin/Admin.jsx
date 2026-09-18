@@ -1,589 +1,230 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-import { useTheme } from "../../context/ThemeContext";
-
+import { obtenerCursos } from "../../services/cursosService";
 import {
-    crearCurso
-} from "../../services/cursosService";
+    obtenerPromociones
+} from "../../services/promocionesService";
+import {
+    obtenerUsuarios
+} from "../../services/usuariosService";
 
 import "./Admin.css";
 
 function Admin() {
-    const { t } = useTheme();
+    const [cursos, setCursos] = useState([]);
+    const [promociones, setPromociones] =
+        useState([]);
+    const [usuarios, setUsuarios] =
+        useState([]);
 
-    const [nombre, setNombre] =
-        useState("");
-
-    const [categoria, setCategoria] =
-        useState("");
-
-    const [profesor, setProfesor] =
-        useState("");
-
-    const [duracion, setDuracion] =
-        useState("");
-
-    const [modalidad, setModalidad] =
-        useState("Virtual");
-
-    const [precio, setPrecio] =
-        useState("");
-
-    const [descripcion, setDescripcion] =
-        useState("");
-
-    const [temas, setTemas] =
-        useState("");
-
-    const [tareas, setTareas] =
-        useState("");
+    const [loading, setLoading] =
+        useState(true);
 
     const [error, setError] =
         useState("");
 
-    const [mensaje, setMensaje] =
-        useState("");
-
-    const [loading, setLoading] =
-        useState(false);
-
-    const limpiarFormulario = () => {
-
-        setNombre("");
-        setCategoria("");
-        setProfesor("");
-        setDuracion("");
-        setModalidad("Virtual");
-        setPrecio("");
-        setDescripcion("");
-        setTemas("");
-        setTareas("");
-    };
-
-    const manejarCrearCurso =
-        async (event) => {
-
-            event.preventDefault();
-
-            setError("");
-            setMensaje("");
-
-            if (
-                !nombre.trim() ||
-                !categoria.trim() ||
-                !profesor.trim() ||
-                !duracion.trim() ||
-                !precio ||
-                !descripcion.trim()
-            ) {
-
-                setError(
-                    t(
-                        "completaTodosCampos"
-                    )
-                );
-
-                return;
-            }
-
-            if (
-                Number(precio) <= 0
-            ) {
-
-                setError(
-                    "El precio debe ser mayor que cero."
-                );
-
-                return;
-            }
-
+    useEffect(() => {
+        const cargarDatos = async () => {
             try {
-
                 setLoading(true);
+                setError("");
 
-                const temasArray =
-                    temas
-                        .split("\n")
-                        .map(
-                            (tema) =>
-                                tema.trim()
-                        )
-                        .filter(Boolean)
-                        .map(
-                            (
-                                nombreTema,
-                                index
-                            ) => ({
-                                id:
-                                    index +
-                                    1,
-                                nombre:
-                                    nombreTema
-                            })
-                        );
+                const [
+                    cursosObtenidos,
+                    promocionesObtenidas,
+                    usuariosObtenidos
+                ] = await Promise.all([
+                    obtenerCursos(),
+                    obtenerPromociones(),
+                    obtenerUsuarios()
+                ]);
 
-                const tareasArray =
-                    tareas
-                        .split("\n")
-                        .map(
-                            (tarea) =>
-                                tarea.trim()
-                        )
-                        .filter(Boolean)
-                        .map(
-                            (
-                                nombreTarea,
-                                index
-                            ) => ({
-                                id:
-                                    index +
-                                    1,
-                                nombre:
-                                    nombreTarea,
-                                descripcion:
-                                    "Actividad correspondiente al curso."
-                            })
-                        );
-
-                await crearCurso({
-                    nombre:
-                        nombre.trim(),
-
-                    categoria:
-                        categoria.trim(),
-
-                    profesor:
-                        profesor.trim(),
-
-                    duracion:
-                        duracion.trim(),
-
-                    modalidad,
-
-                    precio:
-                        Number(precio),
-
-                    descripcion:
-                        descripcion.trim(),
-
-                    temas:
-                        temasArray,
-
-                    tareas:
-                        tareasArray
-                });
-
-                setMensaje(
-                    t(
-                        "cursoCreado"
-                    )
+                setCursos(cursosObtenidos);
+                setPromociones(
+                    promocionesObtenidas
                 );
-
-                limpiarFormulario();
-
+                setUsuarios(
+                    usuariosObtenidos
+                );
             } catch (error) {
-
                 console.error(error);
 
                 setError(
-                    t(
-                        "errorCrearCurso"
-                    )
+                    "No se pudieron cargar los datos de administración."
                 );
-
             } finally {
-
                 setLoading(false);
             }
         };
 
+        cargarDatos();
+    }, []);
+
+    const promocionesActivas =
+        promociones.filter(
+            (promocion) =>
+                promocion.activa
+        );
+
     return (
         <main className="admin-page">
-
             <div className="admin-container">
 
                 <section className="admin-header">
-
                     <span className="admin-label">
-                        {t(
-                            "administracion"
-                        ).toUpperCase()}
+                        ADMINISTRACIÓN
                     </span>
 
                     <h1>
-                        {t(
-                            "panelAdministracion"
-                        )}
+                        Panel de administración
                     </h1>
 
                     <p>
-                        {t(
-                            "gestionaOferta"
-                        )}
+                        Gestiona los cursos,
+                        promociones y usuarios
+                        de Learnix desde un solo
+                        lugar.
                     </p>
+                </section>
+
+                {error && (
+                    <div className="admin-error">
+                        {error}
+                    </div>
+                )}
+
+                <section className="admin-stats">
+
+                    <article className="admin-stat-card">
+                        <span>
+                            CURSOS
+                        </span>
+
+                        <strong>
+                            {loading
+                                ? "—"
+                                : cursos.length}
+                        </strong>
+
+                        <p>
+                            Cursos disponibles
+                        </p>
+                    </article>
+
+                    <article className="admin-stat-card">
+                        <span>
+                            USUARIOS
+                        </span>
+
+                        <strong>
+                            {loading
+                                ? "—"
+                                : usuarios.length}
+                        </strong>
+
+                        <p>
+                            Cuentas registradas
+                        </p>
+                    </article>
+
+                    <article className="admin-stat-card">
+                        <span>
+                            PROMOCIONES
+                        </span>
+
+                        <strong>
+                            {loading
+                                ? "—"
+                                : promocionesActivas.length}
+                        </strong>
+
+                        <p>
+                            Promociones activas
+                        </p>
+                    </article>
 
                 </section>
 
-                <section className="admin-card">
+                <section className="admin-actions">
 
-                    <div className="admin-card-header">
+                    <Link
+                        to="/admin/cursos"
+                        className="admin-action-card"
+                    >
+                        <span className="admin-action-number">
+                            01
+                        </span>
 
                         <div>
-
-                            <span className="admin-section-label">
-                                {t(
-                                    "nuevoCurso"
-                                )}
-                            </span>
-
                             <h2>
-                                {t(
-                                    "agregarCurso"
-                                )}
+                                Cursos
                             </h2>
 
                             <p>
-                                {t(
-                                    "informacionNuevoCurso"
-                                )}
+                                Crear, editar y
+                                eliminar cursos
+                                de Learnix.
                             </p>
-
                         </div>
 
-                    </div>
+                        <span className="admin-action-arrow">
+                            →
+                        </span>
+                    </Link>
 
-                    <form
-                        className="admin-form"
-                        onSubmit={
-                            manejarCrearCurso
-                        }
+                    <Link
+                        to="/admin/promociones"
+                        className="admin-action-card"
                     >
+                        <span className="admin-action-number">
+                            02
+                        </span>
 
-                        <div className="admin-form-grid">
+                        <div>
+                            <h2>
+                                Promociones
+                            </h2>
 
-                            <div className="admin-form-group">
-
-                                <label htmlFor="nombre">
-                                    {t(
-                                        "nombreCurso"
-                                    )}
-                                </label>
-
-                                <input
-                                    id="nombre"
-                                    type="text"
-                                    value={nombre}
-                                    onChange={(
-                                        event
-                                    ) =>
-                                        setNombre(
-                                            event
-                                                .target
-                                                .value
-                                        )
-                                    }
-                                    placeholder="Ej. Desarrollo Frontend"
-                                />
-
-                            </div>
-
-                            <div className="admin-form-group">
-
-                                <label htmlFor="categoria">
-                                    {t(
-                                        "categoria"
-                                    )}
-                                </label>
-
-                                <input
-                                    id="categoria"
-                                    type="text"
-                                    value={
-                                        categoria
-                                    }
-                                    onChange={(
-                                        event
-                                    ) =>
-                                        setCategoria(
-                                            event
-                                                .target
-                                                .value
-                                        )
-                                    }
-                                    placeholder="Ej. Programación"
-                                />
-
-                            </div>
-
-                            <div className="admin-form-group">
-
-                                <label htmlFor="profesor">
-                                    {t(
-                                        "profesor"
-                                    )}
-                                </label>
-
-                                <input
-                                    id="profesor"
-                                    type="text"
-                                    value={
-                                        profesor
-                                    }
-                                    onChange={(
-                                        event
-                                    ) =>
-                                        setProfesor(
-                                            event
-                                                .target
-                                                .value
-                                        )
-                                    }
-                                    placeholder="Nombre del profesor"
-                                />
-
-                            </div>
-
-                            <div className="admin-form-group">
-
-                                <label htmlFor="duracion">
-                                    {t(
-                                        "duracion"
-                                    )}
-                                </label>
-
-                                <input
-                                    id="duracion"
-                                    type="text"
-                                    value={
-                                        duracion
-                                    }
-                                    onChange={(
-                                        event
-                                    ) =>
-                                        setDuracion(
-                                            event
-                                                .target
-                                                .value
-                                        )
-                                    }
-                                    placeholder="Ej. 8 semanas"
-                                />
-
-                            </div>
-
-                            <div className="admin-form-group">
-
-                                <label htmlFor="modalidad">
-                                    {t(
-                                        "modalidad"
-                                    )}
-                                </label>
-
-                                <select
-                                    id="modalidad"
-                                    value={
-                                        modalidad
-                                    }
-                                    onChange={(
-                                        event
-                                    ) =>
-                                        setModalidad(
-                                            event
-                                                .target
-                                                .value
-                                        )
-                                    }
-                                >
-
-                                    <option value="Virtual">
-                                        Virtual
-                                    </option>
-
-                                    <option value="Presencial">
-                                        Presencial
-                                    </option>
-
-                                    <option value="Híbrida">
-                                        Híbrida
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-                            <div className="admin-form-group">
-
-                                <label htmlFor="precio">
-                                    {t(
-                                        "precio"
-                                    )}
-                                </label>
-
-                                <input
-                                    id="precio"
-                                    type="number"
-                                    min="1"
-                                    value={
-                                        precio
-                                    }
-                                    onChange={(
-                                        event
-                                    ) =>
-                                        setPrecio(
-                                            event
-                                                .target
-                                                .value
-                                        )
-                                    }
-                                    placeholder="Ej. 45000"
-                                />
-
-                            </div>
-
-                        </div>
-
-                        <div className="admin-form-group">
-
-                            <label htmlFor="descripcion">
-                                {t(
-                                    "descripcion"
-                                )}
-                            </label>
-
-                            <textarea
-                                id="descripcion"
-                                rows="4"
-                                value={
-                                    descripcion
-                                }
-                                onChange={(
-                                    event
-                                ) =>
-                                    setDescripcion(
-                                        event
-                                            .target
-                                            .value
-                                    )
-                                }
-                                placeholder={
-                                    t(
-                                        "descripcionCurso"
-                                    )
-                                }
-                            />
-
-                        </div>
-
-                        <div className="admin-form-group">
-
-                            <label htmlFor="temas">
-                                {t(
-                                    "temasCurso"
-                                )}
-                            </label>
-
-                            <textarea
-                                id="temas"
-                                rows="5"
-                                value={temas}
-                                onChange={(
-                                    event
-                                ) =>
-                                    setTemas(
-                                        event
-                                            .target
-                                            .value
-                                    )
-                                }
-                                placeholder={
-                                    `Un tema por línea\nIntroducción\nComponentes\nProyecto final`
-                                }
-                            />
-
-                            <span className="admin-help">
-                                {t(
-                                    "unTemaLinea"
-                                )}
-                            </span>
-
-                        </div>
-
-                        <div className="admin-form-group">
-
-                            <label htmlFor="tareas">
-                                {t(
-                                    "tareas"
-                                )}
-                            </label>
-
-                            <textarea
-                                id="tareas"
-                                rows="5"
-                                value={tareas}
-                                onChange={(
-                                    event
-                                ) =>
-                                    setTareas(
-                                        event
-                                            .target
-                                            .value
-                                    )
-                                }
-                                placeholder={
-                                    `Una tarea por línea\nEjercicio de componentes\nPráctica final`
-                                }
-                            />
-
-                            <span className="admin-help">
-                                {t(
-                                    "unaTareaLinea"
-                                )}
-                            </span>
-
-                        </div>
-
-                        {error && (
-                            <p className="admin-error">
-                                {error}
+                            <p>
+                                Crea descuentos y
+                                administra las
+                                promociones.
                             </p>
-                        )}
-
-                        {mensaje && (
-                            <p className="admin-success">
-                                {mensaje}
-                            </p>
-                        )}
-
-                        <div className="admin-form-footer">
-
-                            <span>
-                                {t(
-                                    "completaTodosCampos"
-                                )}
-                            </span>
-
-                            <button
-                                type="submit"
-                                className="admin-submit"
-                                disabled={loading}
-                            >
-                                {loading
-                                    ? t(
-                                        "publicando"
-                                    )
-                                    : t(
-                                        "publicarCurso"
-                                    )}
-                            </button>
-
                         </div>
 
-                    </form>
+                        <span className="admin-action-arrow">
+                            →
+                        </span>
+                    </Link>
+
+                    <Link
+                        to="/dashboard/usuarios"
+                        className="admin-action-card"
+                    >
+                        <span className="admin-action-number">
+                            03
+                        </span>
+
+                        <div>
+                            <h2>
+                                Usuarios
+                            </h2>
+
+                            <p>
+                                Consulta, edita y
+                                elimina cuentas.
+                            </p>
+                        </div>
+
+                        <span className="admin-action-arrow">
+                            →
+                        </span>
+                    </Link>
 
                 </section>
 
             </div>
-
         </main>
     );
 }

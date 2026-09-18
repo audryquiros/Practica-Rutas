@@ -20,6 +20,11 @@ import {
     obtenerMatriculasPorUsuario
 } from "../../services/matriculasService";
 
+import {
+    obtenerPromocionesActivas,
+    calcularPrecioPromocional
+} from "../../services/promocionesService";
+
 import "./Pago.css";
 
 function Pago() {
@@ -36,6 +41,9 @@ function Pago() {
         useNavigate();
 
     const [curso, setCurso] =
+        useState(null);
+
+    const [promocion, setPromocion] =
         useState(null);
 
     const [numeroTarjeta, setNumeroTarjeta] =
@@ -57,26 +65,43 @@ function Pago() {
         useState(false);
 
     useEffect(() => {
-
-        const cargarCurso =
+        const cargarDatos =
             async () => {
-
                 try {
-
                     setLoading(true);
                     setError("");
 
-                    const cursoObtenido =
-                        await obtenerCursoPorId(
+                    const [
+                        cursoObtenido,
+                        promocionesActivas
+                    ] = await Promise.all([
+                        obtenerCursoPorId(
                             cursoId
-                        );
+                        ),
+                        obtenerPromocionesActivas()
+                    ]);
 
                     setCurso(
                         cursoObtenido
                     );
 
-                } catch (error) {
+                    const promocionCurso =
+                        promocionesActivas.find(
+                            (item) =>
+                                String(
+                                    item.cursoId
+                                ) ===
+                                String(
+                                    cursoId
+                                )
+                        );
 
+                    setPromocion(
+                        promocionCurso ||
+                        null
+                    );
+
+                } catch (error) {
                     console.error(error);
 
                     setError(
@@ -84,18 +109,52 @@ function Pago() {
                     );
 
                 } finally {
-
                     setLoading(false);
                 }
             };
 
-        cargarCurso();
+        cargarDatos();
 
     }, [cursoId]);
 
+    const manejarCancelar = () => {
+        navigate("/");
+    };
+
+    const obtenerTextoPromocion = () => {
+        if (!promocion) {
+            return "";
+        }
+
+        if (
+            promocion.tipo ===
+            "porcentaje"
+        ) {
+            return `${promocion.valor}% de descuento`;
+        }
+
+        return `₡${Number(
+            promocion.valor
+        ).toLocaleString(
+            "es-CR"
+        )} de descuento`;
+    };
+
+    const precioOriginal =
+        Number(
+            curso?.precio || 0
+        );
+
+    const precioFinal =
+        promocion
+            ? calcularPrecioPromocional(
+                precioOriginal,
+                promocion
+            )
+            : precioOriginal;
+
     const manejarPago =
         async (event) => {
-
             event.preventDefault();
 
             setError("");
@@ -105,7 +164,6 @@ function Pago() {
                 !vencimiento.trim() ||
                 !cvv.trim()
             ) {
-
                 setError(
                     t(
                         "completarDatosPago"
@@ -116,7 +174,6 @@ function Pago() {
             }
 
             if (!user?.id) {
-
                 setError(
                     t(
                         "necesitasSesion"
@@ -127,7 +184,6 @@ function Pago() {
             }
 
             try {
-
                 setProcesando(true);
 
                 const matriculas =
@@ -145,7 +201,6 @@ function Pago() {
                     );
 
                 if (yaMatriculado) {
-
                     setError(
                         t(
                             "yaMatriculado"
@@ -174,7 +229,17 @@ function Pago() {
                         [],
 
                     tareasCompletadas:
-                        []
+                        [],
+
+                    precioOriginal:
+                        precioOriginal,
+
+                    precioPagado:
+                        precioFinal,
+
+                    promocionId:
+                        promocion?.id ||
+                        null
                 });
 
                 navigate(
@@ -182,7 +247,6 @@ function Pago() {
                 );
 
             } catch (error) {
-
                 console.error(error);
 
                 setError(
@@ -192,13 +256,11 @@ function Pago() {
                 );
 
             } finally {
-
                 setProcesando(false);
             }
         };
 
     if (loading) {
-
         return (
             <main className="pago-page">
 
@@ -215,7 +277,6 @@ function Pago() {
     }
 
     if (!curso) {
-
         return (
             <main className="pago-page">
 
@@ -225,6 +286,16 @@ function Pago() {
                         {error ||
                             "Curso no encontrado."}
                     </p>
+
+                    <button
+                        type="button"
+                        className="pago-cancelar"
+                        onClick={
+                            manejarCancelar
+                        }
+                    >
+                        Volver
+                    </button>
 
                 </div>
 
@@ -236,6 +307,16 @@ function Pago() {
         <main className="pago-page">
 
             <div className="pago-container">
+
+                <button
+                    type="button"
+                    className="pago-back"
+                    onClick={
+                        manejarCancelar
+                    }
+                >
+                    ← Volver
+                </button>
 
                 <div className="pago-header">
 
@@ -275,12 +356,38 @@ function Pago() {
                             {curso.descripcion}
                         </p>
 
-                        <strong>
-                            ₡
-                            {curso.precio.toLocaleString(
-                                "es-CR"
-                            )}
-                        </strong>
+                        {promocion ? (
+                            <div className="pago-precio-promocion">
+
+                                <span className="pago-promocion">
+                                    {obtenerTextoPromocion()}
+                                </span>
+
+                                <span className="pago-precio-original">
+                                    ₡
+                                    {precioOriginal.toLocaleString(
+                                        "es-CR"
+                                    )}
+                                </span>
+
+                                <strong>
+                                    ₡
+                                    {Number(
+                                        precioFinal
+                                    ).toLocaleString(
+                                        "es-CR"
+                                    )}
+                                </strong>
+
+                            </div>
+                        ) : (
+                            <strong>
+                                ₡
+                                {precioOriginal.toLocaleString(
+                                    "es-CR"
+                                )}
+                            </strong>
+                        )}
 
                     </div>
 
@@ -383,21 +490,38 @@ function Pago() {
                             </p>
                         )}
 
-                        <button
-                            type="submit"
-                            className="pago-button"
-                            disabled={
-                                procesando
-                            }
-                        >
-                            {procesando
-                                ? t(
-                                    "procesandoMatricula"
-                                )
-                                : t(
-                                    "confirmarMatricula"
-                                )}
-                        </button>
+                        <div className="pago-actions">
+
+                            <button
+                                type="button"
+                                className="pago-cancelar"
+                                onClick={
+                                    manejarCancelar
+                                }
+                                disabled={
+                                    procesando
+                                }
+                            >
+                                Cancelar
+                            </button>
+
+                            <button
+                                type="submit"
+                                className="pago-button"
+                                disabled={
+                                    procesando
+                                }
+                            >
+                                {procesando
+                                    ? t(
+                                        "procesandoMatricula"
+                                    )
+                                    : t(
+                                        "confirmarMatricula"
+                                    )}
+                            </button>
+
+                        </div>
 
                     </form>
 
