@@ -146,9 +146,7 @@ function Navbar() {
                                     {user.nombre}
                                 </span>
 
-                                <span className="navbar-user-arrow">
-                                    ˅
-                                </span>
+                                <span className="navbar-user-arrow" aria-hidden="true">⌄</span>
 
                             </summary>
 

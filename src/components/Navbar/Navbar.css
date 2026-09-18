@@ -206,24 +206,33 @@
     white-space: nowrap;
 }
 
+/* Flecha del menú de usuario */
 .navbar-user-arrow {
-    width: 14px;
-    height: 14px;
+    width: 16px;
+    height: 16px;
 
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    color: var(--color-text-muted);
+    margin-left: 1px;
 
-    font-size: 11px;
+    color: var(--color-primary);
+
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
 
     transition:
-        transform 0.2s ease;
+        transform 0.2s ease,
+        color 0.2s ease;
 }
 
-.navbar-user-details[open]
-.navbar-user-arrow {
+.navbar-user-button:hover .navbar-user-arrow {
+    color: var(--color-primary);
+}
+
+.navbar-user-details[open] .navbar-user-arrow {
     transform: rotate(180deg);
 }
 

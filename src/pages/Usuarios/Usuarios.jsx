@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
 
@@ -12,39 +13,30 @@ import "./Usuarios.css";
 
 function Usuarios() {
     const { user } = useAuth();
+    const navigate = useNavigate();
 
-    const [usuarios, setUsuarios] =
-        useState([]);
+    const [usuarios, setUsuarios] = useState([]);
 
     const [usuarioEditando, setUsuarioEditando] =
         useState(null);
 
-    const [formulario, setFormulario] =
-        useState({
-            nombre: "",
-            email: "",
-            password: "",
-            role: "usuario"
-        });
+    const [formulario, setFormulario] = useState({
+        nombre: "",
+        email: "",
+        password: "",
+        role: "usuario"
+    });
 
-    const [loading, setLoading] =
-        useState(true);
-
-    const [guardando, setGuardando] =
-        useState(false);
-
-    const [error, setError] =
-        useState("");
-
-    const [mensaje, setMensaje] =
-        useState("");
+    const [loading, setLoading] = useState(true);
+    const [guardando, setGuardando] = useState(false);
+    const [error, setError] = useState("");
+    const [mensaje, setMensaje] = useState("");
 
     const cargarUsuarios = async () => {
         try {
             setLoading(true);
 
-            const datos =
-                await obtenerUsuarios();
+            const datos = await obtenerUsuarios();
 
             setUsuarios(datos);
         } catch (error) {
@@ -66,17 +58,10 @@ function Usuarios() {
         setUsuarioEditando(usuario);
 
         setFormulario({
-            nombre:
-                usuario.nombre || "",
-
-            email:
-                usuario.email || "",
-
-            password:
-                usuario.password || "",
-
-            role:
-                usuario.role || "usuario"
+            nombre: usuario.nombre || "",
+            email: usuario.email || "",
+            password: usuario.password || "",
+            role: usuario.role || "usuario"
         });
 
         setError("");
@@ -167,9 +152,7 @@ function Usuarios() {
         setMensaje("");
     };
 
-    const borrarUsuario = async (
-        usuario
-    ) => {
+    const borrarUsuario = async (usuario) => {
         if (
             String(usuario.id) ===
             String(user?.id)
@@ -215,6 +198,16 @@ function Usuarios() {
     return (
         <main className="usuarios-admin-page">
             <div className="usuarios-admin-container">
+
+                {/* BOTÓN VOLVER */}
+                <button
+                    type="button"
+                    className="usuarios-back-button"
+                    onClick={() => navigate("/admin")}
+                >
+                    <span>←</span>
+                    Volver al panel
+                </button>
 
                 <section className="usuarios-admin-header">
                     <span>

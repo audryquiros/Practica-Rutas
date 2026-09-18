@@ -253,6 +253,49 @@
     font-size: 13px;
 }
 
+/* =========================
+   VOLVER
+========================= */
+
+.usuarios-back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 30px;
+    padding: 8px 0;
+
+    border: none;
+    background: transparent;
+
+    color: #aaa6ba !important;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.usuarios-back-button span {
+    color: #a98be9 !important;
+    font-size: 20px;
+    line-height: 1;
+}
+
+.usuarios-back-button:hover {
+    color: #ffffff !important;
+    transform: translateX(-3px);
+}
+
+.usuarios-back-button:hover span {
+    color: #a98be9 !important;
+}
+
 @media (max-width: 700px) {
     .usuario-form-grid {
         grid-template-columns: 1fr;
