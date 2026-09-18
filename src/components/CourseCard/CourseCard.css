@@ -456,3 +456,123 @@
     }
 
 }
+/* =========================================================
+   COLORES DINÁMICOS SEGÚN EL TEMA
+   ========================================================= */
+
+.course-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+.course-card:hover {
+    box-shadow: var(--shadow-card);
+}
+
+.course-category {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.course-card h3 {
+    color: var(--color-text);
+}
+
+.course-card p {
+    color: var(--color-text-secondary);
+}
+
+.course-details {
+    border-top-color: var(--color-border);
+    border-bottom-color: var(--color-border);
+}
+
+.course-details span,
+.course-price > span {
+    color: var(--color-text-secondary);
+}
+
+.course-details strong {
+    color: var(--color-text);
+}
+
+.course-price > strong,
+.course-price-promotion strong {
+    color: var(--color-primary);
+}
+
+.course-promotion-label {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.course-original-price {
+    color: var(--color-text-muted);
+}
+
+.course-savings {
+    color: var(--color-primary);
+}
+
+.course-card-footer button {
+    background: var(--color-primary);
+    color: #ffffff;
+}
+
+.course-card-footer button:hover {
+    background: var(--color-primary-dark);
+}
+
+
+/* =========================================================
+   TEMA GLOBAL — override final
+========================================================= */
+.course-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+.course-card:hover {
+    box-shadow: var(--shadow-card);
+}
+
+.course-category,
+.course-promotion-label {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.course-card h3 {
+    color: var(--color-text);
+}
+
+.course-card p,
+.course-details span,
+.course-price > span,
+.course-savings,
+.course-original-price {
+    color: var(--color-text-secondary);
+}
+
+.course-details {
+    border-color: var(--color-border);
+}
+
+.course-details strong {
+    color: var(--color-text);
+}
+
+.course-price > strong,
+.course-price-promotion > strong {
+    color: var(--color-primary);
+}
+
+.course-card button {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+.course-card button:hover {
+    background: var(--color-primary-dark);
+}

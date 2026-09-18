@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import "./Ayuda.css";
 
 function Ayuda() {
-    const { t } = useTheme();
+    const { t } = useLanguage();
 
     return (
         <main className="ayuda-page">

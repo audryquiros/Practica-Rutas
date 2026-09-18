@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import {
     obtenerUsuarios,
@@ -14,7 +14,7 @@ import "./Usuarios.css";
 
 function Usuarios() {
     const { user } = useAuth();
-    const { t } = useTheme();
+    const { t } = useLanguage();
     const navigate = useNavigate();
 
     const [usuarios, setUsuarios] = useState([]);

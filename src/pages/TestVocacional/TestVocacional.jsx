@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
 import {
     preguntasVocacionales,
@@ -9,12 +9,12 @@ import {
 import "./TestVocacional.css";
 
 function TestVocacional() {
-    const { preferencias } = useTheme();
+    const { idioma } = useLanguage();
     const { formatearPrecio } = useCurrency();
     const navigate = useNavigate();
 
     const idiomaIngles =
-        preferencias?.idioma === "en";
+        idioma === "en";
 
     const [preguntaActual, setPreguntaActual] =
         useState(0);

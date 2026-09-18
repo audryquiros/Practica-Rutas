@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import {
     actualizarUsuario,
@@ -16,7 +16,7 @@ function Perfil() {
         login
     } = useAuth();
 
-    const { t } = useTheme();
+    const { t } = useLanguage();
 
     const [editando, setEditando] =
         useState(false);

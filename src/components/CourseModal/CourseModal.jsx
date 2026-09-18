@@ -1,17 +1,18 @@
 import { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
+import { calcularPrecioPromocional } from "../../services/promocionesService";
 import { useNavigate } from "react-router-dom";
 import "./CourseModal.css";
 
-function CourseModal({ curso, onClose }) {
+function CourseModal({ curso, promocion, onClose }) {
     const { isAuthenticated } = useAuth();
-    const { preferencias, t } = useTheme();
+    const { idioma, t } = useLanguage();
     const { formatearPrecio } = useCurrency();
     const navigate = useNavigate();
 
-    const idiomaIngles = preferencias.idioma === "en";
+    const idiomaIngles = idioma === "en";
 
     const nombreCurso =
         idiomaIngles && curso?.nombre_en
@@ -37,6 +38,16 @@ function CourseModal({ curso, onClose }) {
         idiomaIngles && curso?.modalidad_en
             ? curso.modalidad_en
             : curso?.modalidad;
+
+    const precioOriginal = Number(curso?.precio || 0);
+    const promocionActiva = Boolean(promocion);
+    const precioFinal = promocionActiva
+        ? calcularPrecioPromocional(precioOriginal, promocion)
+        : precioOriginal;
+    const descuento = Math.max(0, precioOriginal - precioFinal);
+    const porcentajeDescuento = precioOriginal > 0
+        ? Math.round((descuento / precioOriginal) * 100)
+        : 0;
 
     useEffect(() => {
         if (!curso) return;
@@ -83,11 +94,7 @@ function CourseModal({ curso, onClose }) {
 
     return (
         <div
-            className={`modal-overlay ${
-                preferencias.tema === "oscuro"
-                    ? "modal-dark"
-                    : "modal-light"
-            }`}
+            className="modal-overlay"
             onClick={handleOverlayClick}
         >
             <div className="course-modal">
@@ -159,9 +166,32 @@ function CourseModal({ curso, onClose }) {
                             {t("inversion")}
                         </span>
 
-                        <strong>
-                            {formatearPrecio(curso.precio)}
-                        </strong>
+                        {promocionActiva ? (
+                            <>
+                                <span className="modal-promotion-label">
+                                    {promocion.tipo === "porcentaje"
+                                        ? `${promocion.valor}% ${t("descuento")}`
+                                        : `${formatearPrecio(promocion.valor)} ${t("deDescuento")}`}
+                                </span>
+
+                                <div className="modal-price-promotion">
+                                    <span className="modal-original-price">
+                                        {formatearPrecio(precioOriginal)}
+                                    </span>
+                                    <strong>
+                                        {formatearPrecio(precioFinal)}
+                                    </strong>
+                                </div>
+
+                                <small className="modal-savings">
+                                    {t("ahorras")} {formatearPrecio(descuento)} ({porcentajeDescuento}%)
+                                </small>
+                            </>
+                        ) : (
+                            <strong>
+                                {formatearPrecio(precioOriginal)}
+                            </strong>
+                        )}
 
                     </div>
 

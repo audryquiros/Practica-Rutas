@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
 
 import {
@@ -36,10 +36,7 @@ function Pago() {
         user
     } = useAuth();
 
-    const {
-        preferencias,
-        t
-    } = useTheme();
+    const { idioma, t } = useLanguage();
 
     const { formatearPrecio } = useCurrency();
 
@@ -93,10 +90,7 @@ function Pago() {
 
 
     const idiomaIngles =
-        preferencias.idioma === "en";
-
-    const temaOscuro =
-        preferencias.tema === "oscuro";
+        idioma === "en";
 
 
     /* =====================================================
@@ -475,11 +469,7 @@ function Pago() {
 
         return (
             <main
-                className={`pago-page ${
-                    temaOscuro
-                        ? "pago-dark"
-                        : "pago-light"
-                }`}
+                className="pago-page"
             >
 
                 <div className="pago-container">
@@ -507,11 +497,7 @@ function Pago() {
 
         return (
             <main
-                className={`pago-page ${
-                    temaOscuro
-                        ? "pago-dark"
-                        : "pago-light"
-                }`}
+                className="pago-page"
             >
 
                 <div className="pago-container">
@@ -550,11 +536,7 @@ function Pago() {
 
     return (
         <main
-            className={`pago-page ${
-                temaOscuro
-                    ? "pago-dark"
-                    : "pago-light"
-            }`}
+            className="pago-page"
         >
 
             <div className="pago-container">

@@ -922,3 +922,140 @@
         align-items: stretch;
     }
 }
+/* =========================================================
+   TEMA GLOBAL PARA ADMINISTRACIÓN DE CURSOS
+   ========================================================= */
+
+.cursos-admin-page {
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+.admin-back-button {
+    color: var(--color-text-secondary);
+}
+
+.admin-back-button span,
+.cursos-admin-eyebrow,
+.section-number,
+.courses-count {
+    color: var(--color-primary);
+}
+
+.admin-back-button:hover {
+    color: var(--color-text);
+}
+
+.cursos-admin-header h1,
+.section-heading h2,
+.courses-list-header h2 {
+    color: var(--color-text);
+}
+
+.cursos-admin-header p,
+.courses-list-header p,
+.form-footer p {
+    color: var(--color-text-secondary);
+}
+
+.cursos-total,
+.curso-form-section,
+.courses-list-section {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-card);
+}
+
+.cursos-total span,
+.form-group small,
+.dynamic-list-header small {
+    color: var(--color-text-muted);
+}
+
+.curso-form-section .form-group label,
+.dynamic-list-header label {
+    color: var(--color-text);
+}
+
+.curso-form-section input,
+.curso-form-section select,
+.curso-form-section textarea,
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+}
+
+.curso-form-section input::placeholder,
+.curso-form-section textarea::placeholder,
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--color-text-muted);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--color-primary);
+    background: var(--color-surface);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.add-item-button {
+    background: var(--color-primary-soft);
+    border-color: var(--color-border-strong);
+    color: var(--color-primary);
+}
+
+.add-item-button:hover {
+    background: var(--color-primary-soft);
+    border-color: var(--color-primary);
+}
+
+.dynamic-item-number {
+    background: var(--color-primary-soft);
+    border-color: var(--color-border-strong);
+    color: var(--color-primary);
+}
+
+.dynamic-task-card {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border);
+}
+
+.dynamic-task-card-header strong {
+    color: var(--color-text);
+}
+
+.remove-item-button {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-muted);
+}
+
+.form-footer {
+    border-top-color: var(--color-border);
+}
+
+.courses-table-wrapper {
+    border-color: var(--color-border);
+}
+
+.courses-table thead {
+    background: var(--color-surface-soft);
+}
+
+.courses-table th {
+    border-bottom-color: var(--color-border);
+    color: var(--color-text-muted);
+}
+
+.courses-table td {
+    border-bottom-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+.courses-table tbody tr:hover {
+    background: var(--color-primary-soft);
+}

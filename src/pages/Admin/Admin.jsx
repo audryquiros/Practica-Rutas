@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import { obtenerCursos } from "../../services/cursosService";
 import {
@@ -13,7 +13,7 @@ import {
 import "./Admin.css";
 
 function Admin() {
-    const { t } = useTheme();
+    const { t } = useLanguage();
     const [cursos, setCursos] = useState([]);
     const [promociones, setPromociones] =
         useState([]);

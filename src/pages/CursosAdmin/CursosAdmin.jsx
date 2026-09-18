@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
 import {
     obtenerCursos,
@@ -25,10 +25,10 @@ const formularioInicial = {
 
 function CursosAdmin() {
     const navigate = useNavigate();
-    const { preferencias, t } = useTheme();
+    const { idioma, t } = useLanguage();
     const { formatearPrecio } = useCurrency();
 
-    const idiomaIngles = preferencias.idioma === "en";
+    const idiomaIngles = idioma === "en";
 
     const [cursos, setCursos] = useState([]);
     const [formulario, setFormulario] = useState(formularioInicial);

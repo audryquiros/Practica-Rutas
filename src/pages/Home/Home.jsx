@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import { obtenerCursos } from "../../services/cursosService";
 import {
@@ -23,7 +23,7 @@ function Home() {
         loadingAuth
     } = useAuth();
 
-    const { t } = useTheme();
+    const { t } = useLanguage();
 
     const [cursos, setCursos] = useState([]);
     const [promociones, setPromociones] = useState([]);
@@ -270,6 +270,7 @@ function Home() {
 
             <CourseModal
                 curso={cursoSeleccionado}
+                promocion={obtenerPromocionDelCurso(cursoSeleccionado?.id)}
                 onClose={() =>
                     setCursoSeleccionado(null)
                 }

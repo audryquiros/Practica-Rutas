@@ -1018,3 +1018,235 @@ select:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: 2px;
 }
+
+
+/* =========================================================
+   PAGO Y PROMOCIONES — INTEGRACIÓN COMPLETA DE TEMAS
+   ========================================================= */
+
+/* PAGO: los cuatro temas deben controlar toda la vista */
+html[data-tema="claro"] .pago-page {
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+html[data-tema="oscuro"] .pago-page,
+html[data-tema="lavanda"] .pago-page,
+html[data-tema="azul"] .pago-page {
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-heading h1,
+html[data-tema="azul"] .pago-page .pago-heading h1,
+html[data-tema="lavanda"] .pago-page .pago-course-card h2,
+html[data-tema="azul"] .pago-page .pago-course-card h2,
+html[data-tema="lavanda"] .pago-page .pago-form-header h2,
+html[data-tema="azul"] .pago-page .pago-form-header h2,
+html[data-tema="lavanda"] .pago-page .pago-total strong,
+html[data-tema="azul"] .pago-page .pago-total strong,
+html[data-tema="lavanda"] .pago-page .pago-course-details strong,
+html[data-tema="azul"] .pago-page .pago-course-details strong,
+html[data-tema="lavanda"] .pago-page .pago-price-box strong,
+html[data-tema="azul"] .pago-page .pago-price-box strong {
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-heading p,
+html[data-tema="azul"] .pago-page .pago-heading p,
+html[data-tema="lavanda"] .pago-page .pago-form-header p,
+html[data-tema="azul"] .pago-page .pago-form-header p,
+html[data-tema="lavanda"] .pago-page .pago-course-details span,
+html[data-tema="azul"] .pago-page .pago-course-details span,
+html[data-tema="lavanda"] .pago-page .pago-price-box > span,
+html[data-tema="azul"] .pago-page .pago-price-box > span,
+html[data-tema="lavanda"] .pago-page .pago-total span,
+html[data-tema="azul"] .pago-page .pago-total span {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-course-card,
+html[data-tema="lavanda"] .pago-page .pago-form-card,
+html[data-tema="azul"] .pago-page .pago-course-card,
+html[data-tema="azul"] .pago-page .pago-form-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-card);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-course-details,
+html[data-tema="lavanda"] .pago-page .pago-form-header,
+html[data-tema="lavanda"] .pago-page .pago-total,
+html[data-tema="azul"] .pago-page .pago-course-details,
+html[data-tema="azul"] .pago-page .pago-form-header,
+html[data-tema="azul"] .pago-page .pago-total {
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-price-box,
+html[data-tema="azul"] .pago-page .pago-price-box {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-form input,
+html[data-tema="azul"] .pago-page .pago-form input {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-form label > span,
+html[data-tema="azul"] .pago-page .pago-form label > span {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-form input::placeholder,
+html[data-tema="azul"] .pago-page .pago-form input::placeholder {
+    color: var(--color-text-muted);
+}
+
+html[data-tema="lavanda"] .pago-page .pago-cancel-button,
+html[data-tema="azul"] .pago-page .pago-cancel-button {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary);
+}
+
+/* PROMOCIONES: deja de ser una página exclusivamente oscura */
+html[data-tema="claro"] .promociones-page,
+html[data-tema="oscuro"] .promociones-page,
+html[data-tema="lavanda"] .promociones-page,
+html[data-tema="azul"] .promociones-page {
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+html[data-tema="claro"] .promociones-page .promociones-header h1,
+html[data-tema="oscuro"] .promociones-page .promociones-header h1,
+html[data-tema="lavanda"] .promociones-page .promociones-header h1,
+html[data-tema="azul"] .promociones-page .promociones-header h1,
+html[data-tema="claro"] .promociones-page .promocion-section-heading h2,
+html[data-tema="oscuro"] .promociones-page .promocion-section-heading h2,
+html[data-tema="lavanda"] .promociones-page .promocion-section-heading h2,
+html[data-tema="azul"] .promociones-page .promocion-section-heading h2,
+html[data-tema="claro"] .promociones-page .promotions-list-header h2,
+html[data-tema="oscuro"] .promociones-page .promotions-list-header h2,
+html[data-tema="lavanda"] .promociones-page .promotions-list-header h2,
+html[data-tema="azul"] .promociones-page .promotions-list-header h2 {
+    color: var(--color-text);
+}
+
+html[data-tema="claro"] .promociones-page .promociones-header p,
+html[data-tema="oscuro"] .promociones-page .promociones-header p,
+html[data-tema="lavanda"] .promociones-page .promociones-header p,
+html[data-tema="azul"] .promociones-page .promociones-header p,
+html[data-tema="claro"] .promociones-page .promotions-list-header p,
+html[data-tema="oscuro"] .promociones-page .promotions-list-header p,
+html[data-tema="lavanda"] .promociones-page .promotions-list-header p,
+html[data-tema="azul"] .promociones-page .promotions-list-header p,
+html[data-tema="claro"] .promociones-page .promociones-back-button,
+html[data-tema="oscuro"] .promociones-page .promociones-back-button,
+html[data-tema="lavanda"] .promociones-page .promociones-back-button,
+html[data-tema="azul"] .promociones-page .promociones-back-button {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="claro"] .promociones-page .promociones-total,
+html[data-tema="oscuro"] .promociones-page .promociones-total,
+html[data-tema="lavanda"] .promociones-page .promociones-total,
+html[data-tema="azul"] .promociones-page .promociones-total,
+html[data-tema="claro"] .promociones-page .promocion-form-section,
+html[data-tema="oscuro"] .promociones-page .promocion-form-section,
+html[data-tema="lavanda"] .promociones-page .promocion-form-section,
+html[data-tema="azul"] .promociones-page .promocion-form-section,
+html[data-tema="claro"] .promociones-page .promotions-list-section,
+html[data-tema="oscuro"] .promociones-page .promotions-list-section,
+html[data-tema="lavanda"] .promociones-page .promotions-list-section,
+html[data-tema="azul"] .promociones-page .promotions-list-section {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    box-shadow: var(--shadow-card);
+}
+
+html[data-tema="claro"] .promociones-page .promociones-total span,
+html[data-tema="oscuro"] .promociones-page .promociones-total span,
+html[data-tema="lavanda"] .promociones-page .promociones-total span,
+html[data-tema="azul"] .promociones-page .promociones-total span,
+html[data-tema="claro"] .promociones-page .promotion-form-group label,
+html[data-tema="oscuro"] .promociones-page .promotion-form-group label,
+html[data-tema="lavanda"] .promociones-page .promotion-form-group label,
+html[data-tema="azul"] .promociones-page .promotion-form-group label {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="claro"] .promociones-page .promotion-form-group input,
+html[data-tema="claro"] .promociones-page .promotion-form-group select,
+html[data-tema="claro"] .promociones-page .promotion-form-group textarea,
+html[data-tema="oscuro"] .promociones-page .promotion-form-group input,
+html[data-tema="oscuro"] .promociones-page .promotion-form-group select,
+html[data-tema="oscuro"] .promociones-page .promotion-form-group textarea,
+html[data-tema="lavanda"] .promociones-page .promotion-form-group input,
+html[data-tema="lavanda"] .promociones-page .promotion-form-group select,
+html[data-tema="lavanda"] .promociones-page .promotion-form-group textarea,
+html[data-tema="azul"] .promociones-page .promotion-form-group input,
+html[data-tema="azul"] .promociones-page .promotion-form-group select,
+html[data-tema="azul"] .promociones-page .promotion-form-group textarea {
+    background: var(--color-surface-soft);
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+}
+
+html[data-tema="claro"] .promociones-page .promotions-table-wrapper,
+html[data-tema="oscuro"] .promociones-page .promotions-table-wrapper,
+html[data-tema="lavanda"] .promociones-page .promotions-table-wrapper,
+html[data-tema="azul"] .promociones-page .promotions-table-wrapper {
+    border-color: var(--color-border);
+}
+
+html[data-tema="claro"] .promociones-page .promotions-table thead,
+html[data-tema="oscuro"] .promociones-page .promotions-table thead,
+html[data-tema="lavanda"] .promociones-page .promotions-table thead,
+html[data-tema="azul"] .promociones-page .promotions-table thead {
+    background: var(--color-surface-soft);
+}
+
+html[data-tema="claro"] .promociones-page .promotions-table th,
+html[data-tema="oscuro"] .promociones-page .promotions-table th,
+html[data-tema="lavanda"] .promociones-page .promotions-table th,
+html[data-tema="azul"] .promociones-page .promotions-table th,
+html[data-tema="claro"] .promociones-page .promotions-table td,
+html[data-tema="oscuro"] .promociones-page .promotions-table td,
+html[data-tema="lavanda"] .promociones-page .promotions-table td,
+html[data-tema="azul"] .promociones-page .promotions-table td {
+    border-color: var(--color-border);
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="claro"] .promociones-page .promotion-course-name,
+html[data-tema="oscuro"] .promociones-page .promotion-course-name,
+html[data-tema="lavanda"] .promociones-page .promotion-course-name,
+html[data-tema="azul"] .promociones-page .promotion-course-name {
+    color: var(--color-text);
+}
+
+html[data-tema="claro"] .promociones-page .promotion-discount,
+html[data-tema="oscuro"] .promociones-page .promotion-discount,
+html[data-tema="lavanda"] .promociones-page .promotion-discount,
+html[data-tema="azul"] .promociones-page .promotion-discount,
+html[data-tema="claro"] .promociones-page .promociones-total strong,
+html[data-tema="oscuro"] .promociones-page .promociones-total strong,
+html[data-tema="lavanda"] .promociones-page .promociones-total strong,
+html[data-tema="azul"] .promociones-page .promociones-total strong,
+html[data-tema="claro"] .promociones-page .promotions-count,
+html[data-tema="oscuro"] .promociones-page .promotions-count,
+html[data-tema="lavanda"] .promociones-page .promotions-count,
+html[data-tema="azul"] .promociones-page .promotions-count {
+    color: var(--color-primary);
+}
+
+html[data-tema="claro"] .promociones-page .promotion-form-footer,
+html[data-tema="oscuro"] .promociones-page .promotion-form-footer,
+html[data-tema="lavanda"] .promociones-page .promotion-form-footer,
+html[data-tema="azul"] .promociones-page .promotion-form-footer {
+    border-color: var(--color-border);
+}

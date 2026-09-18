@@ -772,3 +772,109 @@
         order: 1;
     }
 }
+
+/* =========================================================
+   TEMA GLOBAL: CLARO / OSCURO / LAVANDA / AZUL
+   ========================================================= */
+
+.pago-page {
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+.pago-back-button {
+    color: var(--color-text-secondary);
+}
+
+.pago-back-button:hover {
+    color: var(--color-primary);
+}
+
+.pago-heading h1,
+.pago-course-card h2,
+.pago-form-header h2,
+.pago-total strong,
+.pago-error-page h1 {
+    color: var(--color-text);
+}
+
+.pago-heading p,
+.pago-course-details span,
+.pago-price-box > span,
+.pago-form-header p,
+.pago-total span,
+.pago-error-page p {
+    color: var(--color-text-secondary);
+}
+
+.pago-course-card,
+.pago-form-card,
+.pago-error-page {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+    box-shadow: var(--shadow-card);
+}
+
+.pago-course-details,
+.pago-form-header,
+.pago-total {
+    border-color: var(--color-border);
+}
+
+.pago-course-details strong {
+    color: var(--color-text);
+}
+
+.pago-price-box {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border);
+}
+
+.pago-price-box strong {
+    color: var(--color-primary);
+}
+
+.pago-original-price {
+    color: var(--color-text-muted);
+}
+
+.pago-price-box small {
+    color: var(--color-text-secondary);
+}
+
+.pago-promotion-title {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+.pago-form label > span {
+    color: var(--color-text);
+}
+
+.pago-form input {
+    background: var(--color-surface-soft);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+}
+
+.pago-form input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.pago-form input:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+
+.pago-cancel-button {
+    background: transparent;
+    border-color: var(--color-border-strong);
+    color: var(--color-text-secondary);
+}
+
+.pago-cancel-button:hover {
+    background: var(--color-primary-soft);
+    border-color: var(--color-primary);
+    color: var(--color-text);
+}

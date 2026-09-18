@@ -4,6 +4,7 @@ import {
 } from "react";
 
 import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import {
     actualizarMatricula
@@ -16,10 +17,11 @@ function CourseProgressModal({
     onClose,
     onUpdated
 }) {
-    const { preferencias, t } = useTheme();
+    const { tema } = useTheme();
+    const { idioma, t } = useLanguage();
 
     const idiomaIngles =
-        preferencias.idioma === "en";
+        idioma === "en";
 
     const [temasVistos, setTemasVistos] =
         useState([]);
@@ -375,7 +377,7 @@ function CourseProgressModal({
     return (
         <div
             className={`progress-modal-overlay ${
-                preferencias.tema === "oscuro"
+                tema === "oscuro"
                     ? "progress-modal-dark"
                     : "progress-modal-light"
             }`}

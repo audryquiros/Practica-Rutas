@@ -6,6 +6,7 @@ import {
 
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import {
     obtenerCursos,
@@ -25,10 +26,8 @@ function Dashboard() {
         user
     } = useAuth();
 
-    const {
-        preferencias,
-        t
-    } = useTheme();
+    const { tema } = useTheme();
+    const { idioma, t } = useLanguage();
 
     const [
         cursos,
@@ -51,10 +50,10 @@ function Dashboard() {
     ] = useState("");
 
     const idiomaIngles =
-        preferencias.idioma === "en";
+        idioma === "en";
 
     const temaOscuro =
-        preferencias.tema === "oscuro";
+        tema === "oscuro";
 
 
     /* =====================================================

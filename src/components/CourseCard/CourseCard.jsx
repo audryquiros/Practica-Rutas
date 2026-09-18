@@ -1,4 +1,4 @@
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
 import { calcularPrecioPromocional } from "../../services/promocionesService";
 import "./CourseCard.css";
@@ -8,11 +8,10 @@ function CourseCard({
     promocion,
     onVerInfo
 }) {
-    const { preferencias, t } = useTheme();
+    const { idioma, t } = useLanguage();
     const { formatearPrecio } = useCurrency();
 
-    const temaOscuro = preferencias.tema === "oscuro";
-    const idiomaIngles = preferencias.idioma === "en";
+    const idiomaIngles = idioma === "en";
 
     const precioOriginal = Number(curso.precio);
     const promocionActiva = Boolean(promocion);
@@ -68,11 +67,7 @@ function CourseCard({
 
     return (
         <article
-            className={`course-card ${
-                temaOscuro
-                    ? "course-card-dark"
-                    : "course-card-light"
-            }`}
+            className="course-card"
         >
             <div className="course-card-top"></div>
 

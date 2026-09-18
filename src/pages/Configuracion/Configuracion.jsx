@@ -1,14 +1,13 @@
 import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
+import { useAccessibility } from "../../context/AccessibilityContext";
 
 import "./Configuracion.css";
 
 function Configuracion() {
-    const {
-        preferencias,
-        cambiarPreferencia,
-        restablecerPreferencias,
-        t
-    } = useTheme();
+    const { tema, cambiarTema, restablecerTema } = useTheme();
+    const { idioma, cambiarIdioma, restablecerIdioma, t } = useLanguage();
+    const { accesibilidad, cambiarAccesibilidad, restablecerAccesibilidad } = useAccessibility();
 
     const tamanios = [
         {
@@ -36,15 +35,13 @@ function Configuracion() {
     const tamanioActual =
         tamanios.find(
             (item) =>
-                item.valor === preferencias.tamanioLetra
+                item.valor === accesibilidad.tamanioLetra
         ) || tamanios[2];
 
     const cambiarTamanio = (event) => {
         const indice = Number(event.target.value);
 
-        cambiarPreferencia(
-            "tamanioLetra",
-            tamanios[indice].valor
+        cambiarAccesibilidad("tamanioLetra", tamanios[indice].valor
         );
     };
 
@@ -52,7 +49,7 @@ function Configuracion() {
         0,
         tamanios.findIndex(
             (item) =>
-                item.valor === preferencias.tamanioLetra
+                item.valor === accesibilidad.tamanioLetra
         )
     );
 
@@ -105,14 +102,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.idioma === "es"
+                                    idioma === "es"
                                         ? "configuracion-choice active"
                                         : "configuracion-choice"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "idioma",
-                                        "es"
+                                    cambiarIdioma("es"
                                     )
                                 }
                             >
@@ -129,14 +124,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.idioma === "en"
+                                    idioma === "en"
                                         ? "configuracion-choice active"
                                         : "configuracion-choice"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "idioma",
-                                        "en"
+                                    cambiarIdioma("en"
                                     )
                                 }
                             >
@@ -183,14 +176,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema === "claro"
+                                    tema === "claro"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "tema",
-                                        "claro"
+                                    cambiarTema("claro"
                                     )
                                 }
                             >
@@ -211,14 +202,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema === "oscuro"
+                                    tema === "oscuro"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "tema",
-                                        "oscuro"
+                                    cambiarTema("oscuro"
                                     )
                                 }
                             >
@@ -239,14 +228,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema === "lavanda"
+                                    tema === "lavanda"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "tema",
-                                        "lavanda"
+                                    cambiarTema("lavanda"
                                     )
                                 }
                             >
@@ -267,14 +254,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.tema === "azul"
+                                    tema === "azul"
                                         ? "configuracion-theme active"
                                         : "configuracion-theme"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "tema",
-                                        "azul"
+                                    cambiarTema("azul"
                                     )
                                 }
                             >
@@ -347,7 +332,7 @@ function Configuracion() {
                                             <span
                                                 key={item.valor}
                                                 className={
-                                                    preferencias.tamanioLetra === item.valor
+                                                    accesibilidad.tamanioLetra === item.valor
                                                         ? "active"
                                                         : ""
                                                 }
@@ -372,7 +357,7 @@ function Configuracion() {
                                         <span
                                             key={item.valor}
                                             className={
-                                                preferencias.tamanioLetra ===
+                                                accesibilidad.tamanioLetra ===
                                                 item.valor
                                                     ? "active"
                                                     : ""
@@ -432,14 +417,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente === "inter"
+                                    accesibilidad.fuente === "inter"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "fuente",
-                                        "inter"
+                                    cambiarAccesibilidad("fuente", "inter"
                                     )
                                 }
                             >
@@ -456,14 +439,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente === "arial"
+                                    accesibilidad.fuente === "arial"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "fuente",
-                                        "arial"
+                                    cambiarAccesibilidad("fuente", "arial"
                                     )
                                 }
                             >
@@ -480,14 +461,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente === "verdana"
+                                    accesibilidad.fuente === "verdana"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "fuente",
-                                        "verdana"
+                                    cambiarAccesibilidad("fuente", "verdana"
                                     )
                                 }
                             >
@@ -504,14 +483,12 @@ function Configuracion() {
                             <button
                                 type="button"
                                 className={
-                                    preferencias.fuente === "georgia"
+                                    accesibilidad.fuente === "georgia"
                                         ? "configuracion-font active"
                                         : "configuracion-font"
                                 }
                                 onClick={() =>
-                                    cambiarPreferencia(
-                                        "fuente",
-                                        "georgia"
+                                    cambiarAccesibilidad("fuente", "georgia"
                                     )
                                 }
                             >
@@ -573,18 +550,16 @@ function Configuracion() {
                                 <button
                                     type="button"
                                     className={
-                                        preferencias.altoContraste
+                                        accesibilidad.altoContraste
                                             ? "configuracion-toggle active"
                                             : "configuracion-toggle"
                                     }
                                     onClick={() =>
-                                        cambiarPreferencia(
-                                            "altoContraste",
-                                            !preferencias.altoContraste
+                                        cambiarAccesibilidad("altoContraste", !accesibilidad.altoContraste
                                         )
                                     }
                                     aria-pressed={
-                                        preferencias.altoContraste
+                                        accesibilidad.altoContraste
                                     }
                                 >
                                     <span className="toggle-circle"></span>
@@ -611,18 +586,16 @@ function Configuracion() {
                                 <button
                                     type="button"
                                     className={
-                                        preferencias.reducirAnimaciones
+                                        accesibilidad.reducirAnimaciones
                                             ? "configuracion-toggle active"
                                             : "configuracion-toggle"
                                     }
                                     onClick={() =>
-                                        cambiarPreferencia(
-                                            "reducirAnimaciones",
-                                            !preferencias.reducirAnimaciones
+                                        cambiarAccesibilidad("reducirAnimaciones", !accesibilidad.reducirAnimaciones
                                         )
                                     }
                                     aria-pressed={
-                                        preferencias.reducirAnimaciones
+                                        accesibilidad.reducirAnimaciones
                                     }
                                 >
                                     <span className="toggle-circle"></span>
@@ -647,7 +620,11 @@ function Configuracion() {
                         <button
                             type="button"
                             className="configuracion-reset"
-                            onClick={restablecerPreferencias}
+                            onClick={() => {
+                                restablecerTema();
+                                restablecerIdioma();
+                                restablecerAccesibilidad();
+                            }}
                         >
                             {t("restablecerPreferencias")}
                         </button>

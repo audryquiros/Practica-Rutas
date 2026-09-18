@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
 import "./Navbar.css";
 
 function Navbar() {
     const { user, isAuthenticated, logout } = useAuth();
-    const { t } = useTheme();
+    const { t } = useLanguage();
     const { moneda, cambiarMoneda } = useCurrency();
     const navigate = useNavigate();
 
@@ -165,12 +165,10 @@ function Navbar() {
                                     {user.nombre}
                                 </span>
 
-                                <span
+                               <span
                                     className="navbar-user-arrow"
                                     aria-hidden="true"
-                                >
-                                    ⌄
-                                </span>
+                                />
 
                             </summary>
 

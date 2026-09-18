@@ -10,7 +10,7 @@ import {
 } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import {
     obtenerUsuarioPorEmail
@@ -19,7 +19,7 @@ import {
 import "./Login.css";
 
 function Login() {
-    const { t } = useTheme();
+    const { t } = useLanguage();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

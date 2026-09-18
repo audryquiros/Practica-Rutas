@@ -7,7 +7,7 @@ import {
     useNavigate
 } from "react-router-dom";
 
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 
 import {
     obtenerUsuarioPorEmail,
@@ -17,7 +17,7 @@ import {
 import "./Registro.css";
 
 function Registro() {
-    const { t } = useTheme();
+    const { t } = useLanguage();
     const navigate = useNavigate();
 
     const [nombre, setNombre] = useState("");

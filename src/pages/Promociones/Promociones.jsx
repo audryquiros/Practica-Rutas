@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useTheme } from "../../context/ThemeContext";
+import { useLanguage } from "../../context/LanguageContext";
 import { useCurrency } from "../../context/CurrencyContext";
+import DatePicker from "../../components/DatePicker";
 import {
     obtenerPromociones,
     crearPromocion,
@@ -23,10 +24,10 @@ const formularioInicial = {
 
 function Promociones() {
     const navigate = useNavigate();
-    const { preferencias, t } = useTheme();
-    const { formatearPrecio } = useCurrency();
+    const { idioma, t } = useLanguage();
+    const { moneda, formatearPrecio } = useCurrency();
 
-    const idiomaIngles = preferencias.idioma === "en";
+    const idiomaIngles = idioma === "en";
 
     const [promociones, setPromociones] = useState([]);
     const [cursos, setCursos] = useState([]);
@@ -555,7 +556,7 @@ function Promociones() {
                                             {formulario.tipo ===
                                             "porcentaje"
                                                 ? "%"
-                                                : "$"}
+                                                : moneda === "CRC" ? "₡" : "$"}
                                         </span>
 
                                     </div>
@@ -566,13 +567,11 @@ function Promociones() {
                                         {t("fechaInicio")}
                                     </label>
 
-                                    <input
+                                    <DatePicker
                                         id="fechaInicio"
                                         name="fechaInicio"
-                                        type="date"
-                                        value={
-                                            formulario.fechaInicio
-                                        }
+                                        label={t("fechaInicio")}
+                                        value={formulario.fechaInicio}
                                         onChange={manejarCambio}
                                     />
                                 </div>
@@ -582,13 +581,11 @@ function Promociones() {
                                         {t("fechaFin")}
                                     </label>
 
-                                    <input
+                                    <DatePicker
                                         id="fechaFin"
                                         name="fechaFin"
-                                        type="date"
-                                        value={
-                                            formulario.fechaFin
-                                        }
+                                        label={t("fechaFin")}
+                                        value={formulario.fechaFin}
                                         onChange={manejarCambio}
                                     />
                                 </div>
