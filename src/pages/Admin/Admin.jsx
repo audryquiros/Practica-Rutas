@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
 
 import { obtenerCursos } from "../../services/cursosService";
 import {
@@ -12,6 +13,7 @@ import {
 import "./Admin.css";
 
 function Admin() {
+    const { t } = useTheme();
     const [cursos, setCursos] = useState([]);
     const [promociones, setPromociones] =
         useState([]);
@@ -51,7 +53,7 @@ function Admin() {
                 console.error(error);
 
                 setError(
-                    "No se pudieron cargar los datos de administración."
+                    t("errorCargarAdministracion")
                 );
             } finally {
                 setLoading(false);
@@ -73,18 +75,15 @@ function Admin() {
 
                 <section className="admin-header">
                     <span className="admin-label">
-                        ADMINISTRACIÓN
+                        {t("administracion").toUpperCase()}
                     </span>
 
                     <h1>
-                        Panel de administración
+                        {t("panelAdministracion")}
                     </h1>
 
                     <p>
-                        Gestiona los cursos,
-                        promociones y usuarios
-                        de Learnix desde un solo
-                        lugar.
+                        {t("adminDescripcion")}
                     </p>
                 </section>
 
@@ -98,7 +97,7 @@ function Admin() {
 
                     <article className="admin-stat-card">
                         <span>
-                            CURSOS
+                            {t("cursos").toUpperCase()}
                         </span>
 
                         <strong>
@@ -108,13 +107,13 @@ function Admin() {
                         </strong>
 
                         <p>
-                            Cursos disponibles
+                            {t("cursosDisponibles")}
                         </p>
                     </article>
 
                     <article className="admin-stat-card">
                         <span>
-                            USUARIOS
+                            {t("usuarios").toUpperCase()}
                         </span>
 
                         <strong>
@@ -124,13 +123,13 @@ function Admin() {
                         </strong>
 
                         <p>
-                            Cuentas registradas
+                            {t("cuentasRegistradas")}
                         </p>
                     </article>
 
                     <article className="admin-stat-card">
                         <span>
-                            PROMOCIONES
+                            {t("promociones").toUpperCase()}
                         </span>
 
                         <strong>
@@ -140,7 +139,7 @@ function Admin() {
                         </strong>
 
                         <p>
-                            Promociones activas
+                            {t("promocionesActivas")}
                         </p>
                     </article>
 
@@ -158,13 +157,11 @@ function Admin() {
 
                         <div>
                             <h2>
-                                Cursos
+                                {t("cursos")}
                             </h2>
 
                             <p>
-                                Crear, editar y
-                                eliminar cursos
-                                de Learnix.
+                                {t("crearEditarEliminarCursos")}
                             </p>
                         </div>
 
@@ -183,13 +180,11 @@ function Admin() {
 
                         <div>
                             <h2>
-                                Promociones
+                                {t("promociones")}
                             </h2>
 
                             <p>
-                                Crea descuentos y
-                                administra las
-                                promociones.
+                                {t("crearAdministrarPromociones")}
                             </p>
                         </div>
 
@@ -208,12 +203,11 @@ function Admin() {
 
                         <div>
                             <h2>
-                                Usuarios
+                                {t("usuarios")}
                             </h2>
 
                             <p>
-                                Consulta, edita y
-                                elimina cuentas.
+                                {t("consultaEditaEliminaCuentas")}
                             </p>
                         </div>
 

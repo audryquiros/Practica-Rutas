@@ -1,12 +1,14 @@
 import { useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 import { useNavigate } from "react-router-dom";
 import "./CourseModal.css";
 
 function CourseModal({ curso, onClose }) {
     const { isAuthenticated } = useAuth();
     const { preferencias, t } = useTheme();
+    const { formatearPrecio } = useCurrency();
     const navigate = useNavigate();
 
     const idiomaIngles = preferencias.idioma === "en";
@@ -158,10 +160,7 @@ function CourseModal({ curso, onClose }) {
                         </span>
 
                         <strong>
-                            ₡
-                            {Number(curso.precio).toLocaleString(
-                                "es-CR"
-                            )}
+                            {formatearPrecio(curso.precio)}
                         </strong>
 
                     </div>

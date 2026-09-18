@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 import {
     obtenerPromociones,
     crearPromocion,
@@ -15,11 +17,16 @@ const formularioInicial = {
     valor: "",
     fechaInicio: "",
     fechaFin: "",
-    activa: true
+    activa: true,
+    descripcion: ""
 };
 
 function Promociones() {
     const navigate = useNavigate();
+    const { preferencias, t } = useTheme();
+    const { formatearPrecio } = useCurrency();
+
+    const idiomaIngles = preferencias.idioma === "en";
 
     const [promociones, setPromociones] = useState([]);
     const [cursos, setCursos] = useState([]);
@@ -61,7 +68,7 @@ function Promociones() {
             console.error(error);
 
             setError(
-                "No se pudieron cargar las promociones."
+                t("errorCargarPromociones")
             );
         } finally {
             setCargando(false);
@@ -110,7 +117,7 @@ function Promociones() {
             !formulario.fechaFin
         ) {
             setError(
-                "Completa todos los campos obligatorios."
+                t("camposPromocionObligatorios")
             );
 
             return false;
@@ -118,7 +125,7 @@ function Promociones() {
 
         if (Number(formulario.valor) <= 0) {
             setError(
-                "El valor de la promoción debe ser mayor que cero."
+                t("valorPromocionMayorCero")
             );
 
             return false;
@@ -129,7 +136,7 @@ function Promociones() {
             Number(formulario.valor) > 100
         ) {
             setError(
-                "El porcentaje no puede ser mayor a 100%."
+                t("porcentajeMaximo")
             );
 
             return false;
@@ -140,13 +147,29 @@ function Promociones() {
             formulario.fechaInicio
         ) {
             setError(
-                "La fecha de finalización debe ser posterior a la fecha de inicio."
+                t("fechaFinalPosterior")
             );
 
             return false;
         }
 
         return true;
+    };
+
+    const traducirPromocion = async (promocion) => {
+        const response = await fetch("http://localhost:3002/api/traducir-promocion", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ promocion })
+        });
+
+        if (!response.ok) {
+            throw new Error("No se pudo traducir la promoción automáticamente.");
+        }
+
+        return await response.json();
     };
 
     const prepararPromocion = () => {
@@ -156,7 +179,8 @@ function Promociones() {
             valor: Number(formulario.valor),
             fechaInicio: formulario.fechaInicio,
             fechaFin: formulario.fechaFin,
-            activa: formulario.activa
+            activa: formulario.activa,
+            descripcion: formulario.descripcion.trim()
         };
     };
 
@@ -175,20 +199,27 @@ function Promociones() {
 
             const promocion = prepararPromocion();
 
+            const traduccion = await traducirPromocion(promocion);
+
+            const promocionConTraduccion = {
+                ...promocion,
+                ...traduccion
+            };
+
             if (promocionEditando) {
                 await actualizarPromocion(
                     promocionEditando.id,
-                    promocion
+                    promocionConTraduccion
                 );
 
                 setMensaje(
-                    "La promoción se actualizó correctamente."
+                    t("promocionActualizada")
                 );
             } else {
-                await crearPromocion(promocion);
+                await crearPromocion(promocionConTraduccion);
 
                 setMensaje(
-                    "La promoción se creó correctamente."
+                    t("promocionCreada")
                 );
             }
 
@@ -204,8 +235,8 @@ function Promociones() {
 
             setError(
                 promocionEditando
-                    ? "No se pudo actualizar la promoción."
-                    : "No se pudo crear la promoción."
+                    ? t("errorActualizarPromocion")
+                    : t("errorCrearPromocion")
             );
         } finally {
             setGuardando(false);
@@ -225,7 +256,8 @@ function Promociones() {
             activa:
                 promocion.activa !== undefined
                     ? promocion.activa
-                    : true
+                    : true,
+            descripcion: promocion.descripcion || ""
         });
 
         setError("");
@@ -243,7 +275,7 @@ function Promociones() {
         );
 
         const confirmar = window.confirm(
-            `¿Seguro que deseas eliminar la promoción de "${nombreCurso}"?`
+            `${t("confirmarEliminarPromocion")} "${nombreCurso}"?`
         );
 
         if (!confirmar) {
@@ -269,13 +301,13 @@ function Promociones() {
             }
 
             setMensaje(
-                "La promoción se eliminó correctamente."
+                t("promocionEliminada")
             );
         } catch (error) {
             console.error(error);
 
             setError(
-                "No se pudo eliminar la promoción."
+                t("errorEliminarPromocion")
             );
         }
     };
@@ -286,12 +318,14 @@ function Promociones() {
                 String(item.id) === String(cursoId)
         );
 
-        return curso?.nombre || "Curso no encontrado";
+        return idiomaIngles && curso?.nombre_en
+            ? curso.nombre_en
+            : curso?.nombre || t("cursoNoEncontrado");
     };
 
     const obtenerEstadoPromocion = (promocion) => {
         if (!promocion.activa) {
-            return "Inactiva";
+            return "inactiva";
         }
 
         const hoy = new Date()
@@ -299,14 +333,14 @@ function Promociones() {
             .split("T")[0];
 
         if (promocion.fechaInicio > hoy) {
-            return "Programada";
+            return "programada";
         }
 
         if (promocion.fechaFin < hoy) {
-            return "Finalizada";
+            return "finalizada";
         }
 
-        return "Activa";
+        return "activa";
     };
 
     const formatearDescuento = (promocion) => {
@@ -314,17 +348,13 @@ function Promociones() {
             return `${promocion.valor}%`;
         }
 
-        return new Intl.NumberFormat("es-CR", {
-            style: "currency",
-            currency: "CRC",
-            maximumFractionDigits: 0
-        }).format(Number(promocion.valor) || 0);
+        return formatearPrecio(promocion.valor);
     };
 
     const promocionesActivas = promociones.filter(
         (promocion) =>
             obtenerEstadoPromocion(promocion) ===
-            "Activa"
+            "activa"
     );
 
     return (
@@ -342,7 +372,7 @@ function Promociones() {
                     onClick={() => navigate("/admin")}
                 >
                     <span>←</span>
-                    Volver al panel
+                    {t("volverPanel")}
                 </button>
 
                 {/* =========================
@@ -353,16 +383,15 @@ function Promociones() {
 
                     <div>
                         <span className="promociones-eyebrow">
-                            ADMINISTRACIÓN
+                            {t("administracion").toUpperCase()}
                         </span>
 
                         <h1>
-                            Gestión de promociones
+                            {t("gestionPromociones")}
                         </h1>
 
                         <p>
-                            Crea descuentos y administra las
-                            promociones de los cursos de Learnix.
+                            {t("gestionPromocionesDescripcion")}
                         </p>
                     </div>
 
@@ -374,11 +403,11 @@ function Promociones() {
                             onClick={abrirFormulario}
                         >
                             <span>+</span>
-                            Agregar promoción
+                            {t("agregarPromocion")}
                         </button>
 
                         <div className="promociones-total">
-                            <span>ACTIVAS</span>
+                            <span>{t("activas").toUpperCase()}</span>
 
                             <strong>
                                 {promocionesActivas.length}
@@ -417,14 +446,14 @@ function Promociones() {
                             <div>
                                 <span className="section-number">
                                     {promocionEditando
-                                        ? "EDITAR PROMOCIÓN"
-                                        : "NUEVA PROMOCIÓN"}
+                                        ? t("editarPromocion").toUpperCase()
+                                        : t("nuevaPromocion").toUpperCase()}
                                 </span>
 
                                 <h2>
                                     {promocionEditando
-                                        ? "Editar promoción"
-                                        : "Agregar promoción"}
+                                        ? t("editarPromocion")
+                                        : t("agregarPromocion")}
                                 </h2>
                             </div>
 
@@ -433,7 +462,7 @@ function Promociones() {
                                 className="close-promotion-button"
                                 onClick={cerrarFormulario}
                             >
-                                Cerrar
+                                {t("cerrar")}
                             </button>
 
                         </div>
@@ -447,7 +476,7 @@ function Promociones() {
 
                                 <div className="promotion-form-group">
                                     <label htmlFor="cursoId">
-                                        Curso
+                                        {t("curso")}
                                     </label>
 
                                     <select
@@ -457,7 +486,7 @@ function Promociones() {
                                         onChange={manejarCambio}
                                     >
                                         <option value="">
-                                            Selecciona un curso
+                                            {t("seleccionarCurso")}
                                         </option>
 
                                         {cursos.map((curso) => (
@@ -465,7 +494,7 @@ function Promociones() {
                                                 key={curso.id}
                                                 value={curso.id}
                                             >
-                                                {curso.nombre}
+                                                {idiomaIngles && curso.nombre_en ? curso.nombre_en : curso.nombre}
                                             </option>
                                         ))}
                                     </select>
@@ -473,7 +502,7 @@ function Promociones() {
 
                                 <div className="promotion-form-group">
                                     <label htmlFor="tipo">
-                                        Tipo de descuento
+                                        {t("tipoDescuento")}
                                     </label>
 
                                     <select
@@ -483,11 +512,11 @@ function Promociones() {
                                         onChange={manejarCambio}
                                     >
                                         <option value="porcentaje">
-                                            Porcentaje
+                                            {t("porcentaje")}
                                         </option>
 
                                         <option value="monto">
-                                            Monto fijo
+                                            {t("montoFijo")}
                                         </option>
                                     </select>
                                 </div>
@@ -495,8 +524,8 @@ function Promociones() {
                                 <div className="promotion-form-group">
                                     <label htmlFor="valor">
                                         {formulario.tipo === "porcentaje"
-                                            ? "Porcentaje de descuento"
-                                            : "Monto de descuento"}
+                                            ? t("porcentajeDescuento")
+                                            : t("montoDescuento")}
                                     </label>
 
                                     <div className="promotion-value-input">
@@ -518,7 +547,7 @@ function Promociones() {
                                                 formulario.tipo ===
                                                 "porcentaje"
                                                     ? "Ej. 20"
-                                                    : "Ej. 5000"
+                                                    : "Ej. 20.00"
                                             }
                                         />
 
@@ -526,7 +555,7 @@ function Promociones() {
                                             {formulario.tipo ===
                                             "porcentaje"
                                                 ? "%"
-                                                : "₡"}
+                                                : "$"}
                                         </span>
 
                                     </div>
@@ -534,7 +563,7 @@ function Promociones() {
 
                                 <div className="promotion-form-group">
                                     <label htmlFor="fechaInicio">
-                                        Fecha de inicio
+                                        {t("fechaInicio")}
                                     </label>
 
                                     <input
@@ -550,7 +579,7 @@ function Promociones() {
 
                                 <div className="promotion-form-group">
                                     <label htmlFor="fechaFin">
-                                        Fecha de finalización
+                                        {t("fechaFin")}
                                     </label>
 
                                     <input
@@ -566,6 +595,21 @@ function Promociones() {
 
                             </div>
 
+                            <div className="promotion-form-group promotion-description-group">
+                                <label htmlFor="descripcion">
+                                    {t("descripcionPromocion")}
+                                </label>
+
+                                <textarea
+                                    id="descripcion"
+                                    name="descripcion"
+                                    value={formulario.descripcion}
+                                    onChange={manejarCambio}
+                                    placeholder={t("descripcionPromocionPlaceholder")}
+                                    rows="3"
+                                />
+                            </div>
+
                             <label className="promotion-checkbox">
 
                                 <input
@@ -578,7 +622,7 @@ function Promociones() {
                                 <span className="checkbox-custom"></span>
 
                                 <span>
-                                    Promoción activa
+                                    {t("promocionActiva")}
                                 </span>
 
                             </label>
@@ -586,9 +630,7 @@ function Promociones() {
                             <div className="promotion-form-footer">
 
                                 <p>
-                                    La promoción se aplicará al
-                                    curso seleccionado durante
-                                    las fechas indicadas.
+                                    {t("promocionAplicadaFechas")}
                                 </p>
 
                                 <div className="promotion-form-actions">
@@ -598,7 +640,7 @@ function Promociones() {
                                         className="cancel-promotion-button"
                                         onClick={cerrarFormulario}
                                     >
-                                        Cancelar
+                                        {t("cancelar")}
                                     </button>
 
                                     <button
@@ -607,10 +649,10 @@ function Promociones() {
                                         disabled={guardando}
                                     >
                                         {guardando
-                                            ? "Guardando..."
+                                            ? t("traduciendoGuardando")
                                             : promocionEditando
-                                                ? "Guardar cambios"
-                                                : "Crear promoción"}
+                                                ? t("guardarCambios")
+                                                : t("agregarPromocion")}
                                     </button>
 
                                 </div>
@@ -632,16 +674,15 @@ function Promociones() {
 
                         <div>
                             <span className="section-number">
-                                PROMOCIONES REGISTRADAS
+                                {t("promocionesRegistradas").toUpperCase()}
                             </span>
 
                             <h2>
-                                Promociones de Learnix
+                                {t("promocionesLearnix")}
                             </h2>
 
                             <p>
-                                Administra los descuentos disponibles
-                                para los cursos.
+                                {t("administrarDescuentos")}
                             </p>
                         </div>
 
@@ -653,18 +694,17 @@ function Promociones() {
 
                     {cargando ? (
                         <div className="promotions-loading">
-                            Cargando promociones...
+                            {t("cargandoPromociones")}
                         </div>
                     ) : promociones.length === 0 ? (
                         <div className="promotions-empty">
 
                             <strong>
-                                No hay promociones registradas.
+                                {t("noPromocionesRegistradas")}
                             </strong>
 
                             <p>
-                                Utiliza el botón "Agregar promoción"
-                                para crear la primera.
+                                {t("utilizaAgregarPromocion")}
                             </p>
 
                         </div>
@@ -675,12 +715,12 @@ function Promociones() {
 
                                 <thead>
                                     <tr>
-                                        <th>Curso</th>
-                                        <th>Descuento</th>
-                                        <th>Inicio</th>
-                                        <th>Finalización</th>
-                                        <th>Estado</th>
-                                        <th>Acciones</th>
+                                        <th>{t("curso")}</th>
+                                        <th>{t("descuentoTabla")}</th>
+                                        <th>{t("inicioPromocion")}</th>
+                                        <th>{t("finalizacion")}</th>
+                                        <th>{t("estado")}</th>
+                                        <th>{t("acciones")}</th>
                                     </tr>
                                 </thead>
 
@@ -707,6 +747,14 @@ function Promociones() {
                                                                 promocion.cursoId
                                                             )}
                                                         </div>
+
+                                                        {promocion.descripcion && (
+                                                            <div className="promotion-description-preview">
+                                                                {idiomaIngles && promocion.descripcion_en
+                                                                    ? promocion.descripcion_en
+                                                                    : promocion.descripcion}
+                                                            </div>
+                                                        )}
                                                     </td>
 
                                                     <td>
@@ -731,14 +779,9 @@ function Promociones() {
 
                                                     <td>
                                                         <span
-                                                            className={`promotion-status ${estado
-                                                                .toLowerCase()
-                                                                .replace(
-                                                                    "í",
-                                                                    "i"
-                                                                )}`}
+                                                            className={`promotion-status ${estado}`}
                                                         >
-                                                            {estado}
+                                                            {t(`estado${estado.charAt(0).toUpperCase()}${estado.slice(1)}`)}
                                                         </span>
                                                     </td>
 
@@ -754,7 +797,7 @@ function Promociones() {
                                                                     )
                                                                 }
                                                             >
-                                                                Editar
+                                                                {t("editarPromocion")}
                                                             </button>
 
                                                             <button
@@ -766,7 +809,7 @@ function Promociones() {
                                                                     )
                                                                 }
                                                             >
-                                                                Eliminar
+                                                                {t("eliminar")}
                                                             </button>
 
                                                         </div>

@@ -5,6 +5,7 @@ import App from "./App";
 
 import { AuthProvider } from "./context/AuthContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import { CurrencyProvider } from "./context/CurrencyContext";
 
 import "./index.css";
 
@@ -14,7 +15,9 @@ createRoot(
     <StrictMode>
         <AuthProvider>
             <ThemeProvider>
-                <App />
+                <CurrencyProvider>
+                    <App />
+                </CurrencyProvider>
             </ThemeProvider>
         </AuthProvider>
     </StrictMode>

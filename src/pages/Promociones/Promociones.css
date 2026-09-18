@@ -314,7 +314,8 @@
 }
 
 .promotion-form-group input,
-.promotion-form-group select {
+.promotion-form-group select,
+.promotion-form-group textarea {
     width: 100%;
     height: 43px;
 
@@ -340,7 +341,8 @@
 }
 
 .promotion-form-group input:focus,
-.promotion-form-group select:focus {
+.promotion-form-group select:focus,
+.promotion-form-group textarea:focus {
     border-color: #8066ad;
     background: #252435;
     box-shadow: 0 0 0 3px rgba(169, 139, 233, 0.08);
@@ -747,6 +749,23 @@
 /* =========================
    RESPONSIVE
 ========================= */
+
+.promotion-description-group {
+    grid-column: 1 / -1;
+}
+
+.promotion-form-group textarea {
+    width: 100%;
+    min-height: 88px;
+    resize: vertical;
+}
+
+.promotion-description-preview {
+    margin-top: 5px;
+    color: var(--color-text-muted);
+    font-size: 12px;
+    line-height: 1.4;
+}
 
 @media (max-width: 900px) {
 

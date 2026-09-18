@@ -1,4 +1,5 @@
 import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 import { calcularPrecioPromocional } from "../../services/promocionesService";
 import "./CourseCard.css";
 
@@ -8,6 +9,7 @@ function CourseCard({
     onVerInfo
 }) {
     const { preferencias, t } = useTheme();
+    const { formatearPrecio } = useCurrency();
 
     const temaOscuro = preferencias.tema === "oscuro";
     const idiomaIngles = preferencias.idioma === "en";
@@ -48,8 +50,7 @@ function CourseCard({
             ? curso.duracion_en
             : curso.duracion;
 
-    const formatoPrecio = (precio) =>
-        `₡${Number(precio).toLocaleString("es-CR")}`;
+    const formatoPrecio = formatearPrecio;
 
     const obtenerTextoPromocion = () => {
         if (!promocionActiva) return "";

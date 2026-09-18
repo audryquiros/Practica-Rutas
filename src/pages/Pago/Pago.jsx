@@ -11,6 +11,7 @@ import {
 
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 
 import {
     obtenerCursoPorId
@@ -39,6 +40,8 @@ function Pago() {
         preferencias,
         t
     } = useTheme();
+
+    const { formatearPrecio } = useCurrency();
 
     const {
         cursoId
@@ -239,13 +242,7 @@ function Pago() {
             : 0;
 
 
-    const formatoPrecio =
-        (valor) =>
-            `₡${Number(
-                valor || 0
-            ).toLocaleString(
-                "es-CR"
-            )}`;
+    const formatoPrecio = formatearPrecio;
 
 
     /* =====================================================

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../context/AuthContext";
+import { useTheme } from "../../context/ThemeContext";
 
 import {
     obtenerUsuarios,
@@ -13,6 +14,7 @@ import "./Usuarios.css";
 
 function Usuarios() {
     const { user } = useAuth();
+    const { t } = useTheme();
     const navigate = useNavigate();
 
     const [usuarios, setUsuarios] = useState([]);
@@ -43,7 +45,7 @@ function Usuarios() {
             console.error(error);
 
             setError(
-                "No se pudieron cargar los usuarios."
+                t("errorCargarUsuarios")
             );
         } finally {
             setLoading(false);
@@ -101,7 +103,7 @@ function Usuarios() {
             !formulario.password.trim()
         ) {
             setError(
-                "Completa todos los campos."
+                t("camposUsuarioObligatorios")
             );
 
             return;
@@ -128,7 +130,7 @@ function Usuarios() {
             );
 
             setMensaje(
-                "Usuario actualizado correctamente."
+                t("usuarioActualizado")
             );
 
             setUsuarioEditando(null);
@@ -138,7 +140,7 @@ function Usuarios() {
             console.error(error);
 
             setError(
-                "No se pudo actualizar el usuario."
+                t("errorActualizarUsuario")
             );
         } finally {
             setGuardando(false);
@@ -158,7 +160,7 @@ function Usuarios() {
             String(user?.id)
         ) {
             setError(
-                "No puedes eliminar la cuenta con la que tienes la sesión iniciada."
+                t("cuentaSesionNoEliminar")
             );
 
             return;
@@ -182,7 +184,7 @@ function Usuarios() {
             );
 
             setMensaje(
-                "Usuario eliminado correctamente."
+                t("usuarioEliminado")
             );
 
             await cargarUsuarios();
@@ -190,7 +192,7 @@ function Usuarios() {
             console.error(error);
 
             setError(
-                "No se pudo eliminar el usuario."
+                t("errorEliminarUsuario")
             );
         }
     };
@@ -206,21 +208,20 @@ function Usuarios() {
                     onClick={() => navigate("/admin")}
                 >
                     <span>←</span>
-                    Volver al panel
+                    {t("volverPanel")}
                 </button>
 
                 <section className="usuarios-admin-header">
                     <span>
-                        ADMINISTRACIÓN
+                        {t("administracion").toUpperCase()}
                     </span>
 
                     <h1>
-                        Gestión de usuarios
+                        {t("gestionUsuarios")}
                     </h1>
 
                     <p>
-                        Consulta y administra las cuentas
-                        registradas en Learnix.
+                        {t("gestionUsuariosDescripcion")}
                     </p>
                 </section>
 
@@ -230,7 +231,7 @@ function Usuarios() {
                         <div className="usuario-edit-header">
                             <div>
                                 <span>
-                                    EDITAR USUARIO
+                                    {t("editarUsuario").toUpperCase()}
                                 </span>
 
                                 <h2>
@@ -246,7 +247,7 @@ function Usuarios() {
                                     cancelarEdicion
                                 }
                             >
-                                Cancelar
+                                {t("cancelar")}
                             </button>
                         </div>
 
@@ -261,7 +262,7 @@ function Usuarios() {
 
                                 <div className="usuario-field">
                                     <label>
-                                        Nombre
+                                        {t("nombre")}
                                     </label>
 
                                     <input
@@ -277,7 +278,7 @@ function Usuarios() {
 
                                 <div className="usuario-field">
                                     <label>
-                                        Correo
+                                        {t("correo")}
                                     </label>
 
                                     <input
@@ -294,7 +295,7 @@ function Usuarios() {
 
                                 <div className="usuario-field">
                                     <label>
-                                        Contraseña
+                                        {t("contrasena")}
                                     </label>
 
                                     <input
@@ -310,7 +311,7 @@ function Usuarios() {
 
                                 <div className="usuario-field">
                                     <label>
-                                        Rol
+                                        {t("rol")}
                                     </label>
 
                                     <select
@@ -323,11 +324,11 @@ function Usuarios() {
                                         }
                                     >
                                         <option value="usuario">
-                                            Usuario
+                                            {t("usuario")}
                                         </option>
 
                                         <option value="admin">
-                                            Administrador
+                                            {t("administradorRol")}
                                         </option>
                                     </select>
                                 </div>
@@ -342,8 +343,8 @@ function Usuarios() {
                                     }
                                 >
                                     {guardando
-                                        ? "Guardando..."
-                                        : "Guardar cambios"}
+                                        ? t("guardando")
+                                        : t("guardarCambios")}
                                 </button>
                             </div>
 
@@ -369,11 +370,11 @@ function Usuarios() {
                     <div className="usuarios-list-header">
                         <div>
                             <span>
-                                USUARIOS
+                                {t("usuarios").toUpperCase()}
                             </span>
 
                             <h2>
-                                Cuentas registradas
+                                {t("cuentasRegistradasTitulo")}
                             </h2>
                         </div>
 
@@ -384,7 +385,7 @@ function Usuarios() {
 
                     {loading ? (
                         <p className="usuarios-message">
-                            Cargando usuarios...
+                            {t("cargandoUsuarios")}
                         </p>
                     ) : (
                         <div className="usuarios-table-wrapper">
@@ -393,19 +394,19 @@ function Usuarios() {
                                 <thead>
                                     <tr>
                                         <th>
-                                            Nombre
+                                            {t("nombre")}
                                         </th>
 
                                         <th>
-                                            Correo
+                                            {t("correo")}
                                         </th>
 
                                         <th>
-                                            Rol
+                                            {t("rol")}
                                         </th>
 
                                         <th>
-                                            Acciones
+                                            {t("acciones")}
                                         </th>
                                     </tr>
                                 </thead>
@@ -452,7 +453,7 @@ function Usuarios() {
                                                                 )
                                                             }
                                                         >
-                                                            Editar
+                                                            {t("editarUsuario")}
                                                         </button>
 
                                                         <button
@@ -472,7 +473,7 @@ function Usuarios() {
                                                                 )
                                                             }
                                                         >
-                                                            Eliminar
+                                                            {t("eliminar")}
                                                         </button>
 
                                                     </div>

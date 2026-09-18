@@ -95,3 +95,8 @@ plataforma-cursos/
     ├── App.jsx
     ├── main.jsx
     └── index.css
+## Moneda de cursos
+
+Los precios de Learnix están configurados en USD. Los precios que estaban almacenados en colones fueron convertidos usando una tasa de referencia de 446,80 CRC por USD, correspondiente al promedio ponderado de MONEX del 17 de septiembre de 2026 publicado por el Banco Central de Costa Rica.
+
+La aplicación utiliza `Intl.NumberFormat` con `currency: "USD"` para mostrar los precios con símbolo `$` y dos decimales.

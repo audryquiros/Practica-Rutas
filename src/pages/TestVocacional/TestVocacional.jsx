@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 import {
     preguntasVocacionales,
     obtenerRecomendaciones
@@ -9,6 +10,7 @@ import "./TestVocacional.css";
 
 function TestVocacional() {
     const { preferencias } = useTheme();
+    const { formatearPrecio } = useCurrency();
     const navigate = useNavigate();
 
     const idiomaIngles =
@@ -205,13 +207,17 @@ function TestVocacional() {
                                         <div className="recommendation-content">
                                             <span className="recommendation-category">
                                                 {
-                                                    curso.categoria
+                                                    idiomaIngles && curso.categoria_en
+                                                        ? curso.categoria_en
+                                                        : curso.categoria
                                                 }
                                             </span>
 
                                             <h3>
                                                 {
-                                                    curso.nombre
+                                                    idiomaIngles && curso.nombre_en
+                                                        ? curso.nombre_en
+                                                        : curso.nombre
                                                 }
                                             </h3>
 
@@ -243,12 +249,7 @@ function TestVocacional() {
                                                 </span>
 
                                                 <span>
-                                                    ₡
-                                                    {Number(
-                                                        curso.precio
-                                                    ).toLocaleString(
-                                                        "es-CR"
-                                                    )}
+                                                    {formatearPrecio(curso.precio)}
                                                 </span>
                                             </div>
 

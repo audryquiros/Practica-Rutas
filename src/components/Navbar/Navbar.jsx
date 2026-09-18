@@ -2,11 +2,13 @@ import { useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 import "./Navbar.css";
 
 function Navbar() {
     const { user, isAuthenticated, logout } = useAuth();
     const { t } = useTheme();
+    const { moneda, cambiarMoneda } = useCurrency();
     const navigate = useNavigate();
 
     const userMenuRef = useRef(null);
@@ -125,6 +127,23 @@ function Navbar() {
 
                 </nav>
 
+                {/* MONEDA */}
+                <button
+                    type="button"
+                    className="navbar-currency-button"
+                    onClick={cambiarMoneda}
+                    title={t("cambiarMoneda")}
+                    aria-label={t("cambiarMoneda")}
+                >
+                    <span className="navbar-currency-symbol">
+                        {moneda === "CRC" ? "₡" : "$"}
+                    </span>
+
+                    <span>
+                        {moneda === "CRC" ? "CRC" : "USD"}
+                    </span>
+                </button>
+
                 {/* USUARIO */}
                 <div className="navbar-user">
 
@@ -146,7 +165,12 @@ function Navbar() {
                                     {user.nombre}
                                 </span>
 
-                                <span className="navbar-user-arrow" aria-hidden="true">⌄</span>
+                                <span
+                                    className="navbar-user-arrow"
+                                    aria-hidden="true"
+                                >
+                                    ⌄
+                                </span>
 
                             </summary>
 

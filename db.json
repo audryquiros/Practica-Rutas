@@ -477,6 +477,125 @@
       "duracion_en": "6 weeks",
       "modalidad_en": "Online",
       "descripcion_en": "Turn an idea into a business proposal by working on customers, revenue models, and strategy."
+    },
+    {
+      "nombre": "Diseño UX/UI desde cero",
+      "categoria": "Diseño",
+      "profesor": "María González",
+      "duracion": "8 semanas",
+      "modalidad": "Virtual",
+      "precio": 55000,
+      "descripcion": "Aprende los fundamentos del diseño UX/UI y crea interfaces digitales intuitivas, accesibles y atractivas centradas en las necesidades de los usuarios.",
+      "areas": [
+        "Diseño",
+        "Experiencia de usuario",
+        "Diseño web"
+      ],
+      "temas": [
+        {
+          "id": 1,
+          "nombre": "Introducción al diseño UX/UI"
+        },
+        {
+          "id": 2,
+          "nombre": "Investigación de usuarios"
+        },
+        {
+          "id": 3,
+          "nombre": "Arquitectura de información"
+        },
+        {
+          "id": 4,
+          "nombre": "Wireframes y prototipos"
+        },
+        {
+          "id": 5,
+          "nombre": "Diseño de interfaces"
+        },
+        {
+          "id": 6,
+          "nombre": "Pruebas de usabilidad"
+        },
+        {
+          "id": 7,
+          "nombre": "Proyecto final"
+        }
+      ],
+      "tareas": [
+        {
+          "id": 1,
+          "nombre": "Crear un perfil de usuario",
+          "descripcion": "Diseñar un perfil de usuario utilizando información obtenida durante la investigación."
+        },
+        {
+          "id": 2,
+          "nombre": "Diseñar un prototipo",
+          "descripcion": "Crear un prototipo de una aplicación utilizando los principios de diseño UX/UI."
+        },
+        {
+          "id": 3,
+          "nombre": "Prueba de usabilidad",
+          "descripcion": "Realizar una prueba de usabilidad y documentar los resultados obtenidos."
+        }
+      ],
+      "nombre_en": "UX/UI Design from Scratch",
+      "categoria_en": "Design",
+      "duracion_en": "8 weeks",
+      "modalidad_en": "Virtual",
+      "descripcion_en": "Learn the fundamentals of UX/UI design and create intuitive, accessible, and attractive digital interfaces centered on user needs.",
+      "areas_en": [
+        "Design",
+        "User Experience",
+        "Web Design"
+      ],
+      "temas_en": [
+        {
+          "id": 1,
+          "nombre_en": "Introduction to UX/UI Design"
+        },
+        {
+          "id": 2,
+          "nombre_en": "User Research"
+        },
+        {
+          "id": 3,
+          "nombre_en": "Information Architecture"
+        },
+        {
+          "id": 4,
+          "nombre_en": "Wireframes and Prototypes"
+        },
+        {
+          "id": 5,
+          "nombre_en": "Interface Design"
+        },
+        {
+          "id": 6,
+          "nombre_en": "Usability Testing"
+        },
+        {
+          "id": 7,
+          "nombre_en": "Final Project"
+        }
+      ],
+      "tareas_en": [
+        {
+          "id": 1,
+          "nombre_en": "Create a User Persona",
+          "descripcion_en": "Design a user persona using information obtained during research."
+        },
+        {
+          "id": 2,
+          "nombre_en": "Design a Prototype",
+          "descripcion_en": "Create an application prototype using UX/UI design principles."
+        },
+        {
+          "id": 3,
+          "nombre_en": "Usability Test",
+          "descripcion_en": "Conduct a usability test and document the results obtained."
+        }
+      ],
+      "id": "LZ9Yeu1E-C0"
     }
   ],
   "usuarios": [
@@ -693,5 +812,13 @@
       "activa": true
     }
   ],
+  "moneda": "USD",
+  "tipoCambioConversion": {
+    "monedaOrigen": "CRC",
+    "monedaDestino": "USD",
+    "tasaCRCporUSD": 446.8,
+    "fechaReferencia": "2026-09-17",
+    "fuente": "BCCR MONEX"
+  },
   "$schema": "./node_modules/json-server/schema.json"
 }

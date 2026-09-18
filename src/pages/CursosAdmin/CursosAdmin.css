@@ -396,6 +396,197 @@
 }
 
 /* =========================
+   LISTAS DINÁMICAS
+========================= */
+
+.dynamic-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.dynamic-list-group {
+    min-width: 0;
+}
+
+.dynamic-list-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 43px;
+}
+
+.dynamic-list-header > div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.dynamic-list-header label {
+    color: #ddd9e7;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.dynamic-list-header small {
+    color: #77748a;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.add-item-button {
+    flex-shrink: 0;
+    height: 32px;
+    padding: 0 10px;
+    border: 1px solid #514966;
+    border-radius: 7px;
+    background: #252435;
+    color: #b99df0;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-item-button:hover {
+    background: #302b43;
+    border-color: #8066ad;
+    transform: translateY(-1px);
+}
+
+.dynamic-items {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.dynamic-item-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) 32px;
+    align-items: center;
+    gap: 8px;
+}
+
+.dynamic-item-number {
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: #29263a;
+    border: 1px solid #3d394e;
+    color: #a98be9;
+    font-size: 11px;
+    font-weight: 700;
+    box-sizing: border-box;
+}
+
+.dynamic-item-row input {
+    min-width: 0;
+}
+
+/* =========================
+   SCROLL PARA TEMAS Y TAREAS
+========================= */
+
+/* TEMAS */
+.dynamic-list-group:first-child .dynamic-items {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* TAREAS */
+.dynamic-list-group:last-child .dynamic-items {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+/* Scrollbar */
+.dynamic-items::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dynamic-items::-webkit-scrollbar-track {
+    background: #252435;
+    border-radius: 10px;
+}
+
+.dynamic-items::-webkit-scrollbar-thumb {
+    background: #514966;
+    border-radius: 10px;
+}
+
+.dynamic-items::-webkit-scrollbar-thumb:hover {
+    background: #8066ad;
+}
+
+.remove-item-button {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #443b4b;
+    border-radius: 7px;
+    background: transparent;
+    color: #9b879e;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.remove-item-button:hover {
+    background: rgba(173, 76, 102, 0.12);
+    border-color: #8d5364;
+    color: #e79aaa;
+}
+
+.dynamic-task-card {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    background: #222130;
+    border: 1px solid #39384a;
+    border-radius: 9px;
+}
+
+.dynamic-task-card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dynamic-task-card-header strong {
+    flex: 1;
+    color: #cfcbd9;
+    font-size: 11px;
+}
+
+.dynamic-task-card .remove-item-button {
+    width: 28px;
+    height: 28px;
+}
+
+.dynamic-task-card textarea {
+    min-height: 76px;
+}
+
+@media (max-width: 900px) {
+    .dynamic-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================
    FOOTER FORM
 ========================= */
 

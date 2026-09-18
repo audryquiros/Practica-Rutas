@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../../context/ThemeContext";
+import { useCurrency } from "../../context/CurrencyContext";
 import {
     obtenerCursos,
     crearCurso,
@@ -17,12 +19,16 @@ const formularioInicial = {
     precio: "",
     descripcion: "",
     areas: "",
-    temas: "",
-    tareas: ""
+    temas: [""],
+    tareas: [{ nombre: "", descripcion: "" }]
 };
 
 function CursosAdmin() {
     const navigate = useNavigate();
+    const { preferencias, t } = useTheme();
+    const { formatearPrecio } = useCurrency();
+
+    const idiomaIngles = preferencias.idioma === "en";
 
     const [cursos, setCursos] = useState([]);
     const [formulario, setFormulario] = useState(formularioInicial);
@@ -50,7 +56,7 @@ function CursosAdmin() {
             setCursos(datos);
         } catch (error) {
             console.error(error);
-            setError("No se pudieron cargar los cursos.");
+            setError(t("errorCargarCursos"));
         } finally {
             setCargando(false);
         }
@@ -64,6 +70,73 @@ function CursosAdmin() {
             [name]: value
         }));
     };
+
+    const agregarTema = () => {
+        setFormulario((actual) => ({
+            ...actual,
+            temas: [...actual.temas, ""]
+        }));
+    };
+
+    const cambiarTema = (index, valor) => {
+        setFormulario((actual) => ({
+            ...actual,
+            temas: actual.temas.map((tema, i) =>
+                i === index ? valor : tema
+            )
+        }));
+    };
+
+    const eliminarTema = (index) => {
+        setFormulario((actual) => ({
+            ...actual,
+            temas:
+                actual.temas.length > 1
+                    ? actual.temas.filter((_, i) => i !== index)
+                    : [""]
+        }));
+    };
+
+    const agregarTarea = () => {
+        setFormulario((actual) => ({
+            ...actual,
+            tareas: [
+                ...actual.tareas,
+                { nombre: "", descripcion: "" }
+            ]
+        }));
+    };
+
+    const cambiarTarea = (index, campo, valor) => {
+        setFormulario((actual) => ({
+            ...actual,
+            tareas: actual.tareas.map((tarea, i) =>
+                i === index
+                    ? { ...tarea, [campo]: valor }
+                    : tarea
+            )
+        }));
+    };
+
+    const eliminarTarea = (index) => {
+        setFormulario((actual) => ({
+            ...actual,
+            tareas:
+                actual.tareas.length > 1
+                    ? actual.tareas.filter((_, i) => i !== index)
+                    : [{ nombre: "", descripcion: "" }]
+        }));
+    };
+
+    const obtenerNombreCurso = (curso) =>
+        idiomaIngles && curso?.nombre_en
+            ? curso.nombre_en
+            : curso?.nombre || "";
+
+    const obtenerCategoriaCurso = (curso) =>
+        idiomaIngles && curso?.categoria_en
+            ? curso.categoria_en
+            : curso?.categoria || "";
 
     const prepararCurso = () => {
         return {
@@ -81,15 +154,36 @@ function CursosAdmin() {
                 .filter(Boolean),
 
             temas: formulario.temas
-                .split("\n")
-                .map((tema) => tema.trim())
-                .filter(Boolean),
+                .map((tema, index) => ({
+                    id: index + 1,
+                    nombre: tema.trim()
+                }))
+                .filter((tema) => tema.nombre),
 
             tareas: formulario.tareas
-                .split("\n")
-                .map((tarea) => tarea.trim())
-                .filter(Boolean)
+                .map((tarea, index) => ({
+                    id: index + 1,
+                    nombre: tarea.nombre.trim(),
+                    descripcion: tarea.descripcion.trim()
+                }))
+                .filter((tarea) => tarea.nombre || tarea.descripcion)
         };
+    };
+
+    const traducirCurso = async (curso) => {
+        const response = await fetch("http://localhost:3002/api/traducir-curso", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ curso })
+        });
+
+        if (!response.ok) {
+            throw new Error("No se pudo traducir el curso automáticamente.");
+        }
+
+        return await response.json();
     };
 
     const validarFormulario = () => {
@@ -102,14 +196,14 @@ function CursosAdmin() {
             !formulario.descripcion.trim()
         ) {
             setError(
-                "Completa todos los campos obligatorios del curso."
+                t("camposCursoObligatorios")
             );
 
             return false;
         }
 
         if (Number(formulario.precio) <= 0) {
-            setError("El precio debe ser mayor que cero.");
+            setError(t("precioMayorCero"));
             return false;
         }
 
@@ -155,20 +249,29 @@ function CursosAdmin() {
 
             const curso = prepararCurso();
 
+            // El administrador escribe una sola vez en español.
+            // La versión en inglés se genera automáticamente y se guarda junto al curso.
+            const traduccion = await traducirCurso(curso);
+
+            const cursoConTraduccion = {
+                ...curso,
+                ...traduccion
+            };
+
             if (cursoEditando) {
                 await actualizarCurso(
                     cursoEditando.id,
-                    curso
+                    cursoConTraduccion
                 );
 
                 setMensaje(
-                    "El curso se actualizó correctamente."
+                    t("cursoActualizado")
                 );
             } else {
-                await crearCurso(curso);
+                await crearCurso(cursoConTraduccion);
 
                 setMensaje(
-                    "El curso se creó correctamente."
+                    t("cursoCreado")
                 );
             }
 
@@ -184,8 +287,8 @@ function CursosAdmin() {
 
             setError(
                 cursoEditando
-                    ? "No se pudo actualizar el curso."
-                    : "No se pudo crear el curso."
+                    ? t("errorActualizarCurso")
+                    : t("errorCrearCurso")
             );
         } finally {
             setGuardando(false);
@@ -210,12 +313,46 @@ function CursosAdmin() {
                 : curso.areas || "",
 
             temas: Array.isArray(curso.temas)
-                ? curso.temas.join("\n")
-                : curso.temas || "",
+                ? curso.temas.map((tema) =>
+                    typeof tema === "string"
+                        ? tema
+                        : tema?.nombre || ""
+                ).filter(Boolean).length > 0
+                    ? curso.temas.map((tema) =>
+                        typeof tema === "string"
+                            ? tema
+                            : tema?.nombre || ""
+                    ).filter(Boolean)
+                    : [""]
+                : [""],
 
             tareas: Array.isArray(curso.tareas)
-                ? curso.tareas.join("\n")
-                : curso.tareas || ""
+                ? curso.tareas.map((tarea) => ({
+                    nombre:
+                        typeof tarea === "string"
+                            ? tarea
+                            : tarea?.nombre || "",
+                    descripcion:
+                        typeof tarea === "string"
+                            ? ""
+                            : tarea?.descripcion || ""
+                })).filter((tarea) =>
+                    tarea.nombre || tarea.descripcion
+                ).length > 0
+                    ? curso.tareas.map((tarea) => ({
+                        nombre:
+                            typeof tarea === "string"
+                                ? tarea
+                                : tarea?.nombre || "",
+                        descripcion:
+                            typeof tarea === "string"
+                                ? ""
+                                : tarea?.descripcion || ""
+                    })).filter((tarea) =>
+                        tarea.nombre || tarea.descripcion
+                    )
+                    : [{ nombre: "", descripcion: "" }]
+                : [{ nombre: "", descripcion: "" }]
         });
 
         setMensaje("");
@@ -229,7 +366,7 @@ function CursosAdmin() {
 
     const manejarEliminar = async (curso) => {
         const confirmar = window.confirm(
-            `¿Seguro que deseas eliminar el curso "${curso.nombre}"?`
+            `${t("confirmarEliminarCurso")} "${obtenerNombreCurso(curso)}"?`
         );
 
         if (!confirmar) {
@@ -253,24 +390,18 @@ function CursosAdmin() {
             }
 
             setMensaje(
-                "El curso se eliminó correctamente."
+                t("cursoEliminado")
             );
         } catch (error) {
             console.error(error);
 
             setError(
-                "No se pudo eliminar el curso."
+                t("errorEliminarCurso")
             );
         }
     };
 
-    const formatearPrecio = (precio) => {
-        return new Intl.NumberFormat("es-CR", {
-            style: "currency",
-            currency: "CRC",
-            maximumFractionDigits: 0
-        }).format(Number(precio) || 0);
-    };
+
 
     return (
         <main className="cursos-admin-page">
@@ -282,23 +413,22 @@ function CursosAdmin() {
                     onClick={() => navigate("/admin")}
                 >
                     <span>←</span>
-                    Volver al panel
+                    {t("volverPanel")}
                 </button>
 
                 <header className="cursos-admin-header">
 
                     <div>
                         <span className="cursos-admin-eyebrow">
-                            ADMINISTRACIÓN
+                            {t("administracion").toUpperCase()}
                         </span>
 
                         <h1>
-                            Gestión de cursos
+                            {t("gestionCursos")}
                         </h1>
 
                         <p>
-                            Crea nuevos cursos o administra los
-                            cursos existentes de Learnix.
+                            {t("gestionCursosDescripcion")}
                         </p>
                     </div>
 
@@ -310,11 +440,11 @@ function CursosAdmin() {
                             onClick={abrirFormulario}
                         >
                             <span>+</span>
-                            Agregar curso
+                            {t("agregarCurso")}
                         </button>
 
                         <div className="cursos-total">
-                            <span>CURSOS</span>
+                            <span>{t("cursos").toUpperCase()}</span>
 
                             <strong>
                                 {cursos.length}
@@ -345,14 +475,14 @@ function CursosAdmin() {
                             <div>
                                 <span className="section-number">
                                     {cursoEditando
-                                        ? "EDITAR CURSO"
-                                        : "NUEVO CURSO"}
+                                        ? t("editarCurso").toUpperCase()
+                                        : t("nuevoCurso").toUpperCase()}
                                 </span>
 
                                 <h2>
                                     {cursoEditando
-                                        ? "Editar curso"
-                                        : "Agregar curso"}
+                                        ? t("editarCurso")
+                                    : t("agregarCurso")}
                                 </h2>
                             </div>
 
@@ -361,7 +491,7 @@ function CursosAdmin() {
                                 className="close-form-button"
                                 onClick={cerrarFormulario}
                             >
-                                Cerrar
+                                {t("cerrar")}
                             </button>
 
                         </div>
@@ -375,7 +505,7 @@ function CursosAdmin() {
 
                                 <div className="form-group">
                                     <label htmlFor="nombre">
-                                        Nombre del curso
+                                        {t("nombreCurso")}
                                     </label>
 
                                     <input
@@ -384,13 +514,13 @@ function CursosAdmin() {
                                         type="text"
                                         value={formulario.nombre}
                                         onChange={manejarCambio}
-                                        placeholder="Ej. Python para principiantes"
+                                        placeholder={t("ejemploPython")}
                                     />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="categoria">
-                                        Categoría
+                                        {t("categoria")}
                                     </label>
 
                                     <input
@@ -399,13 +529,13 @@ function CursosAdmin() {
                                         type="text"
                                         value={formulario.categoria}
                                         onChange={manejarCambio}
-                                        placeholder="Ej. Programación"
+                                        placeholder={t("ejemploProgramacion")}
                                     />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="profesor">
-                                        Profesor
+                                        {t("profesor")}
                                     </label>
 
                                     <input
@@ -414,13 +544,13 @@ function CursosAdmin() {
                                         type="text"
                                         value={formulario.profesor}
                                         onChange={manejarCambio}
-                                        placeholder="Nombre del profesor"
+                                        placeholder={t("nombreProfesor")}
                                     />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="duracion">
-                                        Duración
+                                        {t("duracion")}
                                     </label>
 
                                     <input
@@ -429,13 +559,13 @@ function CursosAdmin() {
                                         type="text"
                                         value={formulario.duracion}
                                         onChange={manejarCambio}
-                                        placeholder="Ej. 8 semanas"
+                                        placeholder={t("ejemploSemanas")}
                                     />
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="modalidad">
-                                        Modalidad
+                                        {t("modalidad")}
                                     </label>
 
                                     <select
@@ -445,22 +575,22 @@ function CursosAdmin() {
                                         onChange={manejarCambio}
                                     >
                                         <option value="Virtual">
-                                            Virtual
+                                            {t("modalidadVirtual")}
                                         </option>
 
                                         <option value="Presencial">
-                                            Presencial
+                                            {t("modalidadPresencial")}
                                         </option>
 
                                         <option value="Híbrida">
-                                            Híbrida
+                                            {t("modalidadHibrida")}
                                         </option>
                                     </select>
                                 </div>
 
                                 <div className="form-group">
                                     <label htmlFor="precio">
-                                        Precio
+                                        {t("precio")}
                                     </label>
 
                                     <div className="price-input">
@@ -471,6 +601,7 @@ function CursosAdmin() {
                                             name="precio"
                                             type="number"
                                             min="1"
+                                            step="1"
                                             value={formulario.precio}
                                             onChange={manejarCambio}
                                             placeholder="45000"
@@ -483,7 +614,7 @@ function CursosAdmin() {
                             <div className="form-group full-width">
 
                                 <label htmlFor="areas">
-                                    Áreas
+                                    {t("areasInteres")}
                                 </label>
 
                                 <input
@@ -492,12 +623,11 @@ function CursosAdmin() {
                                     type="text"
                                     value={formulario.areas}
                                     onChange={manejarCambio}
-                                    placeholder="programacion, logica"
+                                    placeholder={t("programacionLogica")}
                                 />
 
                                 <small>
-                                    Separa las áreas con comas.
-                                    También se utilizan para el test vocacional.
+                                    {t("areasAyuda")}
                                 </small>
 
                             </div>
@@ -505,7 +635,7 @@ function CursosAdmin() {
                             <div className="form-group full-width">
 
                                 <label htmlFor="descripcion">
-                                    Descripción
+                                    {t("descripcionCurso")}
                                 </label>
 
                                 <textarea
@@ -513,57 +643,147 @@ function CursosAdmin() {
                                     name="descripcion"
                                     value={formulario.descripcion}
                                     onChange={manejarCambio}
-                                    placeholder="Descripción del curso..."
+                                    placeholder={t("descripcionCursoPlaceholder")}
                                     rows="4"
                                 />
 
                             </div>
 
-                            <div className="form-grid">
+                            <div className="dynamic-form-grid">
 
-                                <div className="form-group">
+                                <div className="form-group dynamic-list-group">
 
-                                    <label htmlFor="temas">
-                                        Temas
-                                    </label>
+                                    <div className="dynamic-list-header">
+                                        <div>
+                                            <label>
+                                                {t("temasCurso")}
+                                            </label>
+                                            <small>
+                                                {t("unTemaPorLinea")}
+                                            </small>
+                                        </div>
 
-                                    <textarea
-                                        id="temas"
-                                        name="temas"
-                                        value={formulario.temas}
-                                        onChange={manejarCambio}
-                                        placeholder={
-                                            "Introducción\nComponentes\nProyecto final"
-                                        }
-                                        rows="5"
-                                    />
+                                        <button
+                                            type="button"
+                                            className="add-item-button"
+                                            onClick={agregarTema}
+                                        >
+                                            + {t("agregarTema")}
+                                        </button>
+                                    </div>
 
-                                    <small>
-                                        Un tema por línea.
-                                    </small>
+                                    <div className="dynamic-items">
+                                        {formulario.temas.map((tema, index) => (
+                                            <div
+                                                className="dynamic-item-row"
+                                                key={`tema-${index}`}
+                                            >
+                                                <span className="dynamic-item-number">
+                                                    {index + 1}
+                                                </span>
+
+                                                <input
+                                                    type="text"
+                                                    value={tema}
+                                                    onChange={(event) =>
+                                                        cambiarTema(
+                                                            index,
+                                                            event.target.value
+                                                        )
+                                                    }
+                                                    placeholder={`${t("temaPlaceholder")} ${index + 1}`}
+                                                />
+
+                                                <button
+                                                    type="button"
+                                                    className="remove-item-button"
+                                                    onClick={() => eliminarTema(index)}
+                                                    aria-label={`${t("eliminarTema")} ${index + 1}`}
+                                                    title={t("eliminarTema")}
+                                                >
+                                                    ×
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
 
                                 </div>
 
-                                <div className="form-group">
+                                <div className="form-group dynamic-list-group">
 
-                                    <label htmlFor="tareas">
-                                        Tareas
-                                    </label>
+                                    <div className="dynamic-list-header">
+                                        <div>
+                                            <label>
+                                                {t("tareasCurso")}
+                                            </label>
+                                            <small>
+                                                {t("unaTareaPorLinea")}
+                                            </small>
+                                        </div>
 
-                                    <textarea
-                                        id="tareas"
-                                        name="tareas"
-                                        value={formulario.tareas}
-                                        onChange={manejarCambio}
-                                        placeholder={
-                                            "Ejercicio de componentes\nPráctica de estado\nProyecto final"
-                                        }
-                                        rows="5"
-                                    />
+                                        <button
+                                            type="button"
+                                            className="add-item-button"
+                                            onClick={agregarTarea}
+                                        >
+                                            + {t("agregarTarea")}
+                                        </button>
+                                    </div>
 
-                                    <small>
-                                        Una tarea por línea.
-                                    </small>
+                                    <div className="dynamic-items">
+                                        {formulario.tareas.map((tarea, index) => (
+                                            <div
+                                                className="dynamic-task-card"
+                                                key={`tarea-${index}`}
+                                            >
+                                                <div className="dynamic-task-card-header">
+                                                    <span className="dynamic-item-number">
+                                                        {index + 1}
+                                                    </span>
+
+                                                    <strong>
+                                                        {t("tareaNumero")} {index + 1}
+                                                    </strong>
+
+                                                    <button
+                                                        type="button"
+                                                        className="remove-item-button"
+                                                        onClick={() => eliminarTarea(index)}
+                                                        aria-label={`${t("eliminarTarea")} ${index + 1}`}
+                                                        title={t("eliminarTarea")}
+                                                    >
+                                                        ×
+                                                    </button>
+                                                </div>
+
+                                                <input
+                                                    type="text"
+                                                    value={tarea.nombre}
+                                                    onChange={(event) =>
+                                                        cambiarTarea(
+                                                            index,
+                                                            "nombre",
+                                                            event.target.value
+                                                        )
+                                                    }
+                                                    placeholder={t("nombreTareaPlaceholder")}
+                                                />
+
+                                                <textarea
+                                                    value={tarea.descripcion}
+                                                    onChange={(event) =>
+                                                        cambiarTarea(
+                                                            index,
+                                                            "descripcion",
+                                                            event.target.value
+                                                        )
+                                                    }
+                                                    placeholder={t("descripcionTareaPlaceholder")}
+                                                    rows="3"
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
 
                                 </div>
 
@@ -572,8 +792,7 @@ function CursosAdmin() {
                             <div className="form-footer">
 
                                 <p>
-                                    Los campos del curso se
-                                    guardan en JSON Server.
+                                    {t("camposCursoJson")}
                                 </p>
 
                                 <div className="form-actions">
@@ -583,7 +802,7 @@ function CursosAdmin() {
                                         className="cancel-form-button"
                                         onClick={cerrarFormulario}
                                     >
-                                        Cancelar
+                                        {t("cancelar")}
                                     </button>
 
                                     <button
@@ -592,10 +811,10 @@ function CursosAdmin() {
                                         disabled={guardando}
                                     >
                                         {guardando
-                                            ? "Guardando..."
+                                            ? t("traduciendoGuardando")
                                             : cursoEditando
-                                                ? "Guardar cambios"
-                                                : "Crear curso"}
+                                                ? t("guardarCambios")
+                                                : t("crearCurso")}
                                     </button>
 
                                 </div>
@@ -613,16 +832,15 @@ function CursosAdmin() {
 
                         <div>
                             <span className="section-number">
-                                CURSOS REGISTRADOS
+                                {t("cursosRegistrados").toUpperCase()}
                             </span>
 
                             <h2>
-                                Cursos de Learnix
+                                {t("cursosLearnix")}
                             </h2>
 
                             <p>
-                                Administra los cursos disponibles
-                                en la plataforma.
+                                {t("administrarCursosDescripcion")}
                             </p>
                         </div>
 
@@ -634,11 +852,11 @@ function CursosAdmin() {
 
                     {cargando ? (
                         <div className="courses-loading">
-                            Cargando cursos...
+                            {t("cargandoCursosAdmin")}
                         </div>
                     ) : cursos.length === 0 ? (
                         <div className="courses-empty">
-                            No hay cursos registrados.
+                            {t("noCursosRegistrados")}
                         </div>
                     ) : (
                         <div className="courses-table-wrapper">
@@ -647,11 +865,11 @@ function CursosAdmin() {
 
                                 <thead>
                                     <tr>
-                                        <th>Curso</th>
-                                        <th>Categoría</th>
-                                        <th>Profesor</th>
-                                        <th>Precio</th>
-                                        <th>Acciones</th>
+                                        <th>{t("curso")}</th>
+                                        <th>{t("categoria")}</th>
+                                        <th>{t("profesor")}</th>
+                                        <th>{t("precio")}</th>
+                                        <th>{t("acciones")}</th>
                                     </tr>
                                 </thead>
 
@@ -662,13 +880,13 @@ function CursosAdmin() {
 
                                             <td>
                                                 <div className="course-name">
-                                                    {curso.nombre}
+                                                    {obtenerNombreCurso(curso)}
                                                 </div>
                                             </td>
 
                                             <td>
                                                 <span className="course-category">
-                                                    {curso.categoria}
+                                                    {obtenerCategoriaCurso(curso)}
                                                 </span>
                                             </td>
 
@@ -694,7 +912,7 @@ function CursosAdmin() {
                                                             manejarEditar(curso)
                                                         }
                                                     >
-                                                        Editar
+                                                        {t("editarCurso")}
                                                     </button>
 
                                                     <button
@@ -704,7 +922,7 @@ function CursosAdmin() {
                                                             manejarEliminar(curso)
                                                         }
                                                     >
-                                                        Eliminar
+                                                        {t("eliminar")}
                                                     </button>
 
                                                 </div>
