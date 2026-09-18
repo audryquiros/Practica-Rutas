@@ -284,16 +284,16 @@ body,
     color: var(--color-text);
 }
 
-.nav-link {
+.navbar-link {
     color: var(--color-text-secondary);
 }
 
-.nav-link:hover,
-.nav-link.active {
+.navbar-link:hover,
+.navbar-link.active {
     color: var(--color-primary);
 }
 
-.nav-link.active::after {
+.navbar-link.active::after {
     background: var(--color-primary);
 }
 
@@ -302,26 +302,18 @@ body,
    BOTONES DEL NAVBAR
    ========================================================= */
 
-.nav-login {
+.navbar-login {
     background: var(--color-surface);
     border-color: var(--color-border-strong);
     color: var(--color-text-secondary);
 }
 
-.nav-login:hover {
+.navbar-login:hover {
     background: var(--color-surface-soft);
     border-color: var(--color-primary);
     color: var(--color-primary);
 }
 
-.nav-register {
-    background: var(--color-primary);
-    color: #ffffff;
-}
-
-.nav-register:hover {
-    background: var(--color-primary-dark);
-}
 
 .nav-logout {
     background: var(--color-surface);
@@ -438,15 +430,15 @@ html[data-tema="azul"] .navbar {
     border-color: var(--color-border);
 }
 
-html[data-tema="lavanda"] .nav-link,
-html[data-tema="azul"] .nav-link {
+html[data-tema="lavanda"] .navbar-link,
+html[data-tema="azul"] .navbar-link {
     color: var(--color-text-secondary);
 }
 
-html[data-tema="lavanda"] .nav-link:hover,
-html[data-tema="lavanda"] .nav-link.active,
-html[data-tema="azul"] .nav-link:hover,
-html[data-tema="azul"] .nav-link.active {
+html[data-tema="lavanda"] .navbar-link:hover,
+html[data-tema="lavanda"] .navbar-link.active,
+html[data-tema="azul"] .navbar-link:hover,
+html[data-tema="azul"] .navbar-link.active {
     color: var(--color-primary);
 }
 
@@ -622,16 +614,16 @@ html[data-tamanio="muy-grande"] main {
 
 /* Navegación */
 
-html[data-tamanio="grande"] .nav-link,
-html[data-tamanio="grande"] .nav-login,
-html[data-tamanio="grande"] .nav-register,
+html[data-tamanio="grande"] .navbar-link,
+html[data-tamanio="grande"] .navbar-login,
+html[data-tamanio="grande"] .navbar-register,
 html[data-tamanio="grande"] .profile-trigger-name {
     font-size: 15px;
 }
 
-html[data-tamanio="muy-grande"] .nav-link,
-html[data-tamanio="muy-grande"] .nav-login,
-html[data-tamanio="muy-grande"] .nav-register,
+html[data-tamanio="muy-grande"] .navbar-link,
+html[data-tamanio="muy-grande"] .navbar-login,
+html[data-tamanio="muy-grande"] .navbar-register,
 html[data-tamanio="muy-grande"] .profile-trigger-name {
     font-size: 17px;
 }
@@ -726,16 +718,16 @@ html[data-contraste="alto"] .navbar {
     border-bottom: 2px solid var(--color-border-strong);
 }
 
-html[data-contraste="alto"] .nav-link {
+html[data-contraste="alto"] .navbar-link {
     color: #303038;
 }
 
-html[data-contraste="alto"] .nav-link:hover,
-html[data-contraste="alto"] .nav-link.active {
+html[data-contraste="alto"] .navbar-link:hover,
+html[data-contraste="alto"] .navbar-link.active {
     color: var(--color-primary);
 }
 
-html[data-contraste="alto"] .nav-link.active::after {
+html[data-contraste="alto"] .navbar-link.active::after {
     height: 3px;
 }
 
@@ -782,4 +774,240 @@ html[data-animaciones="reducidas"] *::after {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+}
+
+/* =========================================================
+   ESTANDARIZACIÓN TIPOGRÁFICA LEARNIX
+   =========================================================
+   Las páginas internas usan una jerarquía común.
+   Se mantienen los tamaños especiales de componentes,
+   tarjetas, formularios y la portada.
+*/
+
+.dashboard-heading h1,
+.perfil-header h1,
+.configuracion-header h1,
+.admin-header h1,
+.pago-heading h1,
+.ayuda-header h1,
+.cursos-admin-header h1,
+.promociones-header h1,
+.usuarios-admin-header h1 {
+    font-size: 34px !important;
+    line-height: 1.2;
+}
+
+.dashboard-section-header h2,
+.perfil-section-header h2,
+.configuracion-section-header h2,
+.admin-card-header h2,
+.admin-action-card h2,
+.ayuda-card h2,
+.ayuda-contact h2,
+.promocion-section-heading h2,
+.promotions-list-header h2,
+.usuario-edit-header h2,
+.usuarios-list-header h2,
+.courses-list-header h2,
+.section-heading h2 {
+    font-size: 23px !important;
+    line-height: 1.25;
+}
+
+.dashboard-header p,
+.dashboard-heading p,
+.perfil-header p,
+.configuracion-header p,
+.admin-header p,
+.pago-heading p,
+.ayuda-header p,
+.cursos-admin-header p {
+    font-size: 15px !important;
+    line-height: 1.6;
+}
+
+/* Escala global: la preferencia modifica la interfaz
+   sin que cada página tenga una escala independiente. */
+html[data-tamanio="muy-pequena"] {
+    --learnix-font-scale: 0.85;
+}
+
+html[data-tamanio="pequena"] {
+    --learnix-font-scale: 0.92;
+}
+
+html[data-tamanio="normal"] {
+    --learnix-font-scale: 1;
+}
+
+html[data-tamanio="grande"] {
+    --learnix-font-scale: 1.10;
+}
+
+html[data-tamanio="muy-grande"] {
+    --learnix-font-scale: 1.20;
+}
+
+/* =========================================================
+   NAVBAR — TEMA CLARO
+   ========================================================= */
+
+html[data-tema="claro"] .navbar {
+    background: #ffffff;
+    border-bottom-color: #e1dfea;
+}
+
+html[data-tema="claro"] .navbar-logo,
+html[data-tema="claro"] .navbar-user-button,
+html[data-tema="claro"] .navbar-user-name {
+    color: #202033;
+}
+
+html[data-tema="claro"] .navbar-link {
+    color: #4f4d5e;
+}
+
+html[data-tema="claro"] .navbar-link:hover,
+html[data-tema="claro"] .navbar-link.active {
+    color: #5b3b9f;
+}
+
+html[data-tema="claro"] .navbar-link.active::after {
+    background: #6c4ab6;
+}
+
+html[data-tema="claro"] .navbar-user-arrow {
+    color: #686678;
+}
+
+html[data-tema="claro"] .navbar-login {
+    background: #ffffff;
+    border-color: #6c4ab6;
+    color: #5b3b9f;
+}
+
+html[data-tema="claro"] .navbar-login:hover {
+    background: #6c4ab6;
+    color: #ffffff;
+}
+
+html[data-tema="claro"] .navbar-user-dropdown {
+    background: #ffffff;
+    border-color: #dedbe7;
+    box-shadow: 0 16px 35px rgba(35, 31, 58, 0.16);
+}
+
+html[data-tema="claro"] .navbar-user-dropdown a,
+html[data-tema="claro"] .navbar-user-dropdown button {
+    color: #454354;
+}
+
+html[data-tema="claro"] .navbar-user-dropdown a:hover {
+    background: #f3effa;
+    color: #4b2f82;
+}
+
+/* =========================================================
+   COURSE CARD — TODOS LOS TEMAS
+   ========================================================= */
+
+html[data-tema="lavanda"] .course-card,
+html[data-tema="azul"] .course-card {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .course-card h3,
+html[data-tema="azul"] .course-card h3 {
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .course-card p,
+html[data-tema="azul"] .course-card p {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="lavanda"] .course-details,
+html[data-tema="azul"] .course-details {
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .course-details strong,
+html[data-tema="azul"] .course-details strong {
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .course-details span,
+html[data-tema="azul"] .course-details span,
+html[data-tema="lavanda"] .course-price > span,
+html[data-tema="azul"] .course-price > span {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="lavanda"] .course-price > strong,
+html[data-tema="azul"] .course-price > strong,
+html[data-tema="lavanda"] .course-price-promotion strong,
+html[data-tema="azul"] .course-price-promotion strong {
+    color: var(--color-primary);
+}
+
+html[data-tema="lavanda"] .course-category,
+html[data-tema="azul"] .course-category {
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+}
+
+/* =========================================================
+   MODALES — TODOS LOS TEMAS
+   ========================================================= */
+
+html[data-tema="lavanda"] .modal-overlay,
+html[data-tema="azul"] .modal-overlay {
+    background: rgba(10, 10, 20, 0.60);
+}
+
+html[data-tema="lavanda"] .modal-overlay .course-modal,
+html[data-tema="azul"] .modal-overlay .course-modal {
+    background: var(--color-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .modal-header h2,
+html[data-tema="azul"] .modal-header h2 {
+    color: var(--color-text);
+}
+
+html[data-tema="lavanda"] .modal-header p,
+html[data-tema="azul"] .modal-header p,
+html[data-tema="lavanda"] .modal-info-item span,
+html[data-tema="azul"] .modal-info-item span,
+html[data-tema="lavanda"] .modal-price span,
+html[data-tema="azul"] .modal-price span {
+    color: var(--color-text-secondary);
+}
+
+html[data-tema="lavanda"] .modal-info,
+html[data-tema="azul"] .modal-info {
+    border-color: var(--color-border);
+}
+
+html[data-tema="lavanda"] .modal-info-item strong,
+html[data-tema="azul"] .modal-info-item strong,
+html[data-tema="lavanda"] .modal-price strong,
+html[data-tema="azul"] .modal-price strong {
+    color: var(--color-text);
+}
+
+/* =========================================================
+   ENFOQUE VISIBLE
+   ========================================================= */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
 }
